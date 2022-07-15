@@ -19,7 +19,6 @@ export default class Enemy extends Actor {
     })
 
     this.sprite.y += 10
-    this.sprite.x -= 3
     this.sprite.flipX = true
     this.sprite.play('bat-idle')
   }

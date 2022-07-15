@@ -17,6 +17,7 @@ export default class extends Phaser.Scene {
       'assets/images/sheet.png',
       'assets/images/sheet.json',
     )
+    this.load.atlas('die', 'assets/images/die.png', 'assets/images/die.json')
     this.load.spritesheet('player', 'assets/images/player.png', {
       frameWidth: 64,
       frameHeight: 64,
@@ -26,10 +27,16 @@ export default class extends Phaser.Scene {
       frameHeight: 32,
     })
 
+    this.load.bitmapFont(
+      'pixel-dan',
+      'assets/pixel-dan.png',
+      'assets/pixel-dan.xml',
+    )
+
     this.load.on('complete', () => {
       progress.destroy()
-      this.scene.start('Menu')
-      // this.scene.start('Map')
+      // this.scene.start('Menu')
+      this.scene.start('Game')
     })
   }
 }

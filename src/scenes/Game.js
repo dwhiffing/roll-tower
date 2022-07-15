@@ -1,6 +1,7 @@
 import Enemy from '../sprites/Enemy'
 import Player from '../sprites/Player'
 
+const DEFAULT_DIE = ['sword', 'sword', 'sword', 'shield', 'shield', 'shield']
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Game' })
@@ -14,32 +15,43 @@ export default class extends Phaser.Scene {
   create() {
     this.player = new Player(this, 60, 100)
     this.enemies = [new Enemy(this, this.width - 60, 100)]
+    if (!this.registry.values.dice) {
+      this.registry.values.dice = [
+        { sides: DEFAULT_DIE },
+        { sides: DEFAULT_DIE },
+        { sides: DEFAULT_DIE },
+        { sides: DEFAULT_DIE },
+        { sides: DEFAULT_DIE },
+      ]
+    }
     this.scene.launch('Hud', { onClickDie: this.onClickDie.bind(this) })
     this.turnIndex = 0
   }
 
   onClickDie(key) {
     // ignore if not player turn
-    if (this.turnIndex !== 0) return
-
+    if (this.turnIndex !== 0 || this.registry.values.disableInput) return
+    this.registry.values.disableInput = true
     // TODO: should select die, then allow target to be selected instead
-    if (key === 'dice_sword') {
+    if (key === 'sword') {
       this.player.attack(() => {
         this.enemies[0].damage(1)
         this.enemyTurn()
       })
     }
-    if (key === 'dice_shield') {
+    if (key === 'shield') {
       this.enemyTurn()
     }
   }
 
   playerTurn() {
+    this.registry.values.disableInput = false
     this.turnIndex = 0
     if (this.enemies.every((e) => e.health <= 0)) {
       this.won()
     }
   }
+
   enemyTurn() {
     this.turnIndex = 1
     const living = this.enemies.filter((e) => e.health > 0)

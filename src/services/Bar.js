@@ -10,11 +10,13 @@ export class Bar {
         .setDisplaySize(width, height)
         .setScrollFactor(scroll ? 1 : 0)
         .setOrigin(0, 0.5)
-        .setDepth(98)
 
     const o = height > 2 ? 2 : 0
-    this.shadowMid = get(x, y, 'dice_empty', width - 6, height)
+    this.shadowMid = get(x, y, 'dice_empty', width - 6, height).setTint(tint)
     this.barMid = get(x + 1, y, 'dice_empty', 0, height - o).setTint(tint)
+    this.scene.add
+      .bitmapText(x + width / 2 - 2, y + 2, 'pixel-dan', '1/1')
+      .setOrigin(0.5, 0.5)
   }
 
   die() {

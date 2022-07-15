@@ -1,3 +1,5 @@
+import Die from '../sprites/Die'
+
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Hud' })
@@ -14,23 +16,13 @@ export default class extends Phaser.Scene {
     this.bg.fillStyle(0x222222, 1)
     const h = this.cameras.main.height
     this.bg.fillRect(0, h / 2, this.cameras.main.width, h / 2)
-    this.addDie(0, 'dice_sword')
-    this.addDie(1, 'dice_shield')
+    this.registry.values.dice.forEach((die, i) => this.addDie(die, i))
   }
 
-  addDie(index, key) {
-    const button = this.add.sprite(
-      index * 100 + 50,
-      this.height / 2 + 20,
-      'sheet',
-      key + '.png',
-    )
-    button
-      .setOrigin(0, 0)
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.onClickDie(key)
-      })
+  addDie(die, index) {
+    const x = index * 50 + 20
+    const y = this.height / 2 + 20
+    new Die(this, x, y, die, this.onClickDie)
   }
 
   update() {}
