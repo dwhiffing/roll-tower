@@ -15,8 +15,8 @@ export default class extends Phaser.Scene {
   create() {
     this.player = new Player(this, 60, 100)
     this.enemies = [new Enemy(this, this.width - 60, 100)]
-    if (!this.registry.values.dice) {
-      this.registry.values.dice = [
+    if (!this.registry.values.deck) {
+      this.registry.values.deck = [
         { sides: DEFAULT_DIE },
         { sides: DEFAULT_DIE },
         { sides: DEFAULT_DIE },
@@ -24,8 +24,11 @@ export default class extends Phaser.Scene {
         { sides: DEFAULT_DIE },
       ]
     }
-    this.scene.launch('Hud', { onClickDie: this.onClickDie.bind(this) })
-    this.turnIndex = 0
+    this.registry.values.discard = []
+    this.registry.values.dice = [...this.registry.values.deck]
+    this.scene.launch('Hud')
+    this.scene.get('Hud').events.on('click-die', this.onClickDie.bind(this))
+    this.time.delayedCall(100, this.playerTurn.bind(this))
   }
 
   onClickDie(key) {
@@ -52,9 +55,12 @@ export default class extends Phaser.Scene {
     if (this.enemies.every((e) => e.health <= 0)) {
       this.won()
     }
+
+    this.scene.get('Hud').events.emit('draw')
   }
 
   enemyTurn() {
+    this.scene.get('Hud').events.emit('discard')
     this.turnIndex = 1
     const living = this.enemies.filter((e) => e.health > 0)
 

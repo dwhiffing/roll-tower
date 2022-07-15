@@ -62,7 +62,6 @@ export default class Actor {
         _amount = diff
       }
     }
-    console.log(_amount)
     this.health -= _amount
     this.sprite.setTintFill(0xff0000)
     this.scene.time.delayedCall(300, () => this.sprite.clearTint())

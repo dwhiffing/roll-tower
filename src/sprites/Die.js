@@ -1,5 +1,5 @@
 export default class Die {
-  constructor(scene, x, y, die, onClick) {
+  constructor(scene, x, y, die) {
     this.scene = scene
     this.sprite = this.scene.add
       .sprite(x, y, 'die')
@@ -9,11 +9,12 @@ export default class Die {
       .on('pointerdown', () => {
         if (this.scene.registry.values.disableInput) return
         this.sprite.destroy()
-        onClick(this.sides[this.sideIndex])
+        this.scene.events.emit('click-die', this.sides[this.sideIndex])
       })
 
     this.sides = die.sides
     this.sideIndex = Phaser.Math.RND.integerInRange(0, 5)
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
+    this.sprite.setDepth(999)
   }
 }
