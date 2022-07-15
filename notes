@@ -1,0 +1,100 @@
+slay the spire style roguelite but with dice building
+
+when you get new dice, you know how many faces it has, but not what each face does
+rolling a die will reveal the face it lands on permanently
+faces can have good and bad effects
+
+different die shapes
+  d4, d6, d8, d10, d12, d20
+
+you can get a new die after each battle
+
+basic effects
+  damage a monster
+  damage multiple monsters
+  add armor
+  increase stats
+  heal health
+
+bad effects
+  lose armor
+  lose health
+  buff monsters
+
+
+game features
+  Menu
+  Game
+    battle scene
+      ability to roll dice
+      and to get new dice
+    store scene
+      ability to buy/sell dice
+    map scene
+      ability to choose between branches
+
+
+first build basic battle system
+  has a one or many monsters
+  has a player
+  both have hp, armor and damage
+  monsters and player take turns
+  monsters show intention via icons and move after player
+  player can deal damage or raise armor on their turn
+  player can damage monsters and vice versa
+  player wins when monsters die
+  player loses when they run out of health
+  art:
+    player (attack, damaged, defend, die)
+    monster (attack, damaged, defend, die)
+    background
+    ui for dice rolling
+
+
+then add map
+  generate a simple tree of different node types
+    battle
+    store
+    event
+    boss
+  should start with 3 options and end with a single boss option
+  should display map
+  allow player to select next path
+  art:
+    background
+    4 node types
+    path
+    player
+
+then add dicebuilding
+  first need a fun system for selecting and rolling dice
+  need to figure out how dice availability works, probably similar to quarriors
+  need a system for implementing different shaped dice
+  need a system for identifying die faces when rolled
+  need a menu for adding new dice
+  need a menu for removing dice
+  need a menu for upgrading dice
+  art:
+    different dice shapes
+    die face icons + numbers
+
+player starts game and moves through map, completing battles and adding/removing/upgrading their dice, until they run out of hp or defeat the boss
+
+
+start with POC:
+  linear map that only has 2 battles and the boss
+  battle system only has one monster type, one monster, 3 of them for boss
+  monsters have 3 health, player has 10
+  monsters can only attack to do 1 damage
+  only one type of die(d6) with basic graphics
+  system for drawing and rolling dice, and targeting monsters or yourself with them
+  system for identifying/adding/removing/upgrading dice, dice can only add/remove damage/armor
+  ability to win the game
+  ability to lose the game
+  placeholder art:
+    2 backgrounds
+    monster sprite
+    player sprite
+    ui for hp bars
+    dice art
+    icons for dice (sword=attack, shield=armor)

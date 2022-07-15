@@ -4,10 +4,11 @@ import * as scenes from './scenes'
 var config = {
   parent: 'phaser',
   type: Phaser.AUTO,
-  width: 1080,
-  height: 1920,
-  backgroundColor: '#111',
+  width: 270,
+  height: 480,
+  backgroundColor: '#5599ad',
   scene: Object.values(scenes),
+  pixelArt: true,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,

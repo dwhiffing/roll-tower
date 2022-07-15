@@ -10,19 +10,15 @@ export default class extends Phaser.Scene {
 
   create() {
     this.add
-      .image(this.width / 2, this.height - 1200, 'sprites', 'button.png')
+      .image(this.width / 2, this.height - 80, 'sheet', 'button.png')
       .setInteractive()
+      .setScale(0.5)
       .on('pointerdown', () => this.scene.start('Game'))
-    this.add.image(
-      this.width / 2,
-      this.height / 2 - 600,
-      'sprites',
-      'title.png',
-    )
+    this.add.image(this.width / 2, 200, 'sheet', 'title.png').setScale(0.3)
 
     this.add
-      .text(this.width / 2, this.height - 250, 'Created by Dan Whiffing', {
-        fontSize: 40,
+      .text(this.width / 2, this.height - 20, 'Created by Dan Whiffing', {
+        fontSize: 14,
         align: 'center',
       })
       .setOrigin(0.5)

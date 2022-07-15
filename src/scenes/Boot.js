@@ -13,10 +13,18 @@ export default class extends Phaser.Scene {
       progress.fillRect(0, height / 2, width * value, 60)
     })
     this.load.atlas(
-      'sprites',
+      'sheet',
       'assets/images/sheet.png',
       'assets/images/sheet.json',
     )
+    this.load.spritesheet('player', 'assets/images/player.png', {
+      frameWidth: 64,
+      frameHeight: 64,
+    })
+    this.load.spritesheet('bat', 'assets/images/bat.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+    })
 
     this.load.on('complete', () => {
       progress.destroy()
