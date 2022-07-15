@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "sheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 650,
+				"h": 450
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "mute.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 40,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 3,
+						"w": 40,
+						"h": 58
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 40,
+						"h": 58
+					}
+				},
+				{
+					"filename": "restart.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 3,
+						"w": 61,
+						"h": 58
+					},
+					"frame": {
+						"x": 43,
+						"y": 1,
+						"w": 61,
+						"h": 58
+					}
+				},
+				{
+					"filename": "button.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 366,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 1,
+						"w": 347,
+						"h": 96
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 347,
+						"h": 96
+					}
+				},
+				{
+					"filename": "title.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 651,
+						"h": 399
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 19,
+						"w": 648,
+						"h": 350
+					},
+					"frame": {
+						"x": 1,
+						"y": 99,
+						"w": 648,
+						"h": 350
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:5e7da32c35c7631d3289cb2dd26ac32d:2a8c6ee03af9600116ae2b2e1f351ff9:9c44ecd7e9a522007eaff2949095bc1d$"
+	}
+}
