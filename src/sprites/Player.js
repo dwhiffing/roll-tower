@@ -27,11 +27,11 @@ export default class Player extends Actor {
     //   frameRate: 8,
     //   frames: getFrames([8, 9, 10, 11, 12, 13, 14, 15]),
     // })
-    // scene.anims.create({
-    //   key: 'player-fall',
-    //   frameRate: 8,
-    //   frames: getFrames([48, 49, 50, 51, 52]),
-    // })
+    scene.anims.create({
+      key: 'player-armor',
+      frameRate: 8,
+      frames: getFrames([48, 49, 50, 51, 52]),
+    })
     // scene.anims.create({
     //   key: 'player-walk',
     //   frameRate: 8,

@@ -40,7 +40,9 @@ export default class extends Phaser.Scene {
       })
     }
     if (key === 'shield') {
-      this.enemyTurn()
+      this.player.addArmor(() => {
+        this.enemyTurn()
+      })
     }
   }
 

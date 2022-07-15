@@ -14,7 +14,7 @@ export class Bar {
     const o = height > 2 ? 2 : 0
     this.shadowMid = get(x, y, 'dice_empty', width - 6, height).setTint(tint)
     this.barMid = get(x + 1, y, 'dice_empty', 0, height - o).setTint(tint)
-    this.scene.add
+    this.valueText = this.scene.add
       .bitmapText(x + width / 2 - 2, y + 2, 'pixel-dan', '1/1')
       .setOrigin(0.5, 0.5)
   }
@@ -30,6 +30,7 @@ export class Bar {
     this.value = Math.max(value, 0)
     if (typeof maxValue === 'number') this.maxValue = maxValue
     this.update()
+    this.valueText.text = `${value}/${maxValue}`
   }
 
   move(x, y) {
