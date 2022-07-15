@@ -20,7 +20,7 @@ export default class Player extends Actor {
     scene.anims.create({
       key: 'player-die',
       frameRate: 8,
-      frames: getFrames([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74]),
+      frames: getFrames([64, 65, 66, 67, 68, 69, 70, 71]),
     })
     // scene.anims.create({
     //   key: 'player-wave',

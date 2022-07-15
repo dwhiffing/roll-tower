@@ -26,7 +26,6 @@ export default class extends Phaser.Scene {
       key + '.png',
     )
     button
-      .setScale(0.5)
       .setOrigin(0, 0)
       .setInteractive()
       .on('pointerdown', () => {

@@ -25,7 +25,9 @@ export default class extends Phaser.Scene {
     this.add
       .image(this.width / 2, this.height - 50, 'sheet', 'button.png')
       .setInteractive()
-      .setScale(0.5)
-      .on('pointerdown', () => this.scene.start('Game'))
+      .on('pointerdown', () => {
+        this.registry.values.levelIndex = undefined
+        this.scene.start('Menu')
+      })
   }
 }

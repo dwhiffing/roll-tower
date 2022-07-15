@@ -55,7 +55,11 @@ export default class extends Phaser.Scene {
 
   won() {
     this.scene.stop('Hud')
-    this.scene.start('Win', { condition: true })
+    if (this.registry.values.levelIndex === 3) {
+      this.scene.start('Win', { condition: true })
+    } else {
+      this.scene.start('Map')
+    }
   }
 
   lose() {

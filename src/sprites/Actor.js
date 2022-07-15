@@ -5,8 +5,8 @@ export default class Actor {
     this.scene = scene
     this.spriteKey = spriteKey
     this.sprite = scene.add.sprite(x, y, spriteKey)
-    this.health = 3
-    this.maxHealth = 3
+    this.health = 1
+    this.maxHealth = 1
     this.hpBar = new Bar(scene, x - 16, y - 4, 32, 5, 0xff0000)
     this.hpBar.set(this.health, this.maxHealth)
     this.sprite.on('animationcomplete', (e) => {

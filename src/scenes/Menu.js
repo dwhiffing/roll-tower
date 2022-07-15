@@ -12,9 +12,8 @@ export default class extends Phaser.Scene {
     this.add
       .image(this.width / 2, this.height - 80, 'sheet', 'button.png')
       .setInteractive()
-      .setScale(0.5)
-      .on('pointerdown', () => this.scene.start('Game'))
-    this.add.image(this.width / 2, 200, 'sheet', 'title.png').setScale(0.3)
+      .on('pointerdown', () => this.scene.start('Map'))
+    this.add.image(this.width / 2, 200, 'sheet', 'title.png').setScale(0.5)
 
     this.add
       .text(this.width / 2, this.height - 20, 'Created by Dan Whiffing', {
