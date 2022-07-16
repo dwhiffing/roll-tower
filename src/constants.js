@@ -17,7 +17,30 @@ export const INITIAL_DECK = [
 // const DEFAULT_DIE = ['shield', 'shield', 'shield', 'shield', 'shield', 'shield']
 // const DEFAULT_DIE = ['sword', 'sword', 'sword', 'shield', 'shield', 'shield']
 
-export const FIRST_BATTLE = {
-  enemies: [null, null, null, null, { key: 'bat' }],
-}
-export const BOSS_BATTLE = { enemies: [null, null, null, null, { key: 'bat' }] }
+export const NODES = [
+  {
+    type: 'battle',
+    key: 'sword',
+    enemies: [null, null, null, null, { key: 'bat' }],
+  },
+  {
+    type: 'event',
+    key: 'rhombus_question',
+    event: 'remove-die',
+  },
+  {
+    type: 'battle',
+    key: 'skull',
+    enemies: [
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+      { key: 'bat' },
+    ],
+  },
+]
