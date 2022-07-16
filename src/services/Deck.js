@@ -30,20 +30,18 @@ export default class DeckService {
     }
   }
 
-  discard = () => {
+  discardAll = () => {
     const { activePile, discardPile } = this.get()
     this.set('discardPile', [...discardPile, ...activePile])
     this.set('activePile', [])
   }
 
-  use = () => {
+  discard = (index) => {
     const { activePile } = this.get()
-    this.disableInput = true
 
     this.set('activePile', [
-      ...activePile.slice(0, this.selectedDie.index),
-      ...activePile.slice(this.selectedDie.index + 1),
+      ...activePile.slice(0, index),
+      ...activePile.slice(index + 1),
     ])
-    if (activePile.length === 0) this.enemyTurn()
   }
 }

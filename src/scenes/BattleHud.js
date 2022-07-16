@@ -1,9 +1,8 @@
-import { shuffle } from 'lodash'
 import Die from '../sprites/Die'
 
 export default class extends Phaser.Scene {
   constructor() {
-    super({ key: 'Hud' })
+    super({ key: 'BattleHud' })
   }
 
   init() {
@@ -24,23 +23,15 @@ export default class extends Phaser.Scene {
 
     this.events.off('click-die')
     this.events.on('click-die', this.onClickDie)
+    this.battle = this.scene.get('Battle')
   }
 
   update() {}
 
-  consumeSelectedDie = () => {
-    const { activePile } = this.registry.values
-    this.disableInput = true
-    this.selectedDie?.sprite?.destroy()
-    activePile.splice(this.selectedDie.index, 1)
-    if (activePile.length === 0) this.enemyTurn()
-  }
-
   onClickDie = (die, key) => {
-    const battle = this.scene.get('Battle')
-    if (battle.turnIndex !== 0 || battle.disableInput) return
-    this.selectedDie?.deselect()
-    this.selectedDie = die
+    if (this.battle.turnIndex !== 0 || this.battle.disableInput) return
+    this.battle.selectedDie?.deselect()
+    this.battle.selectedDie = die
     die.select()
   }
 
@@ -103,10 +94,10 @@ export default class extends Phaser.Scene {
   }
 
   cleanup = () => {
-    this.scene.get('Battle').events.off('battle-ended', this.cleanup)
+    this.battle.events.off('battle-ended', this.cleanup)
     this.events.off('setdata', this.changeData)
     this.registry.events.off('setdata', this.changeData)
     this.registry.events.off('changedata', this.changeData)
-    this.scene.stop('Hud')
+    this.scene.stop('BattleHud')
   }
 }

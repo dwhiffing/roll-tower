@@ -28,6 +28,7 @@ export default class extends Phaser.Scene {
       this.addDie(0, 'sword').on('pointerdown', onAdd)
       this.addDie(1, 'sword').on('pointerdown', onAdd)
       this.addDie(2, 'sword').on('pointerdown', onAdd)
+
       this.events.on('close', () => {
         this.scene.stop('Battle')
         this.scene.stop('Dice')
@@ -42,6 +43,7 @@ export default class extends Phaser.Scene {
         this.addDie(i, 'sword').on('pointerdown', onRemove)
       })
       const mapScene = this.scene.get('Map')
+
       this.events.on('close', () => {
         this.scene.stop('Dice')
         mapScene.scene.restart()

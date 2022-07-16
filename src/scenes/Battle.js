@@ -25,21 +25,35 @@ export default class extends Phaser.Scene {
   }
 
   onClickActor = (key) => {
-    if (this.turnIndex !== 0 || this.disableInput || !this.hud.selectedDie)
-      return
-    const clickedKey = this.hud.selectedDie.sides[this.hud.selectedDie.index]
-    if (clickedKey === 'sword' && key === 'bat') {
-      this.hud.consumeSelectedDie()
-      this.player.attack(() => {
-        // TODO: needs to target clicked actor
-        this.enemies[0].damage(1)
-        this.time.delayedCall(500, this.restoreInput)
-      })
+    if (this.turnIndex !== 0 || this.disableInput || !this.selectedDie) return
+    const clickedType = this.selectedDie.sides[this.selectedDie.index]
+    if (clickedType === 'sword' && key === 'bat') {
+      this.onAttack()
     }
-    if (clickedKey === 'shield' && key === 'player') {
-      this.hud.consumeSelectedDie()
-      this.player.addArmor(this.restoreInput)
+    if (clickedType === 'shield' && key === 'player') {
+      this.addArmor()
     }
+  }
+
+  onAttack = () => {
+    this.onUseDie()
+    this.player.attack(() => {
+      // TODO: needs to target clicked actor
+      this.enemies[0].damage(1)
+      this.time.delayedCall(500, this.restoreInput)
+    })
+  }
+
+  onAddArmor = () => {
+    this.onUseDie()
+    this.player.addArmor(this.restoreInput)
+  }
+
+  onUseDie = () => {
+    this.disableInput = true
+    this.selectedDie?.sprite?.destroy()
+    this.deckService.discard(this.selectedDie.index)
+    if (this.registry.values.activePile.length === 0) this.enemyTurn()
   }
 
   restoreInput = () => {
@@ -56,7 +70,7 @@ export default class extends Phaser.Scene {
   }
 
   enemyTurn = () => {
-    this.deckService.discard()
+    this.deckService.discardAll()
     this.turnIndex = 1
 
     // TODO: damage should come from enemy stats
@@ -91,14 +105,14 @@ export default class extends Phaser.Scene {
   }
 
   createHud = () => {
-    this.scene.launch('Hud')
+    this.scene.launch('BattleHud')
 
-    this.scene.get('Hud').events.off('end-turn')
-    this.scene.get('Hud').events.on('end-turn', this.enemyTurn)
+    this.scene.get('BattleHud').events.off('end-turn')
+    this.scene.get('BattleHud').events.on('end-turn', this.enemyTurn)
 
     this.events.off('click-actor')
     this.events.on('click-actor', this.onClickActor)
 
-    this.hud = this.scene.get('Hud')
+    this.hud = this.scene.get('BattleHud')
   }
 }
