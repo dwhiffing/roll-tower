@@ -1,4 +1,5 @@
 import Die from '../sprites/Die'
+import Faces from '../sprites/Faces'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -11,6 +12,7 @@ export default class extends Phaser.Scene {
   }
 
   create() {
+    this.faces = new Faces(this)
     this.createBackground()
     this.createDrawCounter()
     this.createDiscardCounter()
@@ -69,7 +71,10 @@ export default class extends Phaser.Scene {
       .sprite(w - 15, h - 20, 'sheet', 'flip_head.png')
       .setScale(0.5)
       .setInteractive()
-      .on('pointerdown', () => this.events.emit('end-turn'))
+      .on('pointerdown', () => {
+        if (this.battle.disableInput) return
+        this.events.emit('end-turn')
+      })
   }
 
   changeData = (parent, key, data) => {

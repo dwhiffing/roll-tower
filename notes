@@ -104,16 +104,16 @@ different face types
 
 
 start with POC:
-  add more dice types for purchasing
-  add ui for examining dice to see faces
+  implement more die faces
   add basic boss monster
-  add confirmation for dice menu
-  add identification system
+  add more event node types/variety
+  add more monster types/variety
   add system for upgrading dice
-  add energy system for using dice?
-  add more event node types than just remove die
+  add identification system
 
 DONE:
+  add ui for examining dice to see faces
+  system for different dice types
   add text to dice menu
   basic intention system for enemies
   ability to configure battles per node

@@ -32,8 +32,8 @@ export default class extends Phaser.Scene {
     // this.registry.values.levelIndex = 1
     // this.clickNode(this.nodes[1], 1)
 
-    // // autostart first battle
-    // this.clickNode(this.nodes[0], 0)
+    // autostart first battle
+    this.clickNode(this.nodes[0], 0)
 
     // // launch add die screen
     // this.scene.launch('Dice', { mode: 'add' })

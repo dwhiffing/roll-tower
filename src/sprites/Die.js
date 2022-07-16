@@ -14,7 +14,8 @@ export default class Die {
       })
 
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
-    this.sprite.setDepth(999)
+    this.sprite.setDepth(9)
+    this.sprite.die = this
     this.selected = false
   }
 

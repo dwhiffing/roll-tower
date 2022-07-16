@@ -1,6 +1,7 @@
 import { sampleSize } from 'lodash'
 import { DICE_POOL } from '../constants'
 import DeckService from '../services/Deck'
+import Faces from '../sprites/Faces'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,8 @@ export default class extends Phaser.Scene {
       .graphics()
       .fillStyle(0x222222, 1)
       .fillRect(10, 10, this.width - 20, this.height - 20)
+
+    this.faces = new Faces(this)
 
     this.valueText = this.add
       .bitmapText(
@@ -63,16 +66,18 @@ export default class extends Phaser.Scene {
     newDice.forEach((die, i) => {
       const x = 60
       const y = i * 80 + 120
-      this.add
+      const text = this.add
         .bitmapText(x + 30, y, 'gem', die.name)
         .setOrigin(0, 0.5)
         .setInteractive()
         .on('pointerdown', () => this.onAddDie(die))
-      this.add
+      const sprite = this.add
         .sprite(x, y, 'sheet', `dice_${die.sides[0]}.png`)
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.onAddDie(die))
+      text.die = die
+      sprite.die = die
     })
   }
 
