@@ -28,7 +28,11 @@ export default class extends Phaser.Scene {
     this.registry.values.discard = []
     this.registry.values.dice = [...this.registry.values.deck]
     this.scene.launch('Hud')
+    this.scene.get('Hud').events.off('click-actor')
+    this.scene.get('Hud').events.off('end-turn')
     this.scene.get('Hud').events.on('click-die', this.onClickDie.bind(this))
+    this.scene.get('Hud').events.on('end-turn', this.onEndTurn.bind(this))
+    this.events.off('click-actor')
     this.events.on('click-actor', this.onClickActor.bind(this))
     this.time.delayedCall(100, this.playerTurn.bind(this))
   }
@@ -36,7 +40,8 @@ export default class extends Phaser.Scene {
   onClickDie(die, key) {
     if (this.turnIndex !== 0 || this.registry.values.disableInput) return
     this.selectedDie?.deselect()
-    this.selectedDie = { ...die, key }
+    this.selectedDie = die
+    this.clickedKey = key
     die.select()
   }
 
@@ -48,19 +53,35 @@ export default class extends Phaser.Scene {
     )
       return
 
-    if (this.selectedDie.key === 'sword' && key === 'bat') {
+    if (this.clickedKey === 'sword' && key === 'bat') {
       this.registry.values.disableInput = true
       this.player.attack(() => {
         this.enemies[0].damage(1)
-        this.enemyTurn()
+        this.time.delayedCall(500, () => {
+          this.restoreInput()
+          if (this.enemies.every((e) => e.health <= 0)) {
+            this.won()
+          }
+        })
       })
     }
-    if (this.selectedDie.key === 'shield' && key === 'player') {
+    if (this.clickedKey === 'shield' && key === 'player') {
       this.registry.values.disableInput = true
-      this.player.addArmor(() => {
-        this.enemyTurn()
-      })
+      this.player.addArmor(this.restoreInput)
     }
+  }
+
+  restoreInput = () => {
+    this.selectedDie?.sprite?.destroy()
+    // TODO: removed selected die from hand and destroy it
+    // end turn if hand empty
+    // this.registry.values.hand = this.registry.values.hand.filter(
+    //   (e) => !e.selected,
+    // )
+    // const die = this.registry.values.hand
+
+    // if (this.registry.values.hand.length === 0) this.onEndTurn()
+    this.registry.values.disableInput = false
   }
 
   playerTurn() {
@@ -71,6 +92,10 @@ export default class extends Phaser.Scene {
     }
 
     this.scene.get('Hud').events.emit('draw')
+  }
+
+  onEndTurn() {
+    this.enemyTurn()
   }
 
   enemyTurn() {

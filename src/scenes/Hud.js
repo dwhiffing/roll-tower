@@ -26,6 +26,11 @@ export default class extends Phaser.Scene {
       .bitmapText(w - 50, h / 2 - 20, 'pixel-dan', '10')
       .setScale(2)
     this.add.sprite(w - 15, h / 2 - 20, 'sheet', 'card_lift.png').setScale(0.4)
+    this.add
+      .sprite(w - 15, h - 20, 'sheet', 'flip_head.png')
+      .setScale(0.5)
+      .setInteractive()
+      .on('pointerdown', () => this.events.emit('end-turn'))
     this.events.off('draw')
     this.events.off('discard')
     this.events.on('draw', this.draw)
@@ -39,18 +44,18 @@ export default class extends Phaser.Scene {
       this.registry.values.discard = []
     }
     const count = 2
-    this.dice = []
+    this.registry.values.hand = []
     for (let i = 0; i < count; i++) {
       const index = Phaser.Math.RND.integerInRange(
         0,
         this.registry.values.dice.length - 1,
       )
       const die = this.registry.values.dice.splice(index, 1)[0]
-      if (die) this.dice.push(die)
+      if (die) this.registry.values.hand = [...this.registry.values.hand, die]
     }
 
     const y = this.height / 2 + 20
-    this.dice.forEach((die, i) => this.addDie(die, i, y))
+    this.registry.values.hand.forEach((die, i) => this.addDie(die, i, y))
     this.drawText.text = this.registry.values.dice.length
     this.discardText.text = this.registry.values.discard.length
   }
@@ -67,7 +72,7 @@ export default class extends Phaser.Scene {
     this.diceSprites = []
     this.registry.values.discard = [
       ...this.registry.values.discard,
-      ...this.dice,
+      ...this.registry.values.hand,
     ]
     this.discardText.text = this.registry.values.discard.length
   }

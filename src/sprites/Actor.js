@@ -50,7 +50,7 @@ export default class Actor {
     this.scene.time.delayedCall(500, () => {
       this.armor += amount
       this.armorBar.set(this.armor)
-      callback()
+      callback?.()
     })
   }
 

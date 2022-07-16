@@ -15,13 +15,20 @@ export default class Die {
     this.sideIndex = Phaser.Math.RND.integerInRange(0, 5)
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
     this.sprite.setDepth(999)
+    this.selected = false
   }
 
   select = () => {
+    this.selected = true
     this.sprite.setTint(0xffff00)
   }
 
   deselect = () => {
+    this.selected = false
     this.sprite.clearTint()
+  }
+
+  destroy = () => {
+    this.sprite.destroy()
   }
 }

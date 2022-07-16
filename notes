@@ -82,15 +82,17 @@ player starts game and moves through map, completing battles and adding/removing
 
 
 start with POC:
-  add support for selecting specific dice and targeting a monster
-  system for drawing and rolling dice, and targeting monsters or yourself with them
+  add button to manually end turn
   system for adding/removing/upgrading dice
+  ability to configure a battle and support for up to 5 monsters
   examining dice to see faces
-  support for up to 5 monsters
   add basic boss monster
   add identification system
+  add energy system for using dice?
 
   DONE:
+    add support for selecting specific dice and targeting a monster
+    system for drawing and rolling dice
     only one type of die(d6) with basic graphics
       attack faces and armor faces
     linear map that only has 2 battles and the boss
