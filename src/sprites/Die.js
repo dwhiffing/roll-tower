@@ -8,13 +8,20 @@ export default class Die {
       .setInteractive()
       .on('pointerdown', () => {
         if (this.scene.registry.values.disableInput) return
-        this.sprite.destroy()
-        this.scene.events.emit('click-die', this.sides[this.sideIndex])
+        this.scene.events.emit('click-die', this, this.sides[this.sideIndex])
       })
 
     this.sides = die.sides
     this.sideIndex = Phaser.Math.RND.integerInRange(0, 5)
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
     this.sprite.setDepth(999)
+  }
+
+  select = () => {
+    this.sprite.setTint(0xffff00)
+  }
+
+  deselect = () => {
+    this.sprite.clearTint()
   }
 }

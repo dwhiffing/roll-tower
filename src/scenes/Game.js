@@ -29,21 +29,34 @@ export default class extends Phaser.Scene {
     this.registry.values.dice = [...this.registry.values.deck]
     this.scene.launch('Hud')
     this.scene.get('Hud').events.on('click-die', this.onClickDie.bind(this))
+    this.events.on('click-actor', this.onClickActor.bind(this))
     this.time.delayedCall(100, this.playerTurn.bind(this))
   }
 
-  onClickDie(key) {
-    // ignore if not player turn
+  onClickDie(die, key) {
     if (this.turnIndex !== 0 || this.registry.values.disableInput) return
-    this.registry.values.disableInput = true
-    // TODO: should select die, then allow target to be selected instead
-    if (key === 'sword') {
+    this.selectedDie?.deselect()
+    this.selectedDie = { ...die, key }
+    die.select()
+  }
+
+  onClickActor(key) {
+    if (
+      this.turnIndex !== 0 ||
+      this.registry.values.disableInput ||
+      !this.selectedDie
+    )
+      return
+
+    if (this.selectedDie.key === 'sword' && key === 'bat') {
+      this.registry.values.disableInput = true
       this.player.attack(() => {
         this.enemies[0].damage(1)
         this.enemyTurn()
       })
     }
-    if (key === 'shield') {
+    if (this.selectedDie.key === 'shield' && key === 'player') {
+      this.registry.values.disableInput = true
       this.player.addArmor(() => {
         this.enemyTurn()
       })
