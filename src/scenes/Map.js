@@ -43,7 +43,6 @@ export default class extends Phaser.Scene {
 
   clickNode = (node, i) => {
     if (i === this.registry.values.levelIndex) {
-      console.log(node, i)
       if (node.type === 'battle') {
         this.scene.start('Battle', {
           enemies: node.enemies,

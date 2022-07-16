@@ -1,21 +1,26 @@
-export const DEFAULT_DIE = [
-  'sword',
-  'sword',
-  'sword',
-  'sword',
-  'sword',
-  'sword',
+export const DEFAULT_DIE = {
+  name: 'Basic',
+  sides: ['shield', 'shield', 'shield', 'sword', 'sword', 'sword'],
+}
+
+export const DICE_POOL = [
+  DEFAULT_DIE,
+  {
+    name: 'Random',
+    sides: ['shield', 'sword', 'random', 'random', 'random', 'skull'],
+  },
+  {
+    name: 'Death',
+    sides: ['skull', 'skull', 'skull', 'skull', 'skull', 'skull'],
+  },
 ]
 export const INITIAL_DECK = [
-  { sides: DEFAULT_DIE },
-  { sides: DEFAULT_DIE },
-  { sides: DEFAULT_DIE },
-  { sides: DEFAULT_DIE },
-  { sides: DEFAULT_DIE },
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  DEFAULT_DIE,
 ]
-
-// const DEFAULT_DIE = ['shield', 'shield', 'shield', 'shield', 'shield', 'shield']
-// const DEFAULT_DIE = ['sword', 'sword', 'sword', 'shield', 'shield', 'shield']
 
 export const NODES = [
   {

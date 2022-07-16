@@ -1,4 +1,5 @@
-import { DEFAULT_DIE } from '../constants'
+import { sampleSize } from 'lodash'
+import { DICE_POOL } from '../constants'
 import DeckService from '../services/Deck'
 
 export default class extends Phaser.Scene {
@@ -58,13 +59,12 @@ export default class extends Phaser.Scene {
   }
 
   createAddButtons = () => {
-    const die = { sides: DEFAULT_DIE }
-    const newDice = [die, die, die]
+    const newDice = sampleSize(DICE_POOL, 3)
     newDice.forEach((die, i) => {
       const x = 60
       const y = i * 80 + 120
       this.add
-        .bitmapText(x + 30, y, 'gem', 'Basic')
+        .bitmapText(x + 30, y, 'gem', die.name)
         .setOrigin(0, 0.5)
         .setInteractive()
         .on('pointerdown', () => this.onAddDie(die))

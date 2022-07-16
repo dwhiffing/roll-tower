@@ -1,6 +1,9 @@
 export default class Die {
   constructor(scene, x, y, die) {
     this.scene = scene
+    this.sideIndex = die.sideIndex
+    this.sides = die.sides
+    this.index = die.index
     this.sprite = this.scene.add
       .sprite(x, y, 'die')
       .setOrigin(0, 0)
@@ -10,9 +13,6 @@ export default class Die {
         this.scene.events.emit('click-die', this, this.sides[this.sideIndex])
       })
 
-    this.sides = die.sides
-    this.index = die.index
-    this.sideIndex = Phaser.Math.RND.integerInRange(0, 5)
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
     this.sprite.setDepth(999)
     this.selected = false

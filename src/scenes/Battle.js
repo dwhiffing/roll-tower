@@ -34,12 +34,12 @@ export default class extends Phaser.Scene {
 
   onClickActor = (actor) => {
     if (this.turnIndex !== 0 || this.disableInput || !this.selectedDie) return
-    const clickedType = this.selectedDie.sides[this.selectedDie.index]
+    const clickedType = this.selectedDie.sides[this.selectedDie.sideIndex]
     if (clickedType === 'sword' && actor.spriteKey === 'bat') {
       this.onAttack(actor)
     }
     if (clickedType === 'shield' && actor.spriteKey === 'player') {
-      this.addArmor(1)
+      this.onAddArmor()
     }
   }
 
@@ -61,8 +61,8 @@ export default class extends Phaser.Scene {
 
   onUseDie = () => {
     this.disableInput = true
-    this.selectedDie?.sprite?.destroy()
     this.deckService.discard(this.selectedDie.index)
+    this.selectedDie?.sprite?.destroy()
     this.selectedDie = null
   }
 

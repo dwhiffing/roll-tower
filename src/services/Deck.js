@@ -15,11 +15,11 @@ export default class DeckService {
   draw = (count = 4) => {
     this.set('activePile', [])
     for (let i = 0; i < count; i++) {
-      this.drawCard()
+      this.drawCard(i)
     }
   }
 
-  drawCard = () => {
+  drawCard = (index) => {
     if (this.get().drawPile.length === 0) {
       this.set('drawPile', shuffle([...this.get().discardPile]))
       this.set('discardPile', [])
@@ -28,7 +28,12 @@ export default class DeckService {
     const die = this.get().drawPile[0]
     this.set('drawPile', this.get().drawPile.slice(1))
     if (die) {
-      this.set('activePile', [...this.get().activePile, die])
+      const newDie = {
+        ...die,
+        index,
+        sideIndex: Phaser.Math.RND.integerInRange(0, 5),
+      }
+      this.set('activePile', [...this.get().activePile, newDie])
     }
   }
 
@@ -40,12 +45,12 @@ export default class DeckService {
 
   discard = (index) => {
     const { activePile, discardPile } = this.get()
-    const die = activePile[index]
+    const die = activePile.find((d) => d.index === index)
     this.set('discardPile', [...discardPile, die])
-    this.set('activePile', [
-      ...activePile.slice(0, index),
-      ...activePile.slice(index + 1),
-    ])
+    this.set(
+      'activePile',
+      activePile.filter((d) => d.index !== index),
+    )
   }
 
   addDie = (die) => {

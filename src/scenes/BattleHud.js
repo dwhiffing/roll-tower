@@ -28,7 +28,7 @@ export default class extends Phaser.Scene {
 
   update() {}
 
-  onClickDie = (die, key) => {
+  onClickDie = (die) => {
     if (this.battle.turnIndex !== 0 || this.battle.disableInput) return
     this.battle.selectedDie?.deselect()
     this.battle.selectedDie = die
@@ -89,7 +89,7 @@ export default class extends Phaser.Scene {
     const y = this.height / 2 + 20
     this.registry.values.activePile.forEach((die, i) => {
       const x = i * 50 + 20
-      this.activePileSprites.push(new Die(this, x, y, { ...die, index: i }))
+      this.activePileSprites.push(new Die(this, x, y, die))
     })
   }
 
