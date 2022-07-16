@@ -59,8 +59,7 @@ export default class extends Phaser.Scene {
     const w = this.width
     const h = this.height
     this.endTurnButton = this.add
-      .sprite(w - 15, h - 20, 'sheet', 'flip_head.png')
-      .setScale(0.5)
+      .sprite(w - 40, h - 40, 'sheet', 'flip_head.png')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.battle.disableInput) return

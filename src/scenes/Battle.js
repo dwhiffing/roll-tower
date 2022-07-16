@@ -117,12 +117,14 @@ export default class extends Phaser.Scene {
       this.deckService.draw(3)
     }
     this.getLiving().forEach((e, i) => e.getIntention())
+    this.hud.endTurnButton.setAlpha(1)
     this.restoreInput()
   }
 
   enemyTurn = () => {
     this.deckService.discardAll()
     this.turnIndex = 1
+    this.hud.endTurnButton.setAlpha(0)
 
     this.getLiving().forEach((e, i) =>
       this.time.delayedCall((i + 1) * 400, e.takeTurn),
