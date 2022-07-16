@@ -1,3 +1,5 @@
+import { BOSS_BATTLE, FIRST_BATTLE } from '../constants'
+
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Map' })
@@ -35,8 +37,7 @@ export default class extends Phaser.Scene {
       )
       .setOrigin(0.5)
 
-    // this.clickNode('sword', 0)
-    this.clickNode('skull', 0)
+    this.clickNode('sword', 0)
   }
 
   update() {}
@@ -44,24 +45,11 @@ export default class extends Phaser.Scene {
   clickNode = (key, i) => {
     if (i + 1 === this.registry.values.levelIndex + 1) {
       if (key === 'sword') {
-        this.scene.start('Battle', {
-          enemies: [null, null, null, null, { key: 'bat' }],
-        })
+        this.scene.start('Battle', FIRST_BATTLE)
       } else if (key === 'skull') {
-        this.scene.start('Battle', {
-          enemies: [
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-            { key: 'bat' },
-          ],
-        })
+        this.scene.start('Battle', BOSS_BATTLE)
       } else if (key === 'rhombus_question') {
+        this.scene.pause()
         this.scene.launch('Dice', { mode: 'remove' })
       }
       this.registry.values.levelIndex++

@@ -60,6 +60,7 @@ export default class extends Phaser.Scene {
     this.disableInput = true
     this.selectedDie?.sprite?.destroy()
     this.deckService.discard(this.selectedDie.index)
+    this.selectedDie = null
   }
 
   restoreInput = () => {

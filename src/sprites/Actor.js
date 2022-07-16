@@ -42,7 +42,7 @@ export default class Actor {
     if (this.isMoving) return
     this.isMoving = true
     this.play('attack')
-    this.attackCallback = callback
+    this.scene.time.delayedCall(400, callback)
   }
 
   addArmor(callback, amount = 1) {

@@ -47,4 +47,13 @@ export default class DeckService {
       ...activePile.slice(index + 1),
     ])
   }
+
+  addDie = (die) => {
+    this.set('deck', [...this.get().deck, die])
+  }
+
+  removeDie = (index) => {
+    const deck = this.get().deck
+    this.set('deck', [...deck.slice(0, index), ...deck.slice(index + 1)])
+  }
 }
