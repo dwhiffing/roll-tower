@@ -27,6 +27,10 @@ export default class extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     })
+    this.load.spritesheet('nomad', 'assets/images/nomad.png', {
+      frameWidth: 64,
+      frameHeight: 64,
+    })
 
     this.load.bitmapFont(
       'pixel-dan',

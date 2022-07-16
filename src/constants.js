@@ -28,7 +28,12 @@ export const NODES = [
   {
     type: 'battle',
     key: 'sword',
-    enemies: [null, null, null, null, { key: 'bat' }],
+    enemies: [null, null, null, null, { type: 'bat' }],
+  },
+  {
+    type: 'battle',
+    key: 'sword',
+    enemies: [null, null, null, null, { type: 'nomad' }],
   },
   {
     type: 'event',
@@ -39,15 +44,15 @@ export const NODES = [
     type: 'battle',
     key: 'skull',
     enemies: [
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
-      { key: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
     ],
   },
 ]

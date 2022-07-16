@@ -24,7 +24,7 @@ export default class extends Phaser.Scene {
         if (!enemy) return null
         const x = this.width - (30 + 60 * (i % 3))
         const y = 50 + Math.floor(i / 3) * 50
-        return new Enemy(this, x, y)
+        return new Enemy(this, x, y, enemy.type)
       })
       .filter((e) => !!e)
 
@@ -53,7 +53,7 @@ export default class extends Phaser.Scene {
   onClickActor = (actor) => {
     if (this.turnIndex !== 0 || this.disableInput || !this.selectedDie) return
     const clickedType = this.selectedDie.sides[this.selectedDie.sideIndex]
-    if (clickedType === 'sword' && actor.spriteKey === 'bat') {
+    if (clickedType === 'sword' && actor.type === 'enemy') {
       this.onAttack(actor)
     }
     if (clickedType === 'shield' && actor.spriteKey === 'player') {
@@ -127,10 +127,10 @@ export default class extends Phaser.Scene {
     this.hud.endTurnButton.setAlpha(0)
 
     this.getLiving().forEach((e, i) =>
-      this.time.delayedCall((i + 1) * 400, e.takeTurn),
+      this.time.delayedCall((i + 1) * 500, e.takeTurn),
     )
     const numLiving = this.getLiving().length
-    this.time.delayedCall((numLiving + 1) * 400, this.playerTurn.bind(this))
+    this.time.delayedCall((numLiving + 1) * 500, this.playerTurn.bind(this))
   }
 
   getLiving = () => this.enemies.filter((e) => e.health > 0)

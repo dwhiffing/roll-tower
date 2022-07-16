@@ -30,6 +30,8 @@ export default class Player extends Actor {
       frameRate: 8,
       frames: getFrames([48, 49, 50, 51, 52]),
     })
+
+    this.sprite.y += 10
     // scene.anims.create({
     //   key: 'player-wave',
     //   frameRate: 8,
