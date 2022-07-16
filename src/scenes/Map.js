@@ -11,7 +11,7 @@ export default class extends Phaser.Scene {
   create() {
     if (!this.registry.values.levelIndex) this.registry.values.levelIndex = 0
 
-    this.nodes = ['sword', 'sword', 'skull'].map((key, i) => {
+    this.nodes = ['sword', 'rhombus_question', 'skull'].map((key, i) => {
       const sprite = this.add
         .sprite(
           this.width / 2,
@@ -24,7 +24,11 @@ export default class extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => {
           if (i + 1 === this.registry.values.levelIndex + 1) {
-            this.scene.start('Game')
+            if (key === 'sword' || key === 'skull') {
+              this.scene.start('Game')
+            } else {
+              this.scene.launch('Dice', { mode: 'remove' })
+            }
             this.registry.values.levelIndex++
           }
         })

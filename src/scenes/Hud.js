@@ -23,7 +23,7 @@ export default class extends Phaser.Scene {
       .setScale(2)
     this.add.sprite(40, h / 2 - 20, 'sheet', 'card_place.png').setScale(0.4)
     this.drawText = this.add
-      .bitmapText(w - 50, h / 2 - 20, 'pixel-dan', '10')
+      .bitmapText(w - 50, h / 2 - 20, 'pixel-dan', '0')
       .setScale(2)
     this.add.sprite(w - 15, h / 2 - 20, 'sheet', 'card_lift.png').setScale(0.4)
     this.add

@@ -1,8 +1,7 @@
+import { DEFAULT_DIE } from '../constants'
 import Enemy from '../sprites/Enemy'
 import Player from '../sprites/Player'
 
-// const DEFAULT_DIE = ['shield', 'shield', 'shield', 'shield', 'shield', 'shield']
-const DEFAULT_DIE = ['sword', 'sword', 'sword', 'shield', 'shield', 'shield']
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Game' })
@@ -116,7 +115,7 @@ export default class extends Phaser.Scene {
     if (this.registry.values.levelIndex === 3) {
       this.scene.start('Win', { condition: true })
     } else {
-      this.scene.start('Map')
+      this.scene.launch('Dice', { mode: 'add' })
     }
   }
 
