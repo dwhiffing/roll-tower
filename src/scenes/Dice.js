@@ -72,7 +72,7 @@ export default class extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => this.onAddDie(die))
       const sprite = this.add
-        .sprite(x, y, 'sheet', `dice_${die.sides[0]}.png`)
+        .sprite(x, y, 'die', `dice_${die.sides[0]}.png`)
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.onAddDie(die))
@@ -87,7 +87,7 @@ export default class extends Phaser.Scene {
       const x = (i % perRow) * 45 + 45
       const y = (Math.floor(i / perRow) + 1) * 45 + 50
       this.add
-        .sprite(x, y, 'sheet', `dice_${die.sides[0]}.png`)
+        .sprite(x, y, 'die', `dice_${die.sides[0]}.png`)
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.onRemoveDie(i))

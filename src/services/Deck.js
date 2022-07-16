@@ -4,7 +4,9 @@ export default class DeckService {
   constructor(scene) {
     this.scene = scene
     this.set('discardPile', [])
-    this.set('drawPile', [...this.get().deck])
+    this.set('activePile', [])
+    this.set('drawPile', shuffle([...this.get().deck]))
+    this.index = 0
   }
 
   // change to getter
@@ -12,10 +14,9 @@ export default class DeckService {
 
   set = (key, value) => this.scene.registry.set(key, value)
 
-  draw = (count = 4) => {
-    this.set('activePile', [])
+  draw = (count = 1) => {
     for (let i = 0; i < count; i++) {
-      this.drawCard(i)
+      this.drawCard(this.index++)
     }
   }
 
@@ -41,6 +42,16 @@ export default class DeckService {
     const { activePile, discardPile } = this.get()
     this.set('discardPile', [...discardPile, ...activePile])
     this.set('activePile', [])
+  }
+
+  reroll = (index) => {
+    const { activePile } = this.get()
+    const die = activePile.find((d) => d.index === index)
+    die.sideIndex = Phaser.Math.RND.integerInRange(0, 5)
+    this.set(
+      'activePile',
+      activePile.map((d) => (d.index === index ? die : d)),
+    )
   }
 
   discard = (index) => {

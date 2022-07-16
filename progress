@@ -1,0 +1,35 @@
+TODO
+  add more event node types/variety
+  add more monster types/variety
+  add more die types/variety
+  add system for upgrading dice
+  add identification system
+  highlight valid targets when die is selected
+
+DONE:
+  add draw face
+  add re-roll face
+  add ui for examining dice to see faces
+  system for different dice types
+  add text to dice menu
+  basic intention system for enemies
+  ability to configure battles per node
+  enemies should be able to do things other than attack
+  support for up to 9 monsters
+  system for adding/removing dice
+  end turn automatically when out of dice
+  add button to manually end turn
+  add support for selecting specific dice and targeting a monster
+  system for drawing and rolling dice
+  only one type of die(d6) with basic graphics
+    attack faces and armor faces
+  linear map that only has 2 battles and the boss
+  battle system only has one monster type, one monster
+  monsters can only attack to do 1 damage
+  ability to win the game
+  ability to lose the game
+  dice art
+  icons for dice (sword=attack, shield=armor)
+  ui for hp bars
+  player sprite
+  monster sprite

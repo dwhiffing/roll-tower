@@ -1,5 +1,6 @@
 export const DEFAULT_DIE = {
   name: 'Basic',
+  // sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
   sides: ['shield', 'shield', 'shield', 'sword', 'sword', 'sword'],
 }
 
@@ -7,7 +8,7 @@ export const DICE_POOL = [
   DEFAULT_DIE,
   {
     name: 'Random',
-    sides: ['shield', 'sword', 'random', 'random', 'random', 'skull'],
+    sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
   },
   {
     name: 'Death',
@@ -18,8 +19,9 @@ export const INITIAL_DECK = [
   DEFAULT_DIE,
   DEFAULT_DIE,
   DEFAULT_DIE,
-  DEFAULT_DIE,
-  DEFAULT_DIE,
+  DICE_POOL[1],
+  DICE_POOL[1],
+  DICE_POOL[1],
 ]
 
 export const NODES = [

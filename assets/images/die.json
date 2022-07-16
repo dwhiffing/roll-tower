@@ -4,7 +4,7 @@
 			"image": "die.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 726,
+				"w": 858,
 				"h": 66
 			},
 			"scale": 1,
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "dice_random.png",
+					"filename": "dice_draw.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "dice_shield.png",
+					"filename": "dice_random.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "dice_skull.png",
+					"filename": "dice_reroll.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -220,7 +220,7 @@
 					}
 				},
 				{
-					"filename": "dice_sword.png",
+					"filename": "dice_shield.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -239,6 +239,48 @@
 						"w": 64,
 						"h": 64
 					}
+				},
+				{
+					"filename": "dice_skull.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 727,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "dice_sword.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 793,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
 				}
 			]
 		}
@@ -246,6 +288,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:9d86a4b87371962567cd0089afe0458d:60c3674e8fcb46c937a33cec3634003f:0dd90663f1862a26d2090c86a03da2aa$"
+		"smartupdate": "$TexturePacker:SmartUpdate:74cf5a98aed8623c431061904fa2d198:76df16ce3379876fff7b47baecfa0784:0dd90663f1862a26d2090c86a03da2aa$"
 	}
 }

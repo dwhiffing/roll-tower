@@ -30,6 +30,24 @@ export default class extends Phaser.Scene {
 
     this.createHud()
     this.time.delayedCall(100, this.playerTurn)
+
+    this.scene.get('BattleHud').events.off('click-die')
+    this.scene.get('BattleHud').events.on('click-die', this.onClickDie)
+  }
+
+  onClickDie = (die) => {
+    if (this.turnIndex !== 0 || this.disableInput) return
+    if (
+      this.selectedDie &&
+      this.selectedDie.sides[this.selectedDie.sideIndex] === 'reroll' &&
+      die !== this.selectedDie
+    ) {
+      this.onReroll(die)
+      return
+    }
+    this.selectedDie?.deselect()
+    this.selectedDie = die
+    die.select()
   }
 
   onClickActor = (actor) => {
@@ -41,6 +59,25 @@ export default class extends Phaser.Scene {
     if (clickedType === 'shield' && actor.spriteKey === 'player') {
       this.onAddArmor()
     }
+    if (clickedType === 'draw' && actor.spriteKey === 'player') {
+      this.onDraw()
+    }
+  }
+
+  onDraw = () => {
+    this.onUseDie()
+    this.time.delayedCall(250, () => {
+      this.deckService.draw(1)
+      this.restoreInput()
+    })
+  }
+
+  onReroll = (die) => {
+    this.onUseDie()
+    this.time.delayedCall(250, () => {
+      this.deckService.reroll(die.index)
+      this.restoreInput()
+    })
   }
 
   onAttack = (actor) => {
@@ -69,13 +106,15 @@ export default class extends Phaser.Scene {
   restoreInput = () => {
     this.disableInput = false
     this.checkWinCondition()
-    if (this.registry.values.activePile.length === 0) this.enemyTurn()
+    if (this.registry.values.activePile.length === 0) {
+      this.enemyTurn()
+    }
   }
 
   playerTurn = () => {
     this.turnIndex = 0
     if (this.player.health > 0) {
-      this.deckService.draw()
+      this.deckService.draw(3)
     }
     this.getLiving().forEach((e, i) => e.getIntention())
     this.restoreInput()

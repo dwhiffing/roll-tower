@@ -12,7 +12,6 @@ export default class Die {
       .on('pointerdown', () => {
         this.scene.events.emit('click-die', this, this.sides[this.sideIndex])
       })
-
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
     this.sprite.setDepth(9)
     this.sprite.die = this

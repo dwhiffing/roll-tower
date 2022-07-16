@@ -23,19 +23,10 @@ export default class extends Phaser.Scene {
     this.registry.events.on('changedata', this.changeData)
     this.scene.get('Battle').events.on('battle-ended', this.cleanup)
 
-    this.events.off('click-die')
-    this.events.on('click-die', this.onClickDie)
     this.battle = this.scene.get('Battle')
   }
 
   update() {}
-
-  onClickDie = (die) => {
-    if (this.battle.turnIndex !== 0 || this.battle.disableInput) return
-    this.battle.selectedDie?.deselect()
-    this.battle.selectedDie = die
-    die.select()
-  }
 
   createBackground = () => {
     const y = this.height / 2
@@ -91,9 +82,9 @@ export default class extends Phaser.Scene {
     // TODO: should just create these sprites once and reuse/hide them throughout the battle
     this.activePileSprites.forEach((s) => s.sprite.destroy())
     this.activePileSprites = []
-    const y = this.height / 2 + 20
     this.registry.values.activePile.forEach((die, i) => {
-      const x = i * 50 + 20
+      const x = (i % 5) * 50 + 20
+      const y = this.height / 2 + 20 + Math.floor(i / 5) * 50
       this.activePileSprites.push(new Die(this, x, y, die))
     })
   }
