@@ -11,6 +11,7 @@ export default class extends Phaser.Scene {
     this.width = this.cameras.main.width
     this.height = this.cameras.main.height
     this.enemyData = opts.enemies || []
+    this.battleType = opts.type || 'normal'
   }
 
   create() {
@@ -38,22 +39,24 @@ export default class extends Phaser.Scene {
       this.onAttack(actor)
     }
     if (clickedType === 'shield' && actor.spriteKey === 'player') {
-      this.addArmor()
+      this.addArmor(1)
     }
   }
 
   onAttack = (actor) => {
     this.onUseDie()
-    this.player.attack(() => {
+    this.player.attack(1)
+    this.time.delayedCall(500, () => {
       const enemy = this.enemies.find((e) => e === actor)
       enemy?.damage(1)
-      this.time.delayedCall(500, this.restoreInput)
+      this.restoreInput()
     })
   }
 
   onAddArmor = () => {
     this.onUseDie()
-    this.player.addArmor(this.restoreInput)
+    this.player.addArmor()
+    this.time.delayedCall(500, this.restoreInput)
   }
 
   onUseDie = () => {
@@ -74,6 +77,7 @@ export default class extends Phaser.Scene {
     if (this.player.health > 0) {
       this.deckService.draw()
     }
+    this.getLiving().forEach((e, i) => e.getIntention())
     this.restoreInput()
   }
 
@@ -81,15 +85,14 @@ export default class extends Phaser.Scene {
     this.deckService.discardAll()
     this.turnIndex = 1
 
-    // TODO: damage should come from enemy stats
-    const living = this.enemies.filter((e) => e.health > 0)
-    living.forEach((e, i) =>
-      this.time.delayedCall((i + 1) * 400, () => {
-        if (this.player.health > 0) this.player.damage(1)
-      }),
+    this.getLiving().forEach((e, i) =>
+      this.time.delayedCall((i + 1) * 400, e.takeTurn),
     )
-    this.time.delayedCall((living.length + 1) * 400, this.playerTurn.bind(this))
+    const numLiving = this.getLiving().length
+    this.time.delayedCall((numLiving + 1) * 400, this.playerTurn.bind(this))
   }
+
+  getLiving = () => this.enemies.filter((e) => e.health > 0)
 
   won = () => {
     this.events.emit('battle-ended')
@@ -110,7 +113,7 @@ export default class extends Phaser.Scene {
 
   checkWinCondition = () => {
     if (this.enemies.every((e) => e.health <= 0)) {
-      this.won()
+      this.time.delayedCall(1000, this.won)
     }
   }
 

@@ -37,7 +37,10 @@ export default class extends Phaser.Scene {
     if (i === this.registry.values.levelIndex) {
       console.log(node, i)
       if (node.type === 'battle') {
-        this.scene.start('Battle', { enemies: node.enemies })
+        this.scene.start('Battle', {
+          enemies: node.enemies,
+          type: node.key === 'skull' ? 'boss' : 'normal',
+        })
       } else if (node.type === 'event') {
         if (node.event === 'remove-die') {
           this.scene.pause()
