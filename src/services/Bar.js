@@ -12,7 +12,9 @@ export class Bar {
         .setOrigin(0, 0.5)
 
     const o = height > 2 ? 2 : 0
-    this.shadowMid = get(x, y, 'dice_empty', width - 6, height).setTint(tint)
+    this.shadowMid = get(x, y, 'dice_empty', width - 6, height).setTint(
+      0x000000,
+    )
     this.barMid = get(x + 1, y, 'dice_empty', 0, height - o).setTint(tint)
     this.valueText = this.scene.add
       .bitmapText(x + width / 2 - 2, y + 2, 'pixel-dan', '1/1')

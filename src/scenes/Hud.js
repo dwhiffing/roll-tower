@@ -62,7 +62,7 @@ export default class extends Phaser.Scene {
 
   addDie = (die, index, y) => {
     const x = index * 50 + 20
-    this.diceSprites.push(new Die(this, x, y, die))
+    this.diceSprites.push(new Die(this, x, y, { ...die, index }))
   }
 
   discard = () => {
@@ -74,6 +74,7 @@ export default class extends Phaser.Scene {
       ...this.registry.values.discard,
       ...this.registry.values.hand,
     ]
+    this.registry.values.hand = []
     this.discardText.text = this.registry.values.discard.length
   }
 

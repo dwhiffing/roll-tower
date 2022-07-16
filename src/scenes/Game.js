@@ -54,7 +54,7 @@ export default class extends Phaser.Scene {
       return
 
     if (this.clickedKey === 'sword' && key === 'bat') {
-      this.registry.values.disableInput = true
+      this.useDie()
       this.player.attack(() => {
         this.enemies[0].damage(1)
         this.time.delayedCall(500, () => {
@@ -66,21 +66,20 @@ export default class extends Phaser.Scene {
       })
     }
     if (this.clickedKey === 'shield' && key === 'player') {
-      this.registry.values.disableInput = true
+      this.useDie()
       this.player.addArmor(this.restoreInput)
     }
   }
 
-  restoreInput = () => {
+  useDie = () => {
+    this.registry.values.disableInput = true
     this.selectedDie?.sprite?.destroy()
-    // TODO: removed selected die from hand and destroy it
-    // end turn if hand empty
-    // this.registry.values.hand = this.registry.values.hand.filter(
-    //   (e) => !e.selected,
-    // )
-    // const die = this.registry.values.hand
+    this.registry.values.hand.splice(this.selectedDie.index, 1)
 
-    // if (this.registry.values.hand.length === 0) this.onEndTurn()
+    if (this.registry.values.hand.length === 0) this.onEndTurn()
+  }
+
+  restoreInput = () => {
     this.registry.values.disableInput = false
   }
 

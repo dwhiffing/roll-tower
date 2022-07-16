@@ -12,6 +12,7 @@ export default class Die {
       })
 
     this.sides = die.sides
+    this.index = die.index
     this.sideIndex = Phaser.Math.RND.integerInRange(0, 5)
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
     this.sprite.setDepth(999)

@@ -6,8 +6,8 @@ export default class Actor {
     this.scene = scene
     this.spriteKey = spriteKey
     this.sprite = scene.add.sprite(x, y, spriteKey)
-    this.health = 1
-    this.maxHealth = 1
+    this.health = 3
+    this.maxHealth = 3
     this.armor = 0
     this.hpBar = new Bar(scene, x - 16, y - 4, 42, 7, 0xff0000)
     this.armorBar = new Armor(scene, x - 32, y - 4)
