@@ -12,73 +12,101 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.bg = this.add.graphics()
-    this.bg.fillStyle(0x222222, 1)
+    this.createBackground()
+    this.createDrawCounter()
+    this.createDiscardCounter()
+    this.createEndTurnButton()
+
+    this.activePileSprites = []
+    this.registry.events.on('setdata', this.changeData)
+    this.registry.events.on('changedata', this.changeData)
+    this.scene.get('Battle').events.on('battle-ended', this.cleanup)
+
+    this.events.off('click-die')
+    this.events.on('click-die', this.onClickDie)
+  }
+
+  update() {}
+
+  consumeSelectedDie = () => {
+    const { activePile } = this.registry.values
+    this.disableInput = true
+    this.selectedDie?.sprite?.destroy()
+    activePile.splice(this.selectedDie.index, 1)
+    if (activePile.length === 0) this.enemyTurn()
+  }
+
+  onClickDie = (die, key) => {
+    const battle = this.scene.get('Battle')
+    if (battle.turnIndex !== 0 || battle.disableInput) return
+    this.selectedDie?.deselect()
+    this.selectedDie = die
+    die.select()
+  }
+
+  createBackground = () => {
+    const y = this.height / 2
+    this.bg = this.add
+      .graphics()
+      .fillStyle(0x222222, 1)
+      .fillRect(0, y, this.width, y)
+  }
+
+  createDrawCounter = () => {
+    const { drawPile } = this.registry.values
+    const w = this.width
+    const y = this.height / 2 - 20
+    this.drawText = this.add
+      .bitmapText(w - 50, y, 'pixel-dan', `${drawPile.length}`)
+      .setScale(2)
+    this.add.sprite(w - 15, y, 'sheet', 'card_lift.png').setScale(0.4)
+  }
+
+  createDiscardCounter = () => {
+    const { discardPile } = this.registry.values
+    const y = this.height / 2 - 20
+    this.discardText = this.add
+      .bitmapText(10, y, 'pixel-dan', `${discardPile.length}`)
+      .setScale(2)
+    this.add.sprite(40, y, 'sheet', 'card_place.png').setScale(0.4)
+  }
+
+  createEndTurnButton = () => {
     const w = this.width
     const h = this.height
-    this.bg.fillRect(0, h / 2, this.cameras.main.width, h / 2)
-
-    this.discardText = this.add
-      .bitmapText(10, h / 2 - 20, 'pixel-dan', '0')
-      .setScale(2)
-    this.add.sprite(40, h / 2 - 20, 'sheet', 'card_place.png').setScale(0.4)
-    this.drawText = this.add
-      .bitmapText(w - 50, h / 2 - 20, 'pixel-dan', '0')
-      .setScale(2)
-    this.add.sprite(w - 15, h / 2 - 20, 'sheet', 'card_lift.png').setScale(0.4)
-    this.add
+    this.endTurnButton = this.add
       .sprite(w - 15, h - 20, 'sheet', 'flip_head.png')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.events.emit('end-turn'))
-    this.events.off('draw')
-    this.events.off('discard')
-    this.events.off('click-actor')
-    this.events.off('end-turn')
-    this.events.on('draw', this.draw)
-    this.events.on('discard', this.discard)
-    this.diceSprites = []
   }
 
-  draw = () => {
-    if (this.registry.values.dice.length === 0) {
-      this.registry.values.dice = shuffle([...this.registry.values.discard])
-      this.registry.values.discard = []
+  changeData = (parent, key, data) => {
+    if (key === 'discardPile') {
+      this.discardText.setText(`${data.length}`)
+    } else if (key === 'drawPile') {
+      this.drawText.setText(`${data.length}`)
+    } else if (key === 'activePile') {
+      this.updateActivePile()
     }
-    const count = 2
-    this.registry.values.hand = []
-    for (let i = 0; i < count; i++) {
-      const index = Phaser.Math.RND.integerInRange(
-        0,
-        this.registry.values.dice.length - 1,
-      )
-      const die = this.registry.values.dice.splice(index, 1)[0]
-      if (die) this.registry.values.hand = [...this.registry.values.hand, die]
-    }
+  }
 
+  updateActivePile = () => {
+    // TODO: should just create these sprites once and reuse/hide them throughout the battle
+    this.activePileSprites.forEach((s) => s.sprite.destroy())
+    this.activePileSprites = []
     const y = this.height / 2 + 20
-    this.registry.values.hand.forEach((die, i) => this.addDie(die, i, y))
-    this.drawText.text = this.registry.values.dice.length
-    this.discardText.text = this.registry.values.discard.length
-  }
-
-  addDie = (die, index, y) => {
-    const x = index * 50 + 20
-    this.diceSprites.push(new Die(this, x, y, { ...die, index }))
-  }
-
-  discard = () => {
-    this.diceSprites.forEach((s) => {
-      s.sprite.destroy()
+    this.registry.values.activePile.forEach((die, i) => {
+      const x = i * 50 + 20
+      this.activePileSprites.push(new Die(this, x, y, { ...die, index: i }))
     })
-    this.diceSprites = []
-    this.registry.values.discard = [
-      ...this.registry.values.discard,
-      ...this.registry.values.hand,
-    ]
-    this.registry.values.hand = []
-    this.discardText.text = this.registry.values.discard.length
   }
 
-  update() {}
+  cleanup = () => {
+    this.scene.get('Battle').events.off('battle-ended', this.cleanup)
+    this.events.off('setdata', this.changeData)
+    this.registry.events.off('setdata', this.changeData)
+    this.registry.events.off('changedata', this.changeData)
+    this.scene.stop('Hud')
+  }
 }

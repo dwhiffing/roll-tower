@@ -54,7 +54,7 @@ export default class Actor {
     })
   }
 
-  damage(amount = 1) {
+  damage = (amount = 1) => {
     let _amount = amount
     const diff = this.armor - amount
     if (diff >= 0) {

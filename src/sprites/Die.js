@@ -7,7 +7,6 @@ export default class Die {
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => {
-        if (this.scene.registry.values.disableInput) return
         this.scene.events.emit('click-die', this, this.sides[this.sideIndex])
       })
 
