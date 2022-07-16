@@ -28,7 +28,15 @@ export default class extends Phaser.Scene {
     const y = 380 - this.registry.values.levelIndex * 100
     this.player = this.add.sprite(x, y, 'sheet', 'pawn.png').setOrigin(0.5)
 
-    this.clickNode(this.nodes[0], 0)
+    // // launch remove die screen
+    // this.registry.values.levelIndex = 1
+    // this.clickNode(this.nodes[1], 1)
+
+    // // autostart first battle
+    // this.clickNode(this.nodes[0], 0)
+
+    // // launch add die screen
+    // this.scene.launch('Dice', { mode: 'add' })
   }
 
   update() {}

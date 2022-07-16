@@ -34,6 +34,8 @@ export default class extends Phaser.Scene {
       'assets/pixel-dan.xml',
     )
 
+    this.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml')
+
     this.load.on('complete', () => {
       progress.destroy()
       this.scene.start('Menu')

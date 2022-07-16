@@ -18,7 +18,16 @@ export default class extends Phaser.Scene {
     this.bg = this.add
       .graphics()
       .fillStyle(0x222222, 1)
-      .fillRect(10, 10, this.width - 40, this.height - 40)
+      .fillRect(10, 10, this.width - 20, this.height - 20)
+
+    this.valueText = this.add
+      .bitmapText(
+        this.width / 2,
+        40,
+        'gem',
+        this.mode === 'add' ? 'Add a new die' : 'Remove a die',
+      )
+      .setOrigin(0.5)
 
     this.deckService = new DeckService(this)
 
@@ -52,30 +61,38 @@ export default class extends Phaser.Scene {
     const die = { sides: DEFAULT_DIE }
     const newDice = [die, die, die]
     newDice.forEach((die, i) => {
-      this.addButton(die, i).on('pointerdown', () => this.onAddDie(die))
+      const x = 60
+      const y = i * 80 + 120
+      this.add
+        .bitmapText(x + 30, y, 'gem', 'Basic')
+        .setOrigin(0, 0.5)
+        .setInteractive()
+        .on('pointerdown', () => this.onAddDie(die))
+      this.add
+        .sprite(x, y, 'sheet', `dice_${die.sides[0]}.png`)
+        .setScale(0.5)
+        .setInteractive()
+        .on('pointerdown', () => this.onAddDie(die))
     })
   }
 
   createRemoveButtons = () => {
     this.registry.values.deck.forEach((die, i) => {
-      this.addButton(die, i).on('pointerdown', () => this.onRemoveDie(i))
+      const perRow = 5
+      const x = (i % perRow) * 45 + 45
+      const y = (Math.floor(i / perRow) + 1) * 45 + 50
+      this.add
+        .sprite(x, y, 'sheet', `dice_${die.sides[0]}.png`)
+        .setScale(0.5)
+        .setInteractive()
+        .on('pointerdown', () => this.onRemoveDie(i))
     })
   }
 
   createSkipButton = () => {
     this.add
-      .sprite(this.width - 15, this.height - 20, 'sheet', 'flip_head.png')
-      .setScale(0.5)
+      .sprite(this.width - 50, this.height - 50, 'sheet', 'flip_head.png')
       .setInteractive()
       .on('pointerdown', () => this.events.emit('close'))
-  }
-
-  addButton = (die, index) => {
-    const x = (index % 3) * 50 + 60
-    const y = (Math.floor(index / 3) + 1) * 40
-    return this.add
-      .sprite(x, y, 'sheet', `dice_${die.sides[0]}.png`)
-      .setScale(0.5)
-      .setInteractive()
   }
 }
