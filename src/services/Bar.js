@@ -24,6 +24,9 @@ export class Bar {
   die() {
     this.barMid.setActive(false).setVisible(false)
     this.shadowMid.setActive(false).setVisible(false)
+    this.scene.time.delayedCall(300, () => {
+      this.valueText.setAlpha(0)
+    })
   }
 
   set(value, maxValue) {

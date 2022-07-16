@@ -22,16 +22,7 @@ export default class extends Phaser.Scene {
         .setTint(0xaaaaaa)
         .setOrigin(0.5)
         .setInteractive()
-        .on('pointerdown', () => {
-          if (i + 1 === this.registry.values.levelIndex + 1) {
-            if (key === 'sword' || key === 'skull') {
-              this.scene.start('Battle')
-            } else {
-              this.scene.launch('Dice', { mode: 'remove' })
-            }
-            this.registry.values.levelIndex++
-          }
-        })
+        .on('pointerdown', () => this.clickNode(key, i))
 
       return { index: i, type: key, sprite }
     })
@@ -43,7 +34,37 @@ export default class extends Phaser.Scene {
         'pawn.png',
       )
       .setOrigin(0.5)
+
+    // this.clickNode('sword', 0)
+    this.clickNode('skull', 0)
   }
 
   update() {}
+
+  clickNode = (key, i) => {
+    if (i + 1 === this.registry.values.levelIndex + 1) {
+      if (key === 'sword') {
+        this.scene.start('Battle', {
+          enemies: [null, null, null, null, { key: 'bat' }],
+        })
+      } else if (key === 'skull') {
+        this.scene.start('Battle', {
+          enemies: [
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+            { key: 'bat' },
+          ],
+        })
+      } else if (key === 'rhombus_question') {
+        this.scene.launch('Dice', { mode: 'remove' })
+      }
+      this.registry.values.levelIndex++
+    }
+  }
 }

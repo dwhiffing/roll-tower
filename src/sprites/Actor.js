@@ -6,15 +6,17 @@ export default class Actor {
     this.scene = scene
     this.spriteKey = spriteKey
     this.sprite = scene.add.sprite(x, y, spriteKey)
-    this.health = 1
-    this.maxHealth = 1
+    if (!this.health) {
+      this.health = 1
+      this.maxHealth = 1
+    }
     this.armor = 0
     this.hpBar = new Bar(scene, x - 16, y - 4, 42, 7, 0xff0000)
     this.armorBar = new Armor(scene, x - 32, y - 4)
     this.hpBar.set(this.health, this.maxHealth)
     this.sprite.setInteractive()
     this.sprite.on('pointerdown', () => {
-      this.scene.events.emit('click-actor', spriteKey)
+      this.scene.events.emit('click-actor', this)
     })
     this.sprite.on('animationcomplete', (e) => {
       if (e.key.match(/attack/)) {

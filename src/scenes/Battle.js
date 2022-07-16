@@ -7,39 +7,46 @@ export default class extends Phaser.Scene {
     super({ key: 'Battle' })
   }
 
-  init() {
+  init(opts) {
     this.width = this.cameras.main.width
     this.height = this.cameras.main.height
+    this.enemyData = opts.enemies || []
   }
 
   create() {
-    this.player = new Player(this, 60, 100)
+    this.player = new Player(this, 50, 100)
     this.deckService = new DeckService(this)
 
-    // TODO: should be able to pass in enemy configuration and spawn up to 5 enemies
     // this should be done in a service
-    this.enemies = [new Enemy(this, this.width - 60, 100)]
+    this.enemies = this.enemyData
+      .map((enemy, i) => {
+        if (!enemy) return null
+        const x = this.width - (30 + 60 * (i % 3))
+        const y = 50 + Math.floor(i / 3) * 50
+        return new Enemy(this, x, y)
+      })
+      .filter((e) => !!e)
 
     this.createHud()
     this.time.delayedCall(100, this.playerTurn)
   }
 
-  onClickActor = (key) => {
+  onClickActor = (actor) => {
     if (this.turnIndex !== 0 || this.disableInput || !this.selectedDie) return
     const clickedType = this.selectedDie.sides[this.selectedDie.index]
-    if (clickedType === 'sword' && key === 'bat') {
-      this.onAttack()
+    if (clickedType === 'sword' && actor.spriteKey === 'bat') {
+      this.onAttack(actor)
     }
-    if (clickedType === 'shield' && key === 'player') {
+    if (clickedType === 'shield' && actor.spriteKey === 'player') {
       this.addArmor()
     }
   }
 
-  onAttack = () => {
+  onAttack = (actor) => {
     this.onUseDie()
     this.player.attack(() => {
-      // TODO: needs to target clicked actor
-      this.enemies[0].damage(1)
+      const enemy = this.enemies.find((e) => e === actor)
+      enemy?.damage(1)
       this.time.delayedCall(500, this.restoreInput)
     })
   }
@@ -53,20 +60,20 @@ export default class extends Phaser.Scene {
     this.disableInput = true
     this.selectedDie?.sprite?.destroy()
     this.deckService.discard(this.selectedDie.index)
-    if (this.registry.values.activePile.length === 0) this.enemyTurn()
   }
 
   restoreInput = () => {
     this.disableInput = false
     this.checkWinCondition()
+    if (this.registry.values.activePile.length === 0) this.enemyTurn()
   }
 
   playerTurn = () => {
     this.turnIndex = 0
-    this.restoreInput()
     if (this.player.health > 0) {
       this.deckService.draw()
     }
+    this.restoreInput()
   }
 
   enemyTurn = () => {
@@ -76,9 +83,11 @@ export default class extends Phaser.Scene {
     // TODO: damage should come from enemy stats
     const living = this.enemies.filter((e) => e.health > 0)
     living.forEach((e, i) =>
-      this.time.delayedCall((i + 1) * 1000, this.player.damage),
+      this.time.delayedCall((i + 1) * 400, () => {
+        if (this.player.health > 0) this.player.damage(1)
+      }),
     )
-    this.time.delayedCall(living.length + 1 * 1000, this.playerTurn.bind(this))
+    this.time.delayedCall((living.length + 1) * 400, this.playerTurn.bind(this))
   }
 
   won = () => {

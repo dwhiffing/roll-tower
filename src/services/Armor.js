@@ -10,6 +10,7 @@ export class Armor {
     this.valueText = this.scene.add
       .bitmapText(x + 9, y + 2, 'pixel-dan', '0')
       .setOrigin(0.5)
+    this.set(0)
   }
 
   die() {
@@ -20,5 +21,10 @@ export class Armor {
     this.sprite.setActive(true).setVisible(true)
     this.value = Math.max(value, 0)
     this.valueText.text = `${value}`
+    this.sprite.setAlpha(1)
+    if (this.value === 0) {
+      this.valueText.text = ``
+      this.sprite.setAlpha(0)
+    }
   }
 }

@@ -12,21 +12,23 @@ export default class DeckService {
 
   set = (key, value) => this.scene.registry.set(key, value)
 
-  draw = (count = 2) => {
-    const { drawPile, discardPile } = this.get()
-    if (drawPile.length === 0) {
-      this.set('drawPile', shuffle([...discardPile]))
+  draw = (count = 4) => {
+    this.set('activePile', [])
+    for (let i = 0; i < count; i++) {
+      this.drawCard()
+    }
+  }
+
+  drawCard = () => {
+    if (this.get().drawPile.length === 0) {
+      this.set('drawPile', shuffle([...this.get().discardPile]))
       this.set('discardPile', [])
     }
-    this.set('activePile', [])
 
-    for (let i = 0; i < count; i++) {
-      const { drawPile, activePile } = this.get()
-      const die = drawPile[0]
-      this.set('drawPile', drawPile.slice(1))
-      if (die) {
-        this.set('activePile', [...activePile, die])
-      }
+    const die = this.get().drawPile[0]
+    this.set('drawPile', this.get().drawPile.slice(1))
+    if (die) {
+      this.set('activePile', [...this.get().activePile, die])
     }
   }
 
@@ -37,8 +39,9 @@ export default class DeckService {
   }
 
   discard = (index) => {
-    const { activePile } = this.get()
-
+    const { activePile, discardPile } = this.get()
+    const die = activePile[index]
+    this.set('discardPile', [...discardPile, die])
     this.set('activePile', [
       ...activePile.slice(0, index),
       ...activePile.slice(index + 1),
