@@ -82,26 +82,33 @@ player starts game and moves through map, completing battles and adding/removing
 
 
 start with POC:
-  add button to manually end turn
-  system for adding/removing/upgrading dice
-  ability to configure a battle and support for up to 5 monsters
-  examining dice to see faces
+  support for up to 5 monsters
+  ability to configure battles per node
   add basic boss monster
-  add identification system
+  enemies should be able to do things other than attack
+  basic intention system for enemies
+  
+  examining dice to see faces
+  add more event node types than just remove
+  system for upgrading dice
   add energy system for using dice?
+  add identification system
 
-  DONE:
-    add support for selecting specific dice and targeting a monster
-    system for drawing and rolling dice
-    only one type of die(d6) with basic graphics
-      attack faces and armor faces
-    linear map that only has 2 battles and the boss
-    battle system only has one monster type, one monster
-    monsters can only attack to do 1 damage
-    ability to win the game
-    ability to lose the game
-    dice art
-    icons for dice (sword=attack, shield=armor)
-    ui for hp bars
-    player sprite
-    monster sprite
+DONE:
+  system for adding/removing dice
+  end turn automatically when out of dice
+  add button to manually end turn
+  add support for selecting specific dice and targeting a monster
+  system for drawing and rolling dice
+  only one type of die(d6) with basic graphics
+    attack faces and armor faces
+  linear map that only has 2 battles and the boss
+  battle system only has one monster type, one monster
+  monsters can only attack to do 1 damage
+  ability to win the game
+  ability to lose the game
+  dice art
+  icons for dice (sword=attack, shield=armor)
+  ui for hp bars
+  player sprite
+  monster sprite

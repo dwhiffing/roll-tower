@@ -12,12 +12,13 @@ export default class extends Phaser.Scene {
       progress.fillStyle(0xffffff, 1)
       progress.fillRect(0, height / 2, width * value, 60)
     })
+
+    this.load.atlas('die', 'assets/images/die.png', 'assets/images/die.json')
     this.load.atlas(
       'sheet',
       'assets/images/sheet.png',
       'assets/images/sheet.json',
     )
-    this.load.atlas('die', 'assets/images/die.png', 'assets/images/die.json')
     this.load.spritesheet('player', 'assets/images/player.png', {
       frameWidth: 64,
       frameHeight: 64,

@@ -33,6 +33,8 @@ export default class extends Phaser.Scene {
       .on('pointerdown', () => this.events.emit('end-turn'))
     this.events.off('draw')
     this.events.off('discard')
+    this.events.off('click-actor')
+    this.events.off('end-turn')
     this.events.on('draw', this.draw)
     this.events.on('discard', this.discard)
     this.diceSprites = []

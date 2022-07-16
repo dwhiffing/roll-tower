@@ -29,7 +29,7 @@ export default class extends Phaser.Scene {
       this.addDie(1, 'sword').on('pointerdown', onAdd)
       this.addDie(2, 'sword').on('pointerdown', onAdd)
       this.events.on('close', () => {
-        this.scene.stop('Game')
+        this.scene.stop('Battle')
         this.scene.stop('Dice')
         this.scene.start('Map')
       })

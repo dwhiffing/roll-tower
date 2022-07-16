@@ -25,7 +25,7 @@ export default class extends Phaser.Scene {
         .on('pointerdown', () => {
           if (i + 1 === this.registry.values.levelIndex + 1) {
             if (key === 'sword' || key === 'skull') {
-              this.scene.start('Game')
+              this.scene.start('Battle')
             } else {
               this.scene.launch('Dice', { mode: 'remove' })
             }

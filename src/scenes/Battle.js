@@ -4,7 +4,7 @@ import Player from '../sprites/Player'
 
 export default class extends Phaser.Scene {
   constructor() {
-    super({ key: 'Game' })
+    super({ key: 'Battle' })
   }
 
   init() {
@@ -27,8 +27,6 @@ export default class extends Phaser.Scene {
     this.registry.values.discard = []
     this.registry.values.dice = [...this.registry.values.deck]
     this.scene.launch('Hud')
-    this.scene.get('Hud').events.off('click-actor')
-    this.scene.get('Hud').events.off('end-turn')
     this.scene.get('Hud').events.on('click-die', this.onClickDie.bind(this))
     this.scene.get('Hud').events.on('end-turn', this.onEndTurn.bind(this))
     this.events.off('click-actor')
