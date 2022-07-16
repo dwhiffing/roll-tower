@@ -1,3 +1,4 @@
+import { shuffle } from 'lodash'
 import Die from '../sprites/Die'
 
 export default class extends Phaser.Scene {
@@ -25,22 +26,33 @@ export default class extends Phaser.Scene {
       .bitmapText(w - 50, h / 2 - 20, 'pixel-dan', '10')
       .setScale(2)
     this.add.sprite(w - 15, h / 2 - 20, 'sheet', 'card_lift.png').setScale(0.4)
+    this.events.off('draw')
+    this.events.off('discard')
     this.events.on('draw', this.draw)
     this.events.on('discard', this.discard)
     this.diceSprites = []
   }
 
   draw = () => {
-    // TODO: this should just use lodash sample and filter out of other array
-    const index = Phaser.Math.RND.integerInRange(
-      0,
-      this.registry.values.dice.length - 1,
-    )
-    this.dice = this.registry.values.dice.splice(index, 2)
+    if (this.registry.values.dice.length === 0) {
+      this.registry.values.dice = shuffle([...this.registry.values.discard])
+      this.registry.values.discard = []
+    }
+    const count = 2
+    this.dice = []
+    for (let i = 0; i < count; i++) {
+      const index = Phaser.Math.RND.integerInRange(
+        0,
+        this.registry.values.dice.length - 1,
+      )
+      const die = this.registry.values.dice.splice(index, 1)[0]
+      if (die) this.dice.push(die)
+    }
 
     const y = this.height / 2 + 20
     this.dice.forEach((die, i) => this.addDie(die, i, y))
     this.drawText.text = this.registry.values.dice.length
+    this.discardText.text = this.registry.values.discard.length
   }
 
   addDie = (die, index, y) => {
@@ -49,9 +61,14 @@ export default class extends Phaser.Scene {
   }
 
   discard = () => {
-    this.diceSprites.forEach((s) => s.sprite.destroy())
+    this.diceSprites.forEach((s) => {
+      s.sprite.destroy()
+    })
     this.diceSprites = []
-    this.registry.values.discard = this.dice
+    this.registry.values.discard = [
+      ...this.registry.values.discard,
+      ...this.dice,
+    ]
     this.discardText.text = this.registry.values.discard.length
   }
 

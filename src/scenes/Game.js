@@ -1,6 +1,7 @@
 import Enemy from '../sprites/Enemy'
 import Player from '../sprites/Player'
 
+// const DEFAULT_DIE = ['shield', 'shield', 'shield', 'shield', 'shield', 'shield']
 const DEFAULT_DIE = ['sword', 'sword', 'sword', 'shield', 'shield', 'shield']
 export default class extends Phaser.Scene {
   constructor() {
