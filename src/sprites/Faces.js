@@ -1,5 +1,5 @@
 export default class Faces {
-  constructor(scene, x = 0, y = 0) {
+  constructor(scene, x = 0, y = 0, followMouse = false, onClick) {
     this.scene = scene
 
     this.bg = this.scene.add
@@ -8,15 +8,17 @@ export default class Faces {
       .fillRect(x, y, 90, 120)
       .setDepth(98)
 
-    this.scene.input.on('pointermove', (p) => {
-      this.move(p.x - 40, p.y - 130)
-    })
-    this.scene.input.on('pointerover', (a, b) => {
-      this.set(b[0].die)
-    })
-    this.scene.input.on('pointerout', (a, b) => {
-      this.set()
-    })
+    if (followMouse) {
+      this.scene.input.on('pointermove', (p) => {
+        this.move(p.x - 40, p.y - 130)
+      })
+      this.scene.input.on('pointerover', (a, b) => {
+        this.set(b[0].die)
+      })
+      this.scene.input.on('pointerout', (a, b) => {
+        this.set()
+      })
+    }
 
     this.sprites = []
     new Array(6).fill('n').forEach((k, i) => {
@@ -30,7 +32,9 @@ export default class Faces {
           )
           .setOrigin(0)
           .setScale(0.5)
-          .setDepth(99),
+          .setDepth(99)
+          .setInteractive()
+          .on('pointerdown', () => onClick(i)),
       )
     })
 

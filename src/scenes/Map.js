@@ -72,6 +72,10 @@ export default class extends Phaser.Scene {
           this.scene.pause()
           this.scene.launch('Dice', { mode: 'remove' })
         }
+        if (node.event === 'upgrade-die') {
+          this.scene.pause()
+          this.scene.launch('Dice', { mode: 'upgrade' })
+        }
       }
       this.registry.values.levelIndex++
     }

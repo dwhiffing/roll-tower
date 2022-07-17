@@ -29,7 +29,11 @@ export default class extends Phaser.Scene {
         this.width / 2,
         40,
         'gem',
-        this.mode === 'add' ? 'Add a new die' : 'Remove a die',
+        this.mode === 'add'
+          ? 'Add a new die'
+          : this.mode === 'remove'
+          ? 'Remove a die'
+          : 'Upgrade a die',
       )
       .setOrigin(0.5)
 
@@ -45,6 +49,8 @@ export default class extends Phaser.Scene {
       this.createAddButtons()
     } else if (this.mode === 'remove') {
       this.createRemoveButtons()
+    } else if (this.mode === 'upgrade') {
+      this.createUpgradeButtons()
     }
     this.createSkipButton()
   }
@@ -58,6 +64,11 @@ export default class extends Phaser.Scene {
 
   onRemoveDie = (i) => {
     this.deckService.removeDie(i)
+    this.events.emit('close')
+  }
+
+  onUpgradeDie = (face) => {
+    this.deckService.upgradeDie(this.selectedDie, face)
     this.events.emit('close')
   }
 
@@ -92,6 +103,32 @@ export default class extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => this.onRemoveDie(i))
     })
+  }
+
+  createUpgradeButtons = () => {
+    // need to be able to select a specific face on a die
+    this.registry.values.deck.forEach((die, i) => {
+      const perRow = 5
+      const x = (i % perRow) * 45 + 45
+      const y = (Math.floor(i / perRow) + 1) * 45 + 50
+      this.add
+        .sprite(x, y, 'die', `dice_${die.sides[0]}.png`)
+        .setScale(0.5)
+        .setInteractive()
+        .on('pointerdown', () => {
+          this.selectedDie = die
+          this.selectedDie.index = i
+          this.faces.set(this.registry.values.deck[i])
+        })
+    })
+
+    this.faces = new Faces(
+      this,
+      this.width / 2 - 40,
+      200,
+      false,
+      this.onUpgradeDie,
+    )
   }
 
   createSkipButton = () => {

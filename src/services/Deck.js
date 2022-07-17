@@ -65,11 +65,32 @@ export default class DeckService {
   }
 
   addDie = (die) => {
-    this.set('deck', [...this.get().deck, die])
+    const deck = this.get().deck
+    const _die = { ...die, index: Math.max(...deck.map((d) => +d.index)) + 1 }
+    this.set('deck', [...deck, _die])
   }
 
   removeDie = (index) => {
     const deck = this.get().deck
     this.set('deck', [...deck.slice(0, index), ...deck.slice(index + 1)])
+  }
+
+  upgradeDie = (die, face) => {
+    const faceKey = die?.sides[face]
+    if (faceKey && !faceKey.match(/_crit/)) {
+      const deck = this.get().deck
+      this.set(
+        'deck',
+        deck.map((d) => {
+          if (d.index === die.index) {
+            return {
+              ...d,
+              sides: d.sides.map((k, i) => (i === face ? k + '_crit' : k)),
+            }
+          }
+          return d
+        }),
+      )
+    }
   }
 }

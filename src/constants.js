@@ -31,9 +31,9 @@ export const INITIAL_DECK = [
   DEFAULT_DIE,
   DEFAULT_DIE,
   DEFAULT_DIE,
-  // DICE_POOL[1],
-  // DICE_POOL[1],
-  // DICE_POOL[1],
+  DICE_POOL[1],
+  DICE_POOL[1],
+  DICE_POOL[1],
 ]
 
 export const NODES = [
@@ -47,7 +47,7 @@ export const NODES = [
   {
     type: 'event',
     key: 'rhombus_question',
-    event: 'remove-die',
+    event: 'upgrade-die',
     x: 0,
     y: 1,
   },

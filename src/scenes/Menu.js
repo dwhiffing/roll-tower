@@ -30,7 +30,10 @@ export default class extends Phaser.Scene {
   }
 
   startGame() {
-    this.registry.values.deck = [...INITIAL_DECK]
+    this.registry.values.deck = [...INITIAL_DECK].map((d, i) => ({
+      ...d,
+      index: i,
+    }))
     this.registry.values.activePile = []
     this.registry.values.discardPile = []
     this.scene.start('Map')

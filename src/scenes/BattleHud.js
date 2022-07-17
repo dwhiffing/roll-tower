@@ -12,7 +12,7 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.faces = new Faces(this)
+    this.faces = new Faces(this, 0, 0, true)
     this.createBackground()
     this.createDrawCounter()
     this.createDiscardCounter()

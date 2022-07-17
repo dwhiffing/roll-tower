@@ -5,22 +5,21 @@ TODO
       heal 1 hp
       stun an enemy
       life steal from an enemy
+      clone die
       weaken an enemy
       remove all armor, but no damage
 
+  dont start new player turn when battle is over
 
-  upgrading sould just be making a given face crit, then just have a crit version of each face?
-  add system for upgrading dice
   add more event node types/variety
     select between buff/debuff
     chance to gain/lose health/stats
     add a bunch of new dice
     upgrade a bunch of dice
-  dont start new player turn when battle is over
   add special moves for different enemies
   add identification system?
 
-special ideas:
+enemy special ideas:
   buff stats
   inflict debuff on player
   heal other enemies
@@ -51,6 +50,7 @@ polish:
   animation between scenes
 
 DONE:
+  add system for upgrading dice: should just be making a given face crit, can be added to dice scene
   basic die should have crit side for attack/armor
   add stats for different enemies
   each monster should have a set of moves that it picks randomly from
