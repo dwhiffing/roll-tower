@@ -11,36 +11,92 @@ export const POSSIBLE_TARGETS = {
   sword: ['enemy'],
   reroll: ['die'],
   draw: ['player'],
+  heal: ['player'],
+  book: ['enemy'],
+  skull: ['enemy'],
+  magic: ['enemy'],
+  fire: ['enemy'],
+  arrow: ['enemy'],
+  random: ['enemy'],
+  heal_crit: ['player'],
+  book_crit: ['enemy'],
+  skull_crit: ['enemy'],
+  magic_crit: ['enemy'],
+  fire_crit: ['enemy'],
+  arrow_crit: ['enemy'],
+  random_crit: ['enemy'],
 }
 
 export const DICE_POOL = [
   DEFAULT_DIE,
   {
-    name: 'Random',
+    name: 'Attack',
+    sides: ['sword', 'sword', 'sword', 'sword', 'sword_crit', 'sword_crit'],
+  },
+  {
+    name: 'Block',
+    sides: [
+      'shield',
+      'shield',
+      'shield',
+      'shield',
+      'shield_crit',
+      'shield_crit',
+    ],
+  },
+  {
+    name: 'Support',
     sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
   },
   {
-    name: 'Death',
-    sides: ['skull', 'skull', 'skull', 'skull', 'skull', 'skull'],
+    name: 'Heal',
+    sides: ['heal', 'heal', 'heal', 'armor', 'armor', 'reroll'],
   },
+  {
+    name: 'Fire',
+    sides: ['fire', 'fire', 'fire_crit', 'sword', 'sword', 'sword'], // deals damage over time
+  },
+  {
+    name: 'Hammer',
+    // TODO: magic should be renamed to stun
+    sides: ['magic', 'magic', 'magic', 'sword', 'sword', 'sword_crit'],
+  },
+  {
+    name: 'Weaken',
+    sides: ['skull', 'skull', 'skull', 'sword', 'sword', 'sword_crit'],
+  },
+  {
+    name: 'Arrow',
+    sides: ['arrow', 'arrow', 'arrow', 'sword', 'sword', 'sword_crit'],
+  },
+  {
+    name: 'Magic',
+    sides: ['book', 'book', 'book', 'sword', 'sword', 'sword_crit'],
+  },
+  // TODO: add more dice types
+  // life steal from an enemy
+  // clone die
 ]
 export const INITIAL_DECK = [
-  DEFAULT_DIE,
-  DEFAULT_DIE,
-  DEFAULT_DIE,
-  DEFAULT_DIE,
-  DEFAULT_DIE,
-  DEFAULT_DIE,
-  DICE_POOL[1],
-  DICE_POOL[1],
-  DICE_POOL[1],
+  // DEFAULT_DIE,
+  // DEFAULT_DIE,
+  // DEFAULT_DIE,
+  DICE_POOL[5],
+  DICE_POOL[5],
+  DICE_POOL[5],
 ]
 
 export const NODES = [
   {
     type: 'battle',
     key: 'sword',
-    enemies: [null, null, null, null, { type: 'bat' }],
+    enemies: [
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+    ],
     x: 1,
     y: 0,
   },

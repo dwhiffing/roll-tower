@@ -86,17 +86,30 @@ export default class extends Phaser.Scene {
   }
 
   handleFace = (face, actor) => {
-    if (face.match(/sword/)) {
+    const isCrit = face.match(/_crit/)
+    if (face.match(/sword|magic|arrow|book|skull|fire/)) {
       if (!actor && this.getLiving().length < 2) {
         actor = this.getLiving()[0]
       }
-      if (actor && actor.type === 'enemy')
-        this.onAttack(actor, face === 'sword_crit' ? 2 : 1)
+      if (face.match(/magic/)) {
+        this.onAttack(actor, isCrit ? 2 : 1, { stun: true })
+      } else if (face.match(/skull/)) {
+        this.onAttack(actor, isCrit ? 2 : 1, { weak: true })
+      } else if (face.match(/book/)) {
+        this.onAttack(actor, isCrit ? 2 : 1, { corrosive: true })
+      } else if (face.match(/fire/)) {
+        this.onAttack(actor, isCrit ? 2 : 1, { fire: true })
+      } else if (face.match(/arrow/)) {
+        this.getLiving().forEach((actor) => {
+          this.onAttack(actor, isCrit ? 2 : 1)
+        })
+      } else if (actor && actor.type === 'enemy')
+        this.onAttack(actor, isCrit ? 2 : 1)
     } else if (
       face.match(/shield/) &&
       (!actor || actor.spriteKey === 'player')
     ) {
-      this.onAddArmor(face === 'shield_crit' ? 2 : 1)
+      this.onAddArmor(isCrit ? 2 : 1)
     } else if (face === 'draw' && (!actor || actor.spriteKey === 'player')) {
       this.onDraw()
     }
@@ -118,12 +131,27 @@ export default class extends Phaser.Scene {
     })
   }
 
-  onAttack = (actor, damageMulti = 1) => {
+  onAttack = (actor, damageMulti = 1, props = {}) => {
+    if (props.stun) {
+      // should change enemy intent to question mark, then they do nothing
+      actor.setIntention({ type: 'question' })
+    }
+    if (props.weak && actor.stats.str) {
+      actor.stats.str -= 1
+      if (actor.stats.str < 0) actor.stats.str = 0
+    }
+    if (props.fire) {
+      actor.stats.flame += 3
+    }
+    let _damage = this.player.stats.str * damageMulti
+    if (props.corrosive) {
+      _damage = actor.armor
+    }
     this.onUseDie()
     this.player.attack(1)
     this.time.delayedCall(500, () => {
       const enemy = this.enemies.find((e) => e === actor)
-      enemy?.damage(this.player.stats.str * damageMulti)
+      enemy?.damage(_damage)
       this.restoreInput()
     })
   }
@@ -136,9 +164,11 @@ export default class extends Phaser.Scene {
 
   onUseDie = () => {
     this.disableInput = true
-    this.deckService.discard(this.selectedDie.index)
-    this.selectedDie?.sprite?.destroy()
-    this.selectedDie = null
+    if (this.selectedDie) {
+      this.deckService.discard(this.selectedDie.index)
+      this.selectedDie?.sprite?.destroy()
+      this.selectedDie = null
+    }
     this.unhighlightAll()
   }
 

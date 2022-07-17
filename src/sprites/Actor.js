@@ -9,7 +9,8 @@ export default class Actor {
     this.scene = scene
     this.spriteKey = spriteKey
     this.sprite = scene.add.sprite(x, y, spriteKey)
-    this.stats = STATS[spriteKey]
+    this.stats = { ...STATS[spriteKey] }
+    this.stats.flame = 0
     if (!this.health) {
       this.health = this.stats.hp
       this.maxHealth = this.stats.hp
@@ -94,12 +95,20 @@ export default class Actor {
 
   getIntention = () => {
     const move = sample(this.moves)
+    this.setIntention(move)
+  }
+
+  setIntention = (move) => {
     this.intention = move.type
     this.intent.set(`${move.type}.png`)
   }
 
   takeTurn = () => {
-    if (this.scene.player.health <= 0) return
+    if (this.stats.flame > 0) {
+      this.stats.flame--
+      this.damage(1)
+    }
+    if (this.health <= 0 || this.scene.player.health <= 0) return
     if (this.intention === 'sword') {
       this.scene.player.damage(this.stats.str)
       this.attack()
@@ -112,6 +121,8 @@ export default class Actor {
     this.intent.set('')
     this.hpBar.set(0, this.maxHealth)
     this.hpBar.die()
+    this.armorBar.set(0)
+    this.armorBar.die()
     this.play('die')
   }
 }
