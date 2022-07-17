@@ -193,10 +193,41 @@ export const NODES = [
 ]
 
 export const STATS = {
-  player: { hp: 10, str: 1, dex: 1, drawCount: 3 },
-  bat: { hp: 2, str: 1, dex: 1 },
+  player: { hp: 10, str: 1, dex: 1, drawCount: 6 },
+  bat: { hp: 3, str: 1, dex: 1 },
   viking: { hp: 8, str: 2, dex: 2 },
   warlock: { hp: 5, str: 2, dex: 2 },
   nomad: { hp: 15, str: 3, dex: 3 },
   golem: { hp: 50, str: 5, dex: 5 },
+}
+
+// need to implement buff_str, attack_defend and heal
+export const MOVES = {
+  bat: [
+    { type: 'sword', name: 'attack' },
+    { type: 'random', name: 'nothing' },
+    { type: 'random', name: 'nothing' },
+  ],
+  viking: [
+    { type: 'sword', name: 'attack' },
+    { type: 'shield', name: 'defend' },
+  ],
+  warlock: [
+    { type: 'sword', name: 'attack' },
+    { type: 'flask_empty', name: 'heal' },
+    { type: 'pawn_up', name: 'buff_str' },
+  ],
+  nomad: [
+    { type: 'sword', name: 'attack' },
+    { type: 'sword', name: 'attack' },
+    { type: 'random', name: 'attack_defend' },
+    { type: 'shield', name: 'defend' },
+    { type: 'random', name: 'buff_str' },
+  ],
+  golem: [
+    { type: 'sword', name: 'attack' },
+    { type: 'sword', name: 'attack' },
+    { type: 'random', name: 'attack_defend' },
+    { type: 'shield', name: 'defend' },
+  ],
 }

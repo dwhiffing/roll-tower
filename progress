@@ -1,45 +1,51 @@
 TODO
   add special moves for different enemies
+    bat: do nothing: use question mark for intent
+    warlock: buff health/str/dex for other monster
+    warlock: weaken player
+    nomad: deal damage and gain block
+    nomad: weaken player
+    golem: give player negative die for the rest of the fight
   heal should remove status ailments
 
-enemy special ideas:
-  bat special: do nothing: use question mark for intent
-  buff stats
-  inflict debuff on player
-  heal other enemies
-  deal damage and gain block
-  give player negative die for the rest of the fight
-debuff ideas:
-  do 50% less damage
-  gain 50% less armor
-  take 50% extra damage
-  attacks target random enemies
-add more node types/variety
-  select between buff/debuff
-  chance to gain/lose health/stats
-  add a bunch of new dice
-  upgrade a bunch of dice
+add more event node types/variety
   increase drawCount
+  lose 3 random dice but gain a really strong one
+  heal all hp OR upgrade 3 dice
+  add a risky die OR upgrade 3 dice
 
 polish:
-  add descriptions for each face
-  show player avatar/hp on map
-  when face is selected, should show description below
-  better selection/highlighting
-  dice should have unique colors
-  battle background
-  map background
-  lines between map nodes
-  nicer looking map nodes
-  come up with a name and add a title
-  help screen
-  better win/lose screen
-  sounds
-  music
-  juice when attacking/getting attacked
-  rolling animation/sounds
-  animation when drawing/discarding dice
-  animation between scenes
+  Battle:
+    when face is selected, should show description below in battle hud
+    better selection/highlighting for dice/actors in battle scene
+      after this is done: dice should have unique colors
+    background image
+    juice when attacking/getting attacked
+    rolling animation
+    animation when drawing/discarding dice
+    sounds
+      attack sounds for each monster + player
+      player damaged
+      player dead
+      kill enemy
+      battle won
+      roll die
+      select/confirm die
+      end turn
+
+  Meta:
+    come up with a name and add a title/nicer looking menu
+    help screen
+    better win/lose screen
+    animation between scenes
+    music
+
+  MapScene:
+    show player avatar/hp on map
+    lines between map nodes
+    nicer looking map nodes
+    background image
+    sound for selecting a node
 
 DONE:
   add camp sites

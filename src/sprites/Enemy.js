@@ -25,12 +25,10 @@ export default class Enemy extends Actor {
     })
     this.sprite.flipX = true
 
-    this.moves = [{ type: 'sword', animation: 'attack' }, { type: 'shield' }]
     if (type === 'bat') {
       this.sprite.y += 10
     }
     if (type === 'nomad') {
-      this.moves.push({ type: 'pawn_up' })
       this.sprite.y += 10
     }
     if (type === 'viking' || type === 'warlock') {

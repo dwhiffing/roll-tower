@@ -3,7 +3,7 @@ export class Intent {
     this.scene = scene
     this.sprite = this.scene.add
       .sprite(x, y, 'sheet', 'shield.png')
-      .setScale(0.25)
+      .setScale(0.2)
       .setTint(0x0000ff)
       .setOrigin(0, 0.5)
   }

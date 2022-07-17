@@ -132,15 +132,16 @@ export default class extends Phaser.Scene {
 
   onAttack = (actor, damageMulti = 1, props = {}) => {
     if (props.stun) {
-      actor.setIntention({ type: 'question' })
+      actor.setIntention({ type: 'random' })
     }
-    if (props.weak && actor.stats.str) {
+    if (props.weak) {
+      actor.stats.weak = actor.stats.weak || 0
       actor.stats.weak += 1
     }
     if (props.fire) {
       actor.stats.flame += 3
     }
-    let _damage = this.player.stats.str * damageMulti
+    let _damage = this.player.getDamage() * damageMulti
     if (props.corrosive) {
       _damage = actor.armor
     }
