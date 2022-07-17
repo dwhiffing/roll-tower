@@ -56,7 +56,7 @@ export default class Actor {
   }
 
   attack() {
-    // TODO: need generic attack effect
+    // need generic attack effect
     if (this.isMoving) return
     this.isMoving = true
     this.play('attack')
@@ -68,7 +68,7 @@ export default class Actor {
   }
 
   addArmor(amount = 1) {
-    // TODO: need generic armor effect
+    // need generic armor effect
     if (this.isMoving) return
     this.isMoving = true
     this.play('armor')
@@ -88,7 +88,7 @@ export default class Actor {
     } else {
       this.armor = 0
       if (diff > 0) {
-        _amount = diff
+        _amount -= diff
       }
     }
     this.health -= _amount
@@ -125,6 +125,9 @@ export default class Actor {
           return !this.scene
             .getLiving()
             .every((a) => a.getMissingHealth() === 0)
+        }
+        if (move.name === 'defend') {
+          return this.armor < 3
         }
         return true
       }),
@@ -175,7 +178,7 @@ export default class Actor {
   doHeal = (actor) => {
     if (this.isMoving) return
     this.isMoving = true
-    // TODO: animation
+    // needs animation
     this.scene.time.delayedCall(TRANSITION_DURATION, () => {
       actor.heal(1)
       this.isMoving = false
@@ -185,7 +188,7 @@ export default class Actor {
   buffStr = (actor) => {
     if (this.isMoving) return
     this.isMoving = true
-    // TODO: animation
+    // needs animation
     this.scene.time.delayedCall(TRANSITION_DURATION, () => {
       actor.getBuffedStr()
       this.isMoving = false

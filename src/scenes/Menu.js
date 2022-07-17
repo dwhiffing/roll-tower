@@ -43,9 +43,6 @@ export default class extends Phaser.Scene {
         align: 'center',
       })
       .setOrigin(0.5)
-
-    // TODO: remove me
-    this.startGame()
   }
 
   startHelp = () => {

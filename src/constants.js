@@ -1,4 +1,4 @@
-export const TRANSITION_DURATION = 10
+export const TRANSITION_DURATION = 600
 export const POSSIBLE_TARGETS = {
   shield: ['player'],
   shield_crit: ['player'],
@@ -22,22 +22,20 @@ export const POSSIBLE_TARGETS = {
   random_crit: ['enemy'],
 }
 
-// TODO: write better descriptions
 export const DICE_POOL = [
   {
     name: 'Basic',
-    // sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
-    description: 'I am a basic die',
+    description: '50% block chance\n50% attack chance\n33% crit chance',
     sides: ['shield', 'shield', 'shield_crit', 'sword', 'sword', 'sword_crit'],
   },
   {
     name: 'Attack',
-    description: 'I am a attack die',
+    description: '100% attack chance\n33% crit chance',
     sides: ['sword', 'sword', 'sword', 'sword', 'sword_crit', 'sword_crit'],
   },
   {
     name: 'Block',
-    description: 'I am a block die',
+    description: '100% shield chance\n33% crit chance',
     sides: [
       'shield',
       'shield',
@@ -49,47 +47,51 @@ export const DICE_POOL = [
   },
   {
     name: 'Support',
-    description: 'I am a support die',
-    sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
+    description: 'Chance to draw a die\nor reroll one.',
+    sides: ['draw', 'draw', 'draw', 'shield', 'reroll', 'reroll'],
   },
   {
     name: 'Heal',
-    description: 'I am a heal die',
-    sides: ['heal', 'heal', 'heal', 'shield', 'shield', 'reroll'],
+    description: '100% chance heal 1hp\ncrit heals 2hp',
+    sides: ['heal', 'heal', 'heal', 'heal', 'heal', 'heal_crit'],
   },
   {
     name: 'Fire',
-    description: 'I am a fire die',
-    sides: ['fire', 'fire', 'fire_crit', 'sword', 'sword', 'sword'], // deals damage over time
+    description: '50% chance for fire\nDeals damage over time.',
+    sides: ['fire', 'fire', 'fire', 'sword', 'sword', 'sword'],
   },
   {
     name: 'Hammer',
-    description: 'I am a hammer die',
-    sides: ['magic', 'magic', 'magic', 'sword', 'sword', 'sword_crit'],
+    description: '50% chance for hammer\nStuns enemy for one turn',
+    sides: ['magic', 'magic', 'magic', 'sword', 'sword', 'sword'],
   },
   {
     name: 'Weaken',
-    description: 'I am a weaken die',
-    sides: ['skull', 'skull', 'skull', 'sword', 'sword', 'sword_crit'],
+    description: '50% chance for weaken\nLowers enemy damage.',
+    sides: ['skull', 'skull', 'skull', 'sword', 'sword', 'sword'],
   },
   {
     name: 'Arrow',
-    description: 'I am a arrow die',
-    sides: ['arrow', 'arrow', 'arrow', 'sword', 'sword', 'sword_crit'],
+    description: '50% chance for arrow\nDamages all enemies',
+    sides: ['arrow', 'arrow', 'arrow', 'sword', 'sword', 'sword'],
   },
-  {
-    name: 'Magic',
-    description: 'I am a magic die',
-    sides: ['book', 'book', 'book', 'sword', 'sword', 'sword_crit'],
-  },
+  // {
+  //   name: 'Magic',
+  //   description: 'I am a magic die',
+  //   sides: ['book', 'book', 'book', 'sword', 'sword', 'sword_crit'],
+  // },
   // do damage based on current armor
   // do damage based on number of dice in active pool
 ]
 export const INITIAL_DECK = [
   DICE_POOL[0],
   DICE_POOL[1],
+  DICE_POOL[1],
+  DICE_POOL[2],
   DICE_POOL[2],
   DICE_POOL[3],
+  DICE_POOL[3],
+  DICE_POOL[6],
 ]
 
 export const NODES = [
@@ -196,7 +198,7 @@ export const NODES = [
       null,
       { type: 'bat' },
       { type: 'bat' },
-      { type: 'warlock' },
+      null,
     ],
     x: 1,
     y: 7,
@@ -217,7 +219,7 @@ export const NODES = [
       null,
       { type: 'viking' },
       null,
-      { type: 'viking' },
+      { type: 'bat' },
       null,
       { type: 'warlock' },
     ],
@@ -292,7 +294,7 @@ export const NODES = [
       null,
       { type: 'viking' },
     ],
-    x: 0,
+    x: 1,
     y: 13,
   },
   {
@@ -321,12 +323,12 @@ export const NODES = [
 ]
 
 export const STATS = {
-  player: { hp: 25, str: 1, dex: 1, drawCount: 3 },
+  player: { hp: 50, str: 1, dex: 1, drawCount: 4 },
   bat: { hp: 3, str: 1, dex: 1 },
-  viking: { hp: 8, str: 2, dex: 2 },
+  viking: { hp: 6, str: 2, dex: 2 },
   warlock: { hp: 5, str: 2, dex: 2 },
-  nomad: { hp: 15, str: 3, dex: 3 },
-  golem: { hp: 50, str: 5, dex: 5 },
+  nomad: { hp: 12, str: 3, dex: 3 },
+  golem: { hp: 25, str: 5, dex: 5 },
 }
 
 export const MOVES = {

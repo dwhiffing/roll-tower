@@ -41,7 +41,7 @@ export default class extends Phaser.Scene {
           ? 'Add a new die'
           : this.mode === 'remove'
           ? 'Remove a die'
-          : 'Upgrade a die',
+          : 'Upgrade face (3)',
       )
       .setOrigin(0.5)
 
@@ -60,6 +60,7 @@ export default class extends Phaser.Scene {
     } else if (this.mode === 'remove') {
       this.createRemoveButtons()
     } else if (this.mode === 'upgrade') {
+      this.upgradeCount = 3
       this.createUpgradeButtons()
     }
     this.createSkipButton()
@@ -78,8 +79,11 @@ export default class extends Phaser.Scene {
   }
 
   onUpgradeDie = (face) => {
+    this.upgradeCount--
+    this.valueText.setText(`Upgrade face (${this.upgradeCount})`)
     this.deckService.upgradeDie(this.selectedDie, face)
-    this.events.emit('close')
+    if (this.upgradeCount === 0) this.events.emit('close')
+    this.faces.set(this.registry.values.deck[this.selectedDie.index])
   }
 
   createAddButtons = () => {

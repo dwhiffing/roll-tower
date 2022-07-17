@@ -1,11 +1,7 @@
 TODO
 
-write descriptions/help text
-
-play test until boss before starting more polish work
-
 animation when drawing/rolling/discarding dice
-upgrade should allow you to upgrade 3 different faces
+Add music and a couple sound effects, allow mute from menu
 better selection/highlighting for dice/actors in battle scene
   after this is done: dice should have unique colors
 
@@ -33,6 +29,9 @@ polish:
     sound for selecting a node
 
 DONE:
+  play test until boss before starting more polish work
+  upgrade should allow you to upgrade 3 different faces
+  write descriptions/help text
   click off of dice to deselect
   better explain that prompts are a 25% chance of failing
   show die descriptions when adding/removing/upgrading

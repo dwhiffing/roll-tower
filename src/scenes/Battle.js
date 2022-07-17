@@ -112,6 +112,17 @@ export default class extends Phaser.Scene {
     } else if (face === 'draw' && (!actor || actor.spriteKey === 'player')) {
       this.onDraw()
     }
+    if (face === 'heal' && (!actor || actor.spriteKey === 'player')) {
+      this.onheal(isCrit ? 2 : 1)
+    }
+  }
+
+  onHeal = (multi = 1) => {
+    this.onUseDie()
+    this.time.delayedCall(TRANSITION_DURATION / 2.5, () => {
+      this.player.heal(1 * multi)
+      this.restoreInput()
+    })
   }
 
   onDraw = () => {
@@ -210,8 +221,11 @@ export default class extends Phaser.Scene {
   getLiving = () => this.enemies.filter((e) => e.health > 0)
 
   won = () => {
+    if (this.winning) return
+    this.winning = true
     this.cameras.main.fadeOut(TRANSITION_DURATION)
-    this.scene.get('BattleHud').cameras.main.fadeOut(TRANSITION_DURATION)
+    if (this.scene.get('BattleHud'))
+      this.scene.get('BattleHud').cameras.main.fadeOut(TRANSITION_DURATION)
     this.time.delayedCall(TRANSITION_DURATION, () => {
       this.registry.values.playerStats.hp = this.player.health
       this.events.emit('battle-ended')

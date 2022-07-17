@@ -22,20 +22,21 @@ export default class Faces {
 
     this.sprites = []
     new Array(6).fill('n').forEach((k, i) => {
-      this.sprites.push(
-        this.scene.add
-          .sprite(
-            x + (i % 2) * 35 + 10,
-            y + Math.floor(i / 2) * 35 + 10,
-            'die',
-            `dice_sword.png`,
-          )
-          .setOrigin(0)
-          .setScale(0.5)
-          .setDepth(99)
-          .setInteractive()
-          .on('pointerdown', () => onClick(i)),
-      )
+      const sprite = this.scene.add
+        .sprite(
+          x + (i % 2) * 35 + 10,
+          y + Math.floor(i / 2) * 35 + 10,
+          'die',
+          `dice_sword.png`,
+        )
+        .setOrigin(0)
+        .setScale(0.5)
+        .setDepth(99)
+        .setInteractive()
+        .on('pointerdown', () => {
+          if (!sprite.frame.name.match(/_crit/)) onClick(i)
+        })
+      this.sprites.push(sprite)
     })
 
     this.bg.setAlpha(0)

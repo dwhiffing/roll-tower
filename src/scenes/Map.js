@@ -167,8 +167,10 @@ export default class extends Phaser.Scene {
     const r = this.registry
     if (this.promptBg.alpha === 0) return
     if (this.promptType === 'camp') {
-      // TODO: restore 20% of hp instead of all
-      r.values.playerStats.hp = STATS.player.hp
+      r.values.playerStats.hp += 999
+      if (r.values.playerStats.hp > STATS.player.hp)
+        r.values.playerStats.hp = STATS.player.hp
+      this.playerBar.set(this.registry.values.playerStats.hp, STATS.player.hp)
     } else {
       // accept terms of prompt
       if (this.promptType === 'increase-draw') {
@@ -211,7 +213,7 @@ export default class extends Phaser.Scene {
       this.scene.pause()
       this.scene.launch('Dice', { mode: 'upgrade' })
     } else {
-      // reject terms of prompt, TODO: get 5 hp as bonus?
+      // reject terms of prompt, get 5 hp as bonus?
     }
     this.hidePrompt()
   }
@@ -252,7 +254,7 @@ const PROMPT_TEXT = {
 }
 
 const PROMPT_DESCRIPTION = {
-  camp: 'Heal 25% health or Upgrade a die?',
+  camp: 'Heal 100% health or Upgrade a die?',
   'increase-draw':
     'Click checkmark to take a chance!\n75%: Increase dice drawn per turn\n25%: Lose 5 Health',
   remove:
