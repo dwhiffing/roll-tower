@@ -103,6 +103,7 @@ export const NODES = [
     x: 0,
     y: 1,
   },
+
   {
     type: 'battle',
     key: 'sword',
@@ -117,10 +118,16 @@ export const NODES = [
     x: 2,
     y: 1,
   },
+  // {
+  //   type: 'battle',
+  //   key: 'sword',
+  //   enemies: [null, null, null, { type: 'viking' }, { type: 'bat' }],
+  //   x: 1,
+  //   y: 2,
+  // },
   {
-    type: 'battle',
-    key: 'sword',
-    enemies: [null, null, null, { type: 'viking' }, { type: 'bat' }],
+    type: 'camp',
+    key: 'campfire',
     x: 1,
     y: 2,
   },
@@ -169,13 +176,19 @@ export const NODES = [
     x: 2,
     y: 5,
   },
+  {
+    type: 'camp',
+    key: 'campfire',
+    x: 1,
+    y: 6,
+  },
 
   {
     type: 'battle',
     key: 'skull',
     enemies: [null, null, null, null, { type: 'golem' }],
     x: 1,
-    y: 6,
+    y: 7,
   },
 ]
 

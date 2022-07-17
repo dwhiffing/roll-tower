@@ -76,9 +76,36 @@ export default class extends Phaser.Scene {
           this.scene.pause()
           this.scene.launch('Dice', { mode: 'upgrade' })
         }
+      } else if (node.type === 'camp') {
+        this.showRestPrompt()
       }
       this.registry.values.lastX = node.x
       this.registry.values.levelIndex++
     }
+  }
+
+  showRestPrompt = () => {
+    this.bg = this.add
+      .graphics()
+      .fillStyle(0x222222, 1)
+      .fillRect(10, 10, this.width - 20, 200)
+    this.add
+      .bitmapText(this.width / 2, 40, 'gem', 'Rest or Upgrade?')
+      .setOrigin(0.5)
+    this.add
+      .sprite(this.width / 2 - 50, 120, 'sheet', `campfire.png`)
+      .setInteractive()
+      .on('pointerdown', () => {
+        // TODO: restore 20% of hp
+        this.player.health = 10
+        this.scene.restart()
+      })
+    this.add
+      .sprite(this.width / 2 + 50, 120, 'sheet', `card_lift.png`)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.pause()
+        this.scene.launch('Dice', { mode: 'upgrade' })
+      })
   }
 }

@@ -1,15 +1,6 @@
 TODO
-
-  add more node types/variety
-    camp sites
-    select between buff/debuff
-    chance to gain/lose health/stats
-    add a bunch of new dice
-    upgrade a bunch of dice
-    increase drawCount
   add special moves for different enemies
   heal should remove status ailments
-  
 
 enemy special ideas:
   bat special: do nothing: use question mark for intent
@@ -23,9 +14,16 @@ debuff ideas:
   gain 50% less armor
   take 50% extra damage
   attacks target random enemies
+add more node types/variety
+  select between buff/debuff
+  chance to gain/lose health/stats
+  add a bunch of new dice
+  upgrade a bunch of dice
+  increase drawCount
 
 polish:
-  add descriptions for each face,
+  add descriptions for each face
+  show player avatar/hp on map
   when face is selected, should show description below
   better selection/highlighting
   dice should have unique colors
@@ -44,6 +42,7 @@ polish:
   animation between scenes
 
 DONE:
+  add camp sites
   reroll die should be able to target itself
   need weakness/fire indicator for actors (goes to right of hp bar, weakness is skull, fire is flame)
   player pawn should be positioned over last selected node (need to consider x)

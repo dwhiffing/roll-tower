@@ -132,7 +132,6 @@ export default class extends Phaser.Scene {
 
   onAttack = (actor, damageMulti = 1, props = {}) => {
     if (props.stun) {
-      // should change enemy intent to question mark, then they do nothing
       actor.setIntention({ type: 'question' })
     }
     if (props.weak && actor.stats.str) {
