@@ -30,6 +30,10 @@ export const POSSIBLE_TARGETS = {
 export const DICE_POOL = [
   DEFAULT_DIE,
   {
+    name: 'Support',
+    sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
+  },
+  {
     name: 'Attack',
     sides: ['sword', 'sword', 'sword', 'sword', 'sword_crit', 'sword_crit'],
   },
@@ -43,10 +47,6 @@ export const DICE_POOL = [
       'shield_crit',
       'shield_crit',
     ],
-  },
-  {
-    name: 'Support',
-    sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
   },
   {
     name: 'Heal',
@@ -78,25 +78,19 @@ export const DICE_POOL = [
   // clone die
 ]
 export const INITIAL_DECK = [
-  // DEFAULT_DIE,
-  // DEFAULT_DIE,
-  // DEFAULT_DIE,
-  DICE_POOL[5],
-  DICE_POOL[5],
-  DICE_POOL[5],
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  DICE_POOL[1],
+  DICE_POOL[1],
+  DICE_POOL[1],
 ]
 
 export const NODES = [
   {
     type: 'battle',
     key: 'sword',
-    enemies: [
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-    ],
+    enemies: [null, null, null, null, { type: 'bat' }],
     x: 1,
     y: 0,
   },

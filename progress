@@ -1,11 +1,9 @@
 TODO
-  dont start new player turn when battle is over
-  fix bug when double clicking too fast
-  ensure that selected die is nulled out when player turn is over
-  player pawn should be positioned over last selected node (need to consider x)
   stat for larger draw pool
   need weakness/fire indicator (goes to right of hp bar, weakness is skull, fire is flame)
+  player pawn should be positioned over last selected node (need to consider x)
   add camp sites to map
+  reroll die should be able to target itself
 
   add special moves for different enemies
   add more event node types/variety
@@ -31,6 +29,7 @@ polish:
   add descriptions for each face,
   when face is selected, should show description below
   better selection/highlighting
+  dice should have unique colors
   battle background
   map background
   lines between map nodes
@@ -46,6 +45,9 @@ polish:
   animation between scenes
 
 DONE:
+  dont start new player turn when battle is over
+  fix bug when double clicking too fast
+  ensure that selected die is nulled out when player turn is over
   add more die types/variety (should be able to reuse ideas/functionality for enemy behavior)
   add system for upgrading dice: should just be making a given face crit, can be added to dice scene
   basic die should have crit side for attack/armor

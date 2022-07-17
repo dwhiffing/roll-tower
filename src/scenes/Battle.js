@@ -182,15 +182,16 @@ export default class extends Phaser.Scene {
 
   playerTurn = () => {
     this.turnIndex = 0
-    if (this.player.health > 0) {
+    if (this.player.health > 0 && this.getLiving().length > 0) {
       this.deckService.draw(3)
+      this.getLiving().forEach((e, i) => e.getIntention())
+      this.hud.endTurnButton.setAlpha(1)
+      this.restoreInput()
     }
-    this.getLiving().forEach((e, i) => e.getIntention())
-    this.hud.endTurnButton.setAlpha(1)
-    this.restoreInput()
   }
 
   enemyTurn = () => {
+    this.selectedDie = null
     this.deckService.discardAll()
     this.turnIndex = 1
     this.hud.endTurnButton.setAlpha(0)
