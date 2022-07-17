@@ -1,16 +1,16 @@
 TODO
-  need weakness/fire indicator for actors (goes to right of hp bar, weakness is skull, fire is flame)
-  add camp sites to map
   reroll die should be able to target itself
-  heal should remove status ailments
 
-  add special moves for different enemies
-  add more event node types/variety
+  add more node types/variety
+    camp sites
     select between buff/debuff
     chance to gain/lose health/stats
     add a bunch of new dice
     upgrade a bunch of dice
     increase drawCount
+  add special moves for different enemies
+  heal should remove status ailments
+  
 
 enemy special ideas:
   bat special: do nothing: use question mark for intent
@@ -45,6 +45,7 @@ polish:
   animation between scenes
 
 DONE:
+  need weakness/fire indicator for actors (goes to right of hp bar, weakness is skull, fire is flame)
   player pawn should be positioned over last selected node (need to consider x)
   stat for larger draw pool
   dont start new player turn when battle is over

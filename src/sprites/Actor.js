@@ -3,6 +3,7 @@ import { STATS } from '../constants'
 import { Armor } from './Armor'
 import { Bar } from './Bar'
 import { Intent } from './Intent'
+import { Status } from './Status'
 
 export default class Actor {
   constructor(scene, spriteKey, x, y) {
@@ -20,6 +21,8 @@ export default class Actor {
     this.armorBar = new Armor(scene, x - 32, y - 4)
     this.intent = new Intent(scene, x - 8, y - 18)
     this.intent.set('')
+    this.status = new Status(scene, x + 21, y - 4)
+    this.status.set('')
     this.hpBar.set(this.health, this.maxHealth)
     this.sprite.setInteractive()
     this.sprite.on('pointerdown', () => {
@@ -88,6 +91,13 @@ export default class Actor {
     this.scene.time.delayedCall(300, () => this.sprite.clearTint())
     this.hpBar.set(this.health, this.maxHealth)
     this.armorBar.set(this.armor)
+    if (this.stats.flame > 0) {
+      this.status.set('fire.png')
+    } else if (this.state.weak > 0) {
+      this.status.set('skull.png')
+    } else {
+      this.status.set()
+    }
     if (this.health <= 0) {
       this.die()
     }
@@ -110,7 +120,9 @@ export default class Actor {
     }
     if (this.health <= 0 || this.scene.player.health <= 0) return
     if (this.intention === 'sword') {
-      this.scene.player.damage(this.stats.str)
+      let dmg = this.stats.str - this.stats.weak
+      if (dmg < 0) dmg = 0
+      this.scene.player.damage(dmg)
       this.attack()
     } else if (this.intention === 'shield') {
       this.addArmor(this.stats.dex)
@@ -119,6 +131,7 @@ export default class Actor {
 
   die() {
     this.intent.set('')
+    this.status.set('')
     this.hpBar.set(0, this.maxHealth)
     this.hpBar.die()
     this.armorBar.set(0)

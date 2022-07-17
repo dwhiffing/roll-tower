@@ -137,8 +137,7 @@ export default class extends Phaser.Scene {
       actor.setIntention({ type: 'question' })
     }
     if (props.weak && actor.stats.str) {
-      actor.stats.str -= 1
-      if (actor.stats.str < 0) actor.stats.str = 0
+      actor.stats.weak += 1
     }
     if (props.fire) {
       actor.stats.flame += 3
@@ -175,7 +174,10 @@ export default class extends Phaser.Scene {
   restoreInput = () => {
     this.disableInput = false
     this.checkWinCondition()
-    if (this.registry.values.activePile.length === 0) {
+    if (
+      this.registry.values.activePile.length === 0 &&
+      this.getLiving().length > 0
+    ) {
       this.enemyTurn()
     }
   }
@@ -186,8 +188,8 @@ export default class extends Phaser.Scene {
       this.deckService.draw(this.player.stats.drawCount)
       this.getLiving().forEach((e, i) => e.getIntention())
       this.hud.endTurnButton.setAlpha(1)
-      this.restoreInput()
     }
+    this.restoreInput()
   }
 
   enemyTurn = () => {
@@ -207,8 +209,7 @@ export default class extends Phaser.Scene {
 
   won = () => {
     this.events.emit('battle-ended')
-    // TODO: should be based on passed battle key being boss
-    if (this.registry.values.levelIndex === 3) {
+    if (this.battleType === 'boss') {
       this.scene.start('Win', { condition: true })
     } else {
       this.scene.launch('Dice', { mode: 'add' })
