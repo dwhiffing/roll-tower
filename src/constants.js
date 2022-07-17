@@ -1,11 +1,13 @@
 export const DEFAULT_DIE = {
   name: 'Basic',
   // sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
-  sides: ['shield', 'shield', 'shield', 'sword', 'sword', 'sword'],
+  sides: ['shield', 'shield', 'shield_crit', 'sword', 'sword', 'sword_crit'],
 }
 
 export const POSSIBLE_TARGETS = {
   shield: ['player'],
+  shield_crit: ['player'],
+  sword_crit: ['enemy'],
   sword: ['enemy'],
   reroll: ['die'],
   draw: ['player'],
@@ -26,9 +28,12 @@ export const INITIAL_DECK = [
   DEFAULT_DIE,
   DEFAULT_DIE,
   DEFAULT_DIE,
-  DICE_POOL[1],
-  DICE_POOL[1],
-  DICE_POOL[1],
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  DEFAULT_DIE,
+  // DICE_POOL[1],
+  // DICE_POOL[1],
+  // DICE_POOL[1],
 ]
 
 export const NODES = [

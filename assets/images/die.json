@@ -4,7 +4,7 @@
 			"image": "die.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 858,
+				"w": 990,
 				"h": 66
 			},
 			"scale": 1,
@@ -241,7 +241,7 @@
 					}
 				},
 				{
-					"filename": "dice_skull.png",
+					"filename": "dice_shield_crit.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -262,7 +262,7 @@
 					}
 				},
 				{
-					"filename": "dice_sword.png",
+					"filename": "dice_skull.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -281,6 +281,48 @@
 						"w": 64,
 						"h": 64
 					}
+				},
+				{
+					"filename": "dice_sword.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 859,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "dice_sword_crit.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 925,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
 				}
 			]
 		}
@@ -288,6 +330,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:74cf5a98aed8623c431061904fa2d198:76df16ce3379876fff7b47baecfa0784:0dd90663f1862a26d2090c86a03da2aa$"
+		"smartupdate": "$TexturePacker:SmartUpdate:7c272ab1cde9b8e54b488df5ee72b6d9:ed7aa70b0903ed82d0a51d497979155a:0dd90663f1862a26d2090c86a03da2aa$"
 	}
 }

@@ -8,7 +8,6 @@ export default class Die {
     this.sprite = this.scene.add
       .sprite(x, y, 'die')
       .setOrigin(0, 0)
-      .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => {
         let clickDelay = this.scene.time.now - lastTime

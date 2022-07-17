@@ -86,13 +86,17 @@ export default class extends Phaser.Scene {
   }
 
   handleFace = (face, actor) => {
-    if (face === 'sword') {
+    if (face.match(/sword/)) {
       if (!actor && this.getLiving().length < 2) {
         actor = this.getLiving()[0]
       }
-      if (actor && actor.type === 'enemy') this.onAttack(actor)
-    } else if (face === 'shield' && (!actor || actor.spriteKey === 'player')) {
-      this.onAddArmor()
+      if (actor && actor.type === 'enemy')
+        this.onAttack(actor, face === 'sword_crit' ? 2 : 1)
+    } else if (
+      face.match(/shield/) &&
+      (!actor || actor.spriteKey === 'player')
+    ) {
+      this.onAddArmor(face === 'shield_crit' ? 2 : 1)
     } else if (face === 'draw' && (!actor || actor.spriteKey === 'player')) {
       this.onDraw()
     }
@@ -114,19 +118,19 @@ export default class extends Phaser.Scene {
     })
   }
 
-  onAttack = (actor) => {
+  onAttack = (actor, damageMulti = 1) => {
     this.onUseDie()
     this.player.attack(1)
     this.time.delayedCall(500, () => {
       const enemy = this.enemies.find((e) => e === actor)
-      enemy?.damage(1)
+      enemy?.damage(this.player.stats.str * damageMulti)
       this.restoreInput()
     })
   }
 
-  onAddArmor = () => {
+  onAddArmor = (amountMulti = 1) => {
     this.onUseDie()
-    this.player.addArmor()
+    this.player.addArmor(this.player.stats.dex * amountMulti)
     this.time.delayedCall(500, this.restoreInput)
   }
 

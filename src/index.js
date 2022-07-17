@@ -4,7 +4,7 @@ import * as scenes from './scenes'
 var config = {
   parent: 'phaser',
   type: Phaser.AUTO,
-  width: 270,
+  width: 300,
   height: 480,
   backgroundColor: '#5599ad',
   scene: Object.values(scenes),
