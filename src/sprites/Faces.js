@@ -5,11 +5,11 @@ export default class Faces {
     this.bg = this.scene.add
       .graphics()
       .fillStyle(0x222222, 1)
-      .fillRect(x, y, 70, 100)
+      .fillRect(x, y, 90, 120)
       .setDepth(98)
 
     this.scene.input.on('pointermove', (p) => {
-      this.move(p.x - 35, p.y - 100)
+      this.move(p.x - 40, p.y - 130)
     })
     this.scene.input.on('pointerover', (a, b) => {
       this.set(b[0].die)
@@ -23,13 +23,13 @@ export default class Faces {
       this.sprites.push(
         this.scene.add
           .sprite(
-            x + (i % 2) * 30 + 10,
-            y + Math.floor(i / 2) * 30 + 10,
+            x + (i % 2) * 35 + 10,
+            y + Math.floor(i / 2) * 35 + 10,
             'die',
             `dice_sword.png`,
           )
           .setOrigin(0)
-          .setScale(0.3)
+          .setScale(0.5)
           .setDepth(99),
       )
     })
@@ -54,7 +54,7 @@ export default class Faces {
   move(x, y) {
     this.bg.setPosition(x, y)
     this.sprites.forEach((s, i) =>
-      s.setPosition(x + (i % 2) * 30 + 10, y + Math.floor(i / 2) * 30 + 10),
+      s.setPosition(x + (i % 2) * 35 + 10, y + Math.floor(i / 2) * 35 + 10),
     )
   }
 
