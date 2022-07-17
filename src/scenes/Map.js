@@ -1,5 +1,6 @@
 import { NODES } from '../constants'
 
+const NODE_OFFSET = 120
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Map' })
@@ -14,12 +15,13 @@ export default class extends Phaser.Scene {
     if (!this.registry.values.levelIndex) this.registry.values.levelIndex = 0
 
     this.nodes = NODES.map((node, i) => {
-      const x = this.width / 2
-      const y = this.height - (i * 100 + 200)
+      const x = this.width / 2 + 70 * (node.x - 1)
+      const y = this.height - (node.y * NODE_OFFSET + 200)
       const sprite = this.add
         .sprite(x, y, 'sheet', node.key + '.png')
         .setTint(0xaaaaaa)
         .setOrigin(0.5)
+        .setScale(0.7)
         .setInteractive()
         .on('pointerdown', () => this.clickNode(node, i))
       return { ...node, sprite, index: i }
@@ -41,7 +43,7 @@ export default class extends Phaser.Scene {
       this.startScroll = null
     })
     const x = this.width / 2
-    const y = 380 - this.registry.values.levelIndex * 100
+    const y = 380 - this.registry.values.levelIndex * NODE_OFFSET
     this.player = this.add.sprite(x, y, 'sheet', 'pawn.png').setOrigin(0.5)
     this.cameras.main.centerOnY(this.player.y)
 
@@ -50,7 +52,7 @@ export default class extends Phaser.Scene {
     // this.clickNode(this.nodes[1], 1)
 
     // autostart first battle
-    this.clickNode(this.nodes[0], 0)
+    // this.clickNode(this.nodes[0], 0)
 
     // // launch add die screen
     // this.scene.launch('Dice', { mode: 'add' })
@@ -59,7 +61,7 @@ export default class extends Phaser.Scene {
   update() {}
 
   clickNode = (node, i) => {
-    if (i === this.registry.values.levelIndex) {
+    if (node.y === this.registry.values.levelIndex) {
       if (node.type === 'battle') {
         this.scene.start('Battle', {
           enemies: node.enemies,

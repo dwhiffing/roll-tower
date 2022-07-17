@@ -65,7 +65,6 @@ export default class extends Phaser.Scene {
     if (targets.includes('enemy')) {
       this.getLiving().forEach((e) => e.highlight())
     }
-    console.log(targets, face)
     if (targets.includes('die')) {
       this.hud.activePileSprites.forEach((e) => {
         if (e !== this.selectedDie) e.highlight()
