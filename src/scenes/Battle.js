@@ -154,7 +154,7 @@ export default class extends Phaser.Scene {
 
   checkWinCondition = () => {
     if (this.enemies.every((e) => e.health <= 0)) {
-      this.time.delayedCall(1000, this.won)
+      this.time.delayedCall(2000, this.won)
     }
   }
 

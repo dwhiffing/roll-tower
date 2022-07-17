@@ -31,6 +31,18 @@ export default class extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     })
+    this.load.spritesheet('golem', 'assets/images/golem.png', {
+      frameWidth: 64,
+      frameHeight: 64,
+    })
+    this.load.spritesheet('viking', 'assets/images/viking.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+    })
+    this.load.spritesheet('warlock', 'assets/images/warlock.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+    })
 
     this.load.bitmapFont(
       'pixel-dan',

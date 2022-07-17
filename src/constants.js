@@ -31,6 +31,38 @@ export const NODES = [
     enemies: [null, null, null, null, { type: 'bat' }],
   },
   {
+    type: 'event',
+    key: 'rhombus_question',
+    event: 'remove-die',
+  },
+  {
+    type: 'battle',
+    key: 'sword',
+    enemies: [
+      null,
+      null,
+      null,
+      { type: 'bat' },
+      { type: 'bat' },
+      { type: 'bat' },
+    ],
+  },
+  {
+    type: 'battle',
+    key: 'sword',
+    enemies: [null, null, null, { type: 'viking' }, { type: 'bat' }],
+  },
+  {
+    type: 'event',
+    key: 'rhombus_question',
+    event: 'remove-die',
+  },
+  {
+    type: 'battle',
+    key: 'sword',
+    enemies: [null, null, null, { type: 'viking' }, { type: 'warlock' }],
+  },
+  {
     type: 'battle',
     key: 'sword',
     enemies: [null, null, null, null, { type: 'nomad' }],
@@ -42,17 +74,27 @@ export const NODES = [
   },
   {
     type: 'battle',
-    key: 'skull',
+    key: 'sword',
     enemies: [
+      null,
+      { type: 'viking' },
+      null,
       { type: 'bat' },
       { type: 'bat' },
       { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
-      { type: 'bat' },
+      null,
+      { type: 'viking' },
+      null,
     ],
+  },
+  {
+    type: 'event',
+    key: 'rhombus_question',
+    event: 'remove-die',
+  },
+  {
+    type: 'battle',
+    key: 'skull',
+    enemies: [null, null, null, null, { type: 'golem' }],
   },
 ]

@@ -1,12 +1,18 @@
 TODO
+  double click to use die when only one target
+  highlight valid targets when die is selected
+  add branching and more nodes to map
+  add stats/moves for different enemies
+  add more monster behavior
   add more event node types/variety
-  add more monster types/variety
   add more die types/variety
   add system for upgrading dice
   add identification system
-  highlight valid targets when die is selected
 
 DONE:
+  add boss
+  add support for scrolling to map
+  added nomad sprite/animations
   add draw face
   add re-roll face
   add ui for examining dice to see faces
