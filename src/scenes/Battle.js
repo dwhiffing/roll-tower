@@ -113,7 +113,7 @@ export default class extends Phaser.Scene {
       this.onDraw()
     }
     if (face === 'heal' && (!actor || actor.spriteKey === 'player')) {
-      this.onheal(isCrit ? 2 : 1)
+      this.onHeal(isCrit ? 2 : 1)
     }
   }
 
