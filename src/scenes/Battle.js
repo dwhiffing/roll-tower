@@ -45,10 +45,9 @@ export default class extends Phaser.Scene {
     if (this.turnIndex !== 0 || this.disableInput) return
     if (
       this.selectedDie &&
-      this.selectedDie.sides[this.selectedDie.sideIndex] === 'reroll' &&
-      die !== this.selectedDie
+      this.selectedDie.sides[this.selectedDie.sideIndex] === 'reroll'
     ) {
-      this.onReroll(die)
+      this.onReroll(this.selectedDie, die)
       return
     }
 
@@ -123,10 +122,10 @@ export default class extends Phaser.Scene {
     })
   }
 
-  onReroll = (die) => {
-    this.onUseDie()
+  onReroll = (source, target) => {
+    this.onUseDie(source !== target)
     this.time.delayedCall(250, () => {
-      this.deckService.reroll(die.index)
+      this.deckService.reroll(target.index)
       this.restoreInput()
     })
   }
@@ -161,13 +160,13 @@ export default class extends Phaser.Scene {
     this.time.delayedCall(500, this.restoreInput)
   }
 
-  onUseDie = () => {
+  onUseDie = (shouldDestroy = true) => {
     this.disableInput = true
-    if (this.selectedDie) {
+    if (this.selectedDie && shouldDestroy) {
       this.deckService.discard(this.selectedDie.index)
       this.selectedDie?.sprite?.destroy()
-      this.selectedDie = null
     }
+    this.selectedDie = null
     this.unhighlightAll()
   }
 

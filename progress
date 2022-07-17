@@ -1,5 +1,4 @@
 TODO
-  reroll die should be able to target itself
 
   add more node types/variety
     camp sites
@@ -45,6 +44,7 @@ polish:
   animation between scenes
 
 DONE:
+  reroll die should be able to target itself
   need weakness/fire indicator for actors (goes to right of hp bar, weakness is skull, fire is flame)
   player pawn should be positioned over last selected node (need to consider x)
   stat for larger draw pool
