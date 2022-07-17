@@ -4,13 +4,13 @@ design map layout better and play test until boss before starting polish work
 
 polish:
   Battle:
-    when face is selected, should show description below in battle hud
     better selection/highlighting for dice/actors in battle scene
       after this is done: dice should have unique colors
     background image
     juice when attacking/getting attacked
     rolling animation
     animation when drawing/discarding dice
+    click off of dice to deselect
     sounds
       attack sounds for each monster + player
       player damaged
@@ -22,14 +22,12 @@ polish:
       end turn
 
   Meta:
-    come up with a name and add a title/nicer looking menu
-    help screen
+    better font
     better win/lose screen
     animation between scenes
     music
 
   MapScene:
-    show player avatar/hp on map
     lines between map nodes
     nicer looking map nodes
     background image
@@ -37,6 +35,10 @@ polish:
     add fancy-die event: lose 3 random dice OR gain a really strong one
 
 DONE:
+  show player avatar/hp on map
+  when face is selected, should show description below in battle hud
+  help screen
+  come up with a name and add a title/nicer looking menu
   increase-draw: increase drawCount by 1 OR lose 5 hp
   heal should remove status ailments
   add special moves for different enemies

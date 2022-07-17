@@ -1,7 +1,7 @@
 {
   "name": "gmtk-2022",
   "version": "0.0.1",
-  "description": "GMTK 2022",
+  "description": "Roll Tower",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js; cp -r assets dist/; cp favicon.png dist/; cp manifest.json dist/",

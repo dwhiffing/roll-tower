@@ -1,6 +1,7 @@
 export { default as BootScene } from './Boot'
 export { default as BattleScene } from './Battle'
 export { default as MenuScene } from './Menu'
+export { default as HelpScene } from './Help'
 export { default as MapScene } from './Map'
 export { default as DiceScene } from './Dice'
 export { default as BattleHudScene } from './BattleHud'

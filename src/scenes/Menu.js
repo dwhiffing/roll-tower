@@ -11,12 +11,31 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(this.width / 2, 200, 'sheet', 'title.png').setScale(0.5)
+    this.add.image(this.width / 2, 150, 'sheet', 'title.png')
 
     this.add
       .image(this.width / 2, this.height - 80, 'sheet', 'button.png')
       .setInteractive()
       .on('pointerdown', this.startGame)
+
+    this.add
+      .text(this.width / 2, this.height - 80, 'Play', {
+        fontSize: 14,
+        align: 'center',
+      })
+      .setOrigin(0.5)
+
+    this.add
+      .image(this.width / 2, this.height - 140, 'sheet', 'button.png')
+      .setInteractive()
+      .on('pointerdown', this.startHelp)
+
+    this.add
+      .text(this.width / 2, this.height - 140, 'Help', {
+        fontSize: 14,
+        align: 'center',
+      })
+      .setOrigin(0.5)
 
     this.add
       .text(this.width / 2, this.height - 20, 'Created by Dan Whiffing', {
@@ -29,7 +48,10 @@ export default class extends Phaser.Scene {
     this.startGame()
   }
 
-  startGame() {
+  startHelp = () => {
+    this.scene.start('Help')
+  }
+  startGame = () => {
     this.registry.values.lastX = 1
     this.registry.values.deck = [...INITIAL_DECK].map((d, i) => ({
       ...d,
