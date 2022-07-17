@@ -1,16 +1,15 @@
 TODO
 
 design map layout better and play test until boss before starting polish work
+click off of dice to deselect
+animation when drawing/rolling/discarding dice
+better selection/highlighting for dice/actors in battle scene
+  after this is done: dice should have unique colors
 
 polish:
   Battle:
-    better selection/highlighting for dice/actors in battle scene
-      after this is done: dice should have unique colors
     background image
     juice when attacking/getting attacked
-    rolling animation
-    animation when drawing/discarding dice
-    click off of dice to deselect
     sounds
       attack sounds for each monster + player
       player damaged
@@ -23,18 +22,17 @@ polish:
 
   Meta:
     better font
-    better win/lose screen
-    animation between scenes
     music
 
   MapScene:
     lines between map nodes
-    nicer looking map nodes
     background image
     sound for selecting a node
-    add fancy-die event: lose 3 random dice OR gain a really strong one
 
 DONE:
+  nicer looking map nodes
+  animation between scenes
+  better win/lose screen
   show player avatar/hp on map
   when face is selected, should show description below in battle hud
   help screen
