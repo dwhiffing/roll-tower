@@ -1,11 +1,24 @@
 TODO
-  add moves for different enemies
-  basic die should have crit side for attack/armor
-  dont start new player turn when battle is over
-  add more event node types/variety
-  add more die types/variety
+  add more die types/variety (should be able to reuse ideas/functionality for enemy behavior)
+    ideas:
+      deal damage to all enemies
+      heal 1 hp
+      stun an enemy
+      life steal from an enemy
+      weaken an enemy
+      remove all armor, but no damage
+
+
+  upgrading sould just be making a given face crit, then just have a crit version of each face?
   add system for upgrading dice
-  add identification system
+  add more event node types/variety
+    select between buff/debuff
+    chance to gain/lose health/stats
+    add a bunch of new dice
+    upgrade a bunch of dice
+  dont start new player turn when battle is over
+  add special moves for different enemies
+  add identification system?
 
 special ideas:
   buff stats
@@ -19,7 +32,26 @@ debuff ideas:
   take 50% extra damage
   attacks target random enemies
 
+polish:
+  add descriptions for each face,
+  when face is selected, should show description below
+  better selection/highlighting
+  battle background
+  map background
+  lines between map nodes
+  nicer looking map nodes
+  come up with a name and add a title
+  help screen
+  better win/lose screen
+  sounds
+  music
+  juice when attacking/getting attacked
+  rolling animation/sounds
+  animation when drawing/discarding dice
+  animation between scenes
+
 DONE:
+  basic die should have crit side for attack/armor
   add stats for different enemies
   each monster should have a set of moves that it picks randomly from
   attack damage/armor amount should be based on stats for player and enemies
