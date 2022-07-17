@@ -1,7 +1,7 @@
 import DeckService from '../services/Deck'
 import Enemy from '../sprites/Enemy'
 import Player from '../sprites/Player'
-import { POSSIBLE_TARGETS } from '../constants'
+import { POSSIBLE_TARGETS, TRANSITION_DURATION } from '../constants'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -38,7 +38,7 @@ export default class extends Phaser.Scene {
       .events.on('double-click-die', this.onDoubleClickDie)
     this.time.delayedCall(1, this.playerTurn)
 
-    this.cameras.main.fadeIn(600)
+    this.cameras.main.fadeIn(TRANSITION_DURATION)
   }
 
   onClickDie = (die) => {
@@ -116,7 +116,7 @@ export default class extends Phaser.Scene {
 
   onDraw = () => {
     this.onUseDie()
-    this.time.delayedCall(250, () => {
+    this.time.delayedCall(TRANSITION_DURATION / 2.5, () => {
       this.deckService.draw(1)
       this.restoreInput()
     })
@@ -124,7 +124,7 @@ export default class extends Phaser.Scene {
 
   onReroll = (source, target) => {
     this.onUseDie(source !== target)
-    this.time.delayedCall(250, () => {
+    this.time.delayedCall(TRANSITION_DURATION / 2.5, () => {
       this.deckService.reroll(target.index)
       this.restoreInput()
     })
@@ -147,7 +147,7 @@ export default class extends Phaser.Scene {
     }
     this.onUseDie()
     this.player.attack(1)
-    this.time.delayedCall(500, () => {
+    this.time.delayedCall(TRANSITION_DURATION, () => {
       const enemy = this.enemies.find((e) => e === actor)
       enemy?.damage(_damage)
       this.restoreInput()
@@ -157,7 +157,7 @@ export default class extends Phaser.Scene {
   onAddArmor = (amountMulti = 1) => {
     this.onUseDie()
     this.player.addArmor(this.player.stats.dex * amountMulti)
-    this.time.delayedCall(500, this.restoreInput)
+    this.time.delayedCall(TRANSITION_DURATION, this.restoreInput)
   }
 
   onUseDie = (shouldDestroy = true) => {
@@ -198,18 +198,21 @@ export default class extends Phaser.Scene {
     this.hud.endTurnButton.setAlpha(0)
 
     this.getLiving().forEach((e, i) =>
-      this.time.delayedCall((i + 1) * 500, e.takeTurn),
+      this.time.delayedCall((i + 1) * TRANSITION_DURATION, e.takeTurn),
     )
     const numLiving = this.getLiving().length
-    this.time.delayedCall((numLiving + 1) * 500, this.playerTurn.bind(this))
+    this.time.delayedCall(
+      (numLiving + 1) * TRANSITION_DURATION,
+      this.playerTurn.bind(this),
+    )
   }
 
   getLiving = () => this.enemies.filter((e) => e.health > 0)
 
   won = () => {
-    this.cameras.main.fadeOut(600)
-    this.scene.get('BattleHud').cameras.main.fadeOut(600)
-    this.time.delayedCall(600, () => {
+    this.cameras.main.fadeOut(TRANSITION_DURATION)
+    this.scene.get('BattleHud').cameras.main.fadeOut(TRANSITION_DURATION)
+    this.time.delayedCall(TRANSITION_DURATION, () => {
       this.registry.values.playerStats.hp = this.player.health
       this.events.emit('battle-ended')
       if (this.battleType === 'boss') {
@@ -229,7 +232,7 @@ export default class extends Phaser.Scene {
 
   checkWinCondition = () => {
     if (this.enemies.every((e) => e.health <= 0)) {
-      this.time.delayedCall(2000, this.won)
+      this.time.delayedCall(TRANSITION_DURATION * 3, this.won)
     }
   }
 

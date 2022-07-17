@@ -1,4 +1,4 @@
-import { INITIAL_DECK, STATS } from '../constants'
+import { INITIAL_DECK, STATS, TRANSITION_DURATION } from '../constants'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -52,8 +52,8 @@ export default class extends Phaser.Scene {
     this.scene.start('Help')
   }
   startGame = () => {
-    this.cameras.main.fadeOut(600)
-    this.time.delayedCall(600, () => {
+    this.cameras.main.fadeOut(TRANSITION_DURATION)
+    this.time.delayedCall(TRANSITION_DURATION, () => {
       this.registry.values.lastX = 1
       this.registry.values.deck = [...INITIAL_DECK].map((d, i) => ({
         ...d,

@@ -1,3 +1,5 @@
+import { TRANSITION_DURATION } from '../constants'
+
 export class Bar {
   constructor(scene, x, y, width, height, tint, scroll = true) {
     this.scene = scene
@@ -22,7 +24,7 @@ export class Bar {
   die() {
     this.barMid.setActive(false).setVisible(false)
     this.shadowMid.setActive(false).setVisible(false)
-    this.scene.time.delayedCall(300, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION / 2, () => {
       this.valueText.setAlpha(0)
     })
   }

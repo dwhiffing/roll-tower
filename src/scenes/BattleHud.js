@@ -1,3 +1,4 @@
+import { TRANSITION_DURATION } from '../constants'
 import Die from '../sprites/Die'
 import Faces from '../sprites/Faces'
 
@@ -17,7 +18,7 @@ export default class extends Phaser.Scene {
     this.createDrawCounter()
     this.createDiscardCounter()
     this.createEndTurnButton()
-    this.cameras.main.fadeIn(600)
+    this.cameras.main.fadeIn(TRANSITION_DURATION)
 
     this.descText = this.add.text(10, this.height - 50, '', { fontSize: 10 })
     this.input.on('pointerover', (a, b) => {

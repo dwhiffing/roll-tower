@@ -1,5 +1,5 @@
 import { sample } from 'lodash'
-import { MOVES, STATS } from '../constants'
+import { MOVES, STATS, TRANSITION_DURATION } from '../constants'
 import { Armor } from './Armor'
 import { Bar } from './Bar'
 import { Intent } from './Intent'
@@ -60,7 +60,7 @@ export default class Actor {
     if (this.isMoving) return
     this.isMoving = true
     this.play('attack')
-    this.scene.time.delayedCall(500, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION, () => {
       if (this.spriteKey !== 'player')
         this.scene.player.damage(this.getDamage())
       this.isMoving = false
@@ -72,7 +72,7 @@ export default class Actor {
     if (this.isMoving) return
     this.isMoving = true
     this.play('armor')
-    this.scene.time.delayedCall(500, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION, () => {
       this.armor += amount
       this.isMoving = false
       this.armorBar.set(this.armor)
@@ -93,7 +93,9 @@ export default class Actor {
     }
     this.health -= _amount
     this.sprite.setTintFill(0xff0000)
-    this.scene.time.delayedCall(300, () => this.sprite.clearTint())
+    this.scene.time.delayedCall(TRANSITION_DURATION / 2, () =>
+      this.sprite.clearTint(),
+    )
     this.updateStatus()
     if (this.health <= 0) {
       this.die()
@@ -152,7 +154,7 @@ export default class Actor {
       this.health = this.maxHealth
     }
     this.sprite.setTintFill(0x00ffff)
-    this.scene.time.delayedCall(300, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION / 2, () => {
       this.sprite.clearTint()
     })
     this.stats.weak = 0
@@ -164,7 +166,7 @@ export default class Actor {
     this.stats.buffedStr = this.buffedStr || 0
     this.stats.buffedStr += 1
     this.sprite.setTintFill(0xff00ff)
-    this.scene.time.delayedCall(300, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION / 2, () => {
       this.sprite.clearTint()
     })
     this.updateStatus()
@@ -174,7 +176,7 @@ export default class Actor {
     if (this.isMoving) return
     this.isMoving = true
     // TODO: animation
-    this.scene.time.delayedCall(500, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION, () => {
       actor.heal(1)
       this.isMoving = false
     })
@@ -184,7 +186,7 @@ export default class Actor {
     if (this.isMoving) return
     this.isMoving = true
     // TODO: animation
-    this.scene.time.delayedCall(500, () => {
+    this.scene.time.delayedCall(TRANSITION_DURATION, () => {
       actor.getBuffedStr()
       this.isMoving = false
     })
@@ -212,7 +214,7 @@ export default class Actor {
       this.buffStr(target)
     } else if (this.move.name === 'attack_defend') {
       this.attack()
-      this.scene.time.delayedCall(505, () => {
+      this.scene.time.delayedCall(TRANSITION_DURATION + 5, () => {
         this.addArmor(this.stats.dex)
       })
     }

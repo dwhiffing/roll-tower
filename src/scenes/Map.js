@@ -1,4 +1,4 @@
-import { NODES, STATS } from '../constants'
+import { NODES, STATS, TRANSITION_DURATION } from '../constants'
 import { Bar } from '../sprites/Bar'
 
 const NODE_OFFSET = 150
@@ -92,11 +92,11 @@ export default class extends Phaser.Scene {
     // this.clickNode(this.nodes[1], 1)
 
     // autostart first battle
-    // this.clickNode(this.nodes[0], 0)
+    this.clickNode(this.nodes[0], 0)
 
     // // launch add die screen
     // this.scene.launch('Dice', { mode: 'add' })
-    if (this.shouldFade) this.cameras.main.fadeIn(600)
+    if (this.shouldFade) this.cameras.main.fadeIn(TRANSITION_DURATION)
   }
 
   update() {}
@@ -108,18 +108,19 @@ export default class extends Phaser.Scene {
         targets: [this.player],
         y: node.sprite.y - 50,
         x: node.sprite.x,
-        duration: 600,
+        duration: TRANSITION_DURATION,
         onUpdate: (a, b, c) => {
           this.playerBar.move(b.x, b.y)
         },
       })
       if (node.type === 'battle') {
-        this.time.delayedCall(300, () => {
-          this.cameras.main.fadeOut(600)
+        this.time.delayedCall(TRANSITION_DURATION / 2, () => {
+          this.cameras.main.fadeOut(TRANSITION_DURATION)
         })
       }
-      this.time.delayedCall(node.type === 'battle' ? 1500 : 800, () =>
-        this.handleNode(node),
+      this.time.delayedCall(
+        node.type === 'battle' ? TRANSITION_DURATION * 3 : TRANSITION_DURATION,
+        () => this.handleNode(node),
       )
     }
   }
@@ -166,20 +167,20 @@ export default class extends Phaser.Scene {
     } else {
       // accept terms of prompt
       if (this.promptType === 'increase-draw') {
-        if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
+        if (Phaser.Math.RND.integerInRange(0, 4) !== 0) {
           r.values.playerStats.drawCount += 1
         } else {
           this.hurtPlayer()
         }
       } else if (this.promptType === 'upgrade') {
-        if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
+        if (Phaser.Math.RND.integerInRange(0, 4) !== 0) {
           this.onUpgrade()
         } else {
           // TODO: should have unique disadvantage: gain bad die
           this.hurtPlayer()
         }
       } else if (this.promptType === 'remove') {
-        if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
+        if (Phaser.Math.RND.integerInRange(0, 4) !== 0) {
           this.onRemove()
         } else {
           // TODO: should have unique disadvantage: lose 2 random dice
@@ -218,7 +219,11 @@ export default class extends Phaser.Scene {
   }
 
   showPrompt = (type) => {
-    this.cameras.main.pan(this.cameras.main.width / 2, this.player.y, 600)
+    this.cameras.main.pan(
+      this.cameras.main.width / 2,
+      this.player.y,
+      TRANSITION_DURATION,
+    )
     this.promptBg.setAlpha(1)
     this.promptTitle.setAlpha(1)
     this.promptTitle.setText(PROMPT_TEXT[type])
