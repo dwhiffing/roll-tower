@@ -121,3 +121,12 @@ export const NODES = [
     y: 6,
   },
 ]
+
+export const STATS = {
+  player: { hp: 10, str: 1, dex: 1 },
+  bat: { hp: 2, str: 1, dex: 1 },
+  viking: { hp: 8, str: 2, dex: 2 },
+  warlock: { hp: 5, str: 2, dex: 2 },
+  nomad: { hp: 15, str: 3, dex: 3 },
+  golem: { hp: 50, str: 5, dex: 5 },
+}

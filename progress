@@ -1,14 +1,30 @@
 TODO
-  add branching and more nodes to map
-  add stats/moves for different enemies
-  add more monster behavior
+  add moves for different enemies
+  basic die should have crit side for attack/armor
+  dont start new player turn when battle is over
   add more event node types/variety
   add more die types/variety
   add system for upgrading dice
   add identification system
-  dont start new player turn when battle is over
+
+special ideas:
+  buff stats
+  inflict debuff on player
+  heal other enemies
+  deal damage and gain block
+  give player negative die for the rest of the fight
+debuff ideas:
+  do 50% less damage
+  gain 50% less armor
+  take 50% extra damage
+  attacks target random enemies
 
 DONE:
+  add stats for different enemies
+  each monster should have a set of moves that it picks randomly from
+  attack damage/armor amount should be based on stats for player and enemies
+  monster health should be based on stats
+  add branching and more nodes to map
   highlight valid targets when die is selected
   double click to use die when only one target
   add boss

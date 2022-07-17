@@ -1,3 +1,5 @@
+import { sample } from 'lodash'
+import { STATS } from '../constants'
 import { Armor } from './Armor'
 import { Bar } from './Bar'
 import { Intent } from './Intent'
@@ -7,9 +9,10 @@ export default class Actor {
     this.scene = scene
     this.spriteKey = spriteKey
     this.sprite = scene.add.sprite(x, y, spriteKey)
+    this.stats = STATS[spriteKey]
     if (!this.health) {
-      this.health = 1
-      this.maxHealth = 1
+      this.health = this.stats.hp
+      this.maxHealth = this.stats.hp
     }
     this.armor = 0
     this.hpBar = new Bar(scene, x - 16, y - 4, 42, 7, 0xff0000)
@@ -90,22 +93,18 @@ export default class Actor {
   }
 
   getIntention = () => {
-    if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
-      this.intention = 'sword'
-      this.intent.set('sword.png')
-    } else {
-      this.intention = 'shield'
-      this.intent.set('shield.png')
-    }
+    const move = sample(this.moves)
+    this.intention = move.type
+    this.intent.set(`${move.type}.png`)
   }
 
   takeTurn = () => {
     if (this.scene.player.health <= 0) return
     if (this.intention === 'sword') {
-      this.scene.player.damage(1)
+      this.scene.player.damage(this.stats.str)
       this.attack()
     } else if (this.intention === 'shield') {
-      this.addArmor(1)
+      this.addArmor(this.stats.dex)
     }
   }
 

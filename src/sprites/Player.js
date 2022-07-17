@@ -3,8 +3,8 @@ import Actor from './Actor'
 export default class Player extends Actor {
   constructor(scene, x, y) {
     super(scene, 'player', x, y)
-    this.health = 10
-    this.maxHealth = 10
+    this.health = this.stats.hp
+    this.maxHealth = this.stats.hp
     this.hpBar.set(this.health, this.maxHealth)
 
     const getFrames = (frames) =>
