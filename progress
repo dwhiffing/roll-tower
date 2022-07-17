@@ -1,10 +1,9 @@
 TODO
 
 add more event node types/variety
-  increase drawCount
-  lose 3 random dice but gain a really strong one
-  heal all hp OR upgrade 3 dice
-  add a risky die OR upgrade 3 dice
+  fancy-die: lose 3 random dice OR gain a really strong one
+  upgrade-die: add a bad die OR upgrade dice
+  remove-die: remove 2 random dice OR remove a die of your choice
 
 polish:
   Battle:
@@ -40,6 +39,7 @@ polish:
     sound for selecting a node
 
 DONE:
+  increase-draw: increase drawCount by 1 OR lose 5 hp
   heal should remove status ailments
   add special moves for different enemies
     bat: do nothing: use question mark for intent

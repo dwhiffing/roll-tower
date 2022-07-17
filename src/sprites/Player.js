@@ -3,8 +3,14 @@ import Actor from './Actor'
 export default class Player extends Actor {
   constructor(scene, x, y) {
     super(scene, 'player', x, y)
-    this.health = this.stats.hp
+
+    const regStats = this.scene.registry.values.playerStats
+    this.stats.str += regStats.str || 0
+    this.stats.dex += regStats.dex || 0
+    this.stats.drawCount += regStats.drawCount || 0
+    this.health = regStats.hp || this.stats.hp
     this.maxHealth = this.stats.hp
+
     this.hpBar.set(this.health, this.maxHealth)
 
     const getFrames = (frames) =>

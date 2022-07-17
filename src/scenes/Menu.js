@@ -1,4 +1,4 @@
-import { INITIAL_DECK } from '../constants'
+import { INITIAL_DECK, STATS } from '../constants'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -35,6 +35,12 @@ export default class extends Phaser.Scene {
       ...d,
       index: i,
     }))
+    this.registry.values.playerStats = {
+      drawCount: 0,
+      str: 0,
+      dex: 0,
+      hp: STATS.player.hp,
+    }
     this.registry.values.activePile = []
     this.registry.values.discardPile = []
     this.scene.start('Map')

@@ -206,6 +206,7 @@ export default class extends Phaser.Scene {
   getLiving = () => this.enemies.filter((e) => e.health > 0)
 
   won = () => {
+    this.scene.registry.values.playerStats.hp = this.player.health
     this.events.emit('battle-ended')
     if (this.battleType === 'boss') {
       this.scene.start('Win', { condition: true })
