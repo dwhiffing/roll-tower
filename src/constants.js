@@ -178,7 +178,7 @@ export const NODES = [
 ]
 
 export const STATS = {
-  player: { hp: 10, str: 1, dex: 1 },
+  player: { hp: 10, str: 1, dex: 1, drawCount: 3 },
   bat: { hp: 2, str: 1, dex: 1 },
   viking: { hp: 8, str: 2, dex: 2 },
   warlock: { hp: 5, str: 2, dex: 2 },

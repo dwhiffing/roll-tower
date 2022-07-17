@@ -83,7 +83,7 @@ export default class extends Phaser.Scene {
     this.activePileSprites = []
     this.registry.values.activePile.forEach((die, i) => {
       const x = (i % 4) * 70 + 10
-      const y = this.height / 2 + 20 + Math.floor(i / 4) * 50
+      const y = this.height / 2 + 20 + Math.floor(i / 4) * 70
       this.activePileSprites.push(new Die(this, x, y, die))
     })
   }

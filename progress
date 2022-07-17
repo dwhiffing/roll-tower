@@ -1,9 +1,9 @@
 TODO
-  stat for larger draw pool
-  need weakness/fire indicator (goes to right of hp bar, weakness is skull, fire is flame)
+  need weakness/fire indicator for actors (goes to right of hp bar, weakness is skull, fire is flame)
   player pawn should be positioned over last selected node (need to consider x)
   add camp sites to map
   reroll die should be able to target itself
+  heal should remove status ailments
 
   add special moves for different enemies
   add more event node types/variety
@@ -11,6 +11,7 @@ TODO
     chance to gain/lose health/stats
     add a bunch of new dice
     upgrade a bunch of dice
+    increase drawCount
 
 enemy special ideas:
   bat special: do nothing: use question mark for intent
@@ -45,6 +46,7 @@ polish:
   animation between scenes
 
 DONE:
+  stat for larger draw pool
   dont start new player turn when battle is over
   fix bug when double clicking too fast
   ensure that selected die is nulled out when player turn is over
