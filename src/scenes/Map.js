@@ -42,8 +42,8 @@ export default class extends Phaser.Scene {
       this.startY = null
       this.startScroll = null
     })
-    const x = this.width / 2
-    const y = 380 - this.registry.values.levelIndex * NODE_OFFSET
+    const x = this.width / 2 + (this.registry.values.lastX - 1) * 70
+    const y = 400 - this.registry.values.levelIndex * NODE_OFFSET
     this.player = this.add.sprite(x, y, 'sheet', 'pawn.png').setOrigin(0.5)
     this.cameras.main.centerOnY(this.player.y)
 
@@ -77,6 +77,7 @@ export default class extends Phaser.Scene {
           this.scene.launch('Dice', { mode: 'upgrade' })
         }
       }
+      this.registry.values.lastX = node.x
       this.registry.values.levelIndex++
     }
   }

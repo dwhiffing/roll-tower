@@ -30,6 +30,7 @@ export default class extends Phaser.Scene {
   }
 
   startGame() {
+    this.registry.values.lastX = 1
     this.registry.values.deck = [...INITIAL_DECK].map((d, i) => ({
       ...d,
       index: i,

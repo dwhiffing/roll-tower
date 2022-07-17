@@ -50,7 +50,7 @@ export const DICE_POOL = [
   },
   {
     name: 'Heal',
-    sides: ['heal', 'heal', 'heal', 'armor', 'armor', 'reroll'],
+    sides: ['heal', 'heal', 'heal', 'shield', 'shield', 'reroll'],
   },
   {
     name: 'Fire',
@@ -76,6 +76,8 @@ export const DICE_POOL = [
   // TODO: add more dice types
   // life steal from an enemy
   // clone die
+  // do damage based on current armor
+  // do damage based on number of dice in active pool
 ]
 export const INITIAL_DECK = [
   DEFAULT_DIE,
