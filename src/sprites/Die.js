@@ -3,6 +3,7 @@ export default class Die {
     this.scene = scene
     this.sideIndex = die.sideIndex
     this.sides = die.sides
+    this.description = die.description
     this.index = die.index
     let lastTime = 0
     this.sprite = this.scene.add

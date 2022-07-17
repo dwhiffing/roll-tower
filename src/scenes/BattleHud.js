@@ -17,6 +17,15 @@ export default class extends Phaser.Scene {
     this.createDrawCounter()
     this.createDiscardCounter()
     this.createEndTurnButton()
+    this.cameras.main.fadeIn(600)
+
+    this.descText = this.add.text(10, this.height - 50, '', { fontSize: 10 })
+    this.input.on('pointerover', (a, b) => {
+      if (b[0].die?.description) this.descText.setText(b[0].die.description)
+    })
+    this.input.on('pointerout', (a, b) => {
+      if (b) this.descText.setText('')
+    })
 
     this.activePileSprites = []
     this.registry.events.on('setdata', this.changeData)

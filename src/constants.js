@@ -1,9 +1,3 @@
-export const DEFAULT_DIE = {
-  name: 'Basic',
-  // sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
-  sides: ['shield', 'shield', 'shield_crit', 'sword', 'sword', 'sword_crit'],
-}
-
 export const POSSIBLE_TARGETS = {
   shield: ['player'],
   shield_crit: ['player'],
@@ -27,18 +21,27 @@ export const POSSIBLE_TARGETS = {
   random_crit: ['enemy'],
 }
 
+// TODO: write better descriptions
 export const DICE_POOL = [
-  DEFAULT_DIE,
+  {
+    name: 'Basic',
+    // sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
+    description: 'I am a basic die',
+    sides: ['shield', 'shield', 'shield_crit', 'sword', 'sword', 'sword_crit'],
+  },
   {
     name: 'Support',
+    description: 'I am a support die',
     sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
   },
   {
     name: 'Attack',
+    description: 'I am a attack die',
     sides: ['sword', 'sword', 'sword', 'sword', 'sword_crit', 'sword_crit'],
   },
   {
     name: 'Block',
+    description: 'I am a block die',
     sides: [
       'shield',
       'shield',
@@ -50,39 +53,43 @@ export const DICE_POOL = [
   },
   {
     name: 'Heal',
+    description: 'I am a heal die',
     sides: ['heal', 'heal', 'heal', 'shield', 'shield', 'reroll'],
   },
   {
     name: 'Fire',
+    description: 'I am a fire die',
     sides: ['fire', 'fire', 'fire_crit', 'sword', 'sword', 'sword'], // deals damage over time
   },
   {
     name: 'Hammer',
+    description: 'I am a hammer die',
     // TODO: magic should be renamed to stun
     sides: ['magic', 'magic', 'magic', 'sword', 'sword', 'sword_crit'],
   },
   {
     name: 'Weaken',
+    description: 'I am a weaken die',
     sides: ['skull', 'skull', 'skull', 'sword', 'sword', 'sword_crit'],
   },
   {
     name: 'Arrow',
+    description: 'I am a arrow die',
     sides: ['arrow', 'arrow', 'arrow', 'sword', 'sword', 'sword_crit'],
   },
   {
     name: 'Magic',
+    description: 'I am a magic die',
     sides: ['book', 'book', 'book', 'sword', 'sword', 'sword_crit'],
   },
   // TODO: add more dice types
-  // life steal from an enemy
-  // clone die
   // do damage based on current armor
   // do damage based on number of dice in active pool
 ]
 export const INITIAL_DECK = [
-  DEFAULT_DIE,
-  DEFAULT_DIE,
-  DEFAULT_DIE,
+  DICE_POOL[0],
+  DICE_POOL[0],
+  DICE_POOL[0],
   DICE_POOL[1],
   DICE_POOL[1],
   DICE_POOL[1],
@@ -193,7 +200,7 @@ export const NODES = [
 ]
 
 export const STATS = {
-  player: { hp: 10, str: 1, dex: 1, drawCount: 3 },
+  player: { hp: 25, str: 1, dex: 1, drawCount: 3 },
   bat: { hp: 3, str: 1, dex: 1 },
   viking: { hp: 8, str: 2, dex: 2 },
   warlock: { hp: 5, str: 2, dex: 2 },
