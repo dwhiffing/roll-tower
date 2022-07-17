@@ -37,7 +37,7 @@ export default class extends Phaser.Scene {
       .get('BattleHud')
       .events.on('double-click-die', this.onDoubleClickDie)
     this.time.delayedCall(1, this.playerTurn)
-
+    this.winning = false
     this.cameras.main.fadeIn(TRANSITION_DURATION)
   }
 
