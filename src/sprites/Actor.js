@@ -18,7 +18,7 @@ export default class Actor {
     }
     this.armor = 0
 
-    let _y = spriteKey === 'bat' ? y - 4 : y + 15
+    let _y = spriteKey.match(/bat|golem|nomad/) ? y - 4 : y + 13
     this.hpBar = new Bar(scene, x - 16, _y, 42, 7, 0xff0000)
     this.armorBar = new Armor(scene, x - 32, _y)
     this.intent = new Intent(scene, x - 8, _y - 12)
@@ -56,7 +56,7 @@ export default class Actor {
   }
 
   attack() {
-    // TODO: need bat attack animation
+    // TODO: need generic attack effect
     if (this.isMoving) return
     this.isMoving = true
     this.play('attack')
@@ -68,6 +68,7 @@ export default class Actor {
   }
 
   addArmor(amount = 1) {
+    // TODO: need generic armor effect
     if (this.isMoving) return
     this.isMoving = true
     this.play('armor')
@@ -209,7 +210,9 @@ export default class Actor {
       this.buffStr(target)
     } else if (this.move.name === 'attack_defend') {
       this.attack()
-      this.addArmor(this.stats.dex)
+      this.scene.time.delayedCall(505, () => {
+        this.addArmor(this.stats.dex)
+      })
     }
   }
 

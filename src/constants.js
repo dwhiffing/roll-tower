@@ -201,7 +201,6 @@ export const STATS = {
   golem: { hp: 50, str: 5, dex: 5 },
 }
 
-// need to implement buff_str, attack_defend and heal
 export const MOVES = {
   bat: [
     { type: 'sword', name: 'attack' },
@@ -221,8 +220,7 @@ export const MOVES = {
     { type: 'sword', name: 'attack' },
     { type: 'sword', name: 'attack' },
     { type: 'random', name: 'attack_defend' },
-    { type: 'shield', name: 'defend' },
-    { type: 'random', name: 'buff_str' },
+    { type: 'pawn_up', name: 'buff_str' },
   ],
   golem: [
     { type: 'sword', name: 'attack' },

@@ -106,7 +106,6 @@ export default class extends Phaser.Scene {
   }
 
   createUpgradeButtons = () => {
-    // need to be able to select a specific face on a die
     this.registry.values.deck.forEach((die, i) => {
       const perRow = 5
       const x = (i % perRow) * 45 + 45

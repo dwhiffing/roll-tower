@@ -19,7 +19,6 @@ export default class extends Phaser.Scene {
     this.player = new Player(this, 50, 100)
     this.deckService = new DeckService(this)
 
-    // this should be done in a service
     this.enemies = this.enemyData
       .map((enemy, i) => {
         if (!enemy) return null

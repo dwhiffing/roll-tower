@@ -9,7 +9,6 @@ export default class DeckService {
     this.index = 0
   }
 
-  // change to getter
   get = () => this.scene.registry.values
 
   set = (key, value) => this.scene.registry.set(key, value)
