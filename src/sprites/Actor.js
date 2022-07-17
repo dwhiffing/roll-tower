@@ -155,6 +155,8 @@ export default class Actor {
     this.scene.time.delayedCall(300, () => {
       this.sprite.clearTint()
     })
+    this.stats.weak = 0
+    this.stats.flame = 0
     this.updateStatus()
   }
 

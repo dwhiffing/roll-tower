@@ -1,12 +1,4 @@
 TODO
-  add special moves for different enemies
-    bat: do nothing: use question mark for intent
-    warlock: buff health/str/dex for other monster
-    warlock: weaken player
-    nomad: deal damage and gain block
-    nomad: weaken player
-    golem: give player negative die for the rest of the fight
-  heal should remove status ailments
 
 add more event node types/variety
   increase drawCount
@@ -48,6 +40,14 @@ polish:
     sound for selecting a node
 
 DONE:
+  heal should remove status ailments
+  add special moves for different enemies
+    bat: do nothing: use question mark for intent
+    warlock: buff health/str/dex for other monster
+    warlock: weaken player
+    nomad: deal damage and gain block
+    nomad: weaken player
+    golem: give player negative die for the rest of the fight
   add camp sites
   reroll die should be able to target itself
   need weakness/fire indicator for actors (goes to right of hp bar, weakness is skull, fire is flame)
