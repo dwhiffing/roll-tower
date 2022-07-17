@@ -1,6 +1,4 @@
 TODO
-  double click to use die when only one target
-  highlight valid targets when die is selected
   add branching and more nodes to map
   add stats/moves for different enemies
   add more monster behavior
@@ -8,8 +6,11 @@ TODO
   add more die types/variety
   add system for upgrading dice
   add identification system
+  dont start new player turn when battle is over
 
 DONE:
+  highlight valid targets when die is selected
+  double click to use die when only one target
   add boss
   add support for scrolling to map
   added nomad sprite/animations

@@ -1,6 +1,7 @@
 import DeckService from '../services/Deck'
 import Enemy from '../sprites/Enemy'
 import Player from '../sprites/Player'
+import { POSSIBLE_TARGETS } from '../constants'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -50,14 +51,32 @@ export default class extends Phaser.Scene {
       this.onReroll(die)
       return
     }
+
     this.selectedDie?.deselect()
     this.selectedDie = die
     die.select()
+
+    this.unhighlightAll()
+    const face = die.sides[die.sideIndex]
+    const targets = POSSIBLE_TARGETS[face]
+    if (targets.includes('player')) {
+      this.player.highlight()
+    }
+    if (targets.includes('enemy')) {
+      this.getLiving().forEach((e) => e.highlight())
+    }
+    console.log(targets, face)
+    if (targets.includes('die')) {
+      this.hud.activePileSprites.forEach((e) => {
+        if (e !== this.selectedDie) e.highlight()
+      })
+    }
   }
 
-  onDoubleClickDie = () => {
+  onDoubleClickDie = (die) => {
     if (this.turnIndex !== 0 || this.disableInput) return
-    const face = this.selectedDie.sides[this.selectedDie.sideIndex]
+    const _die = this.selectedDie || die
+    const face = _die.sides[_die.sideIndex]
     this.handleFace(face)
   }
 
@@ -72,7 +91,7 @@ export default class extends Phaser.Scene {
       if (!actor && this.getLiving().length < 2) {
         actor = this.getLiving()[0]
       }
-      if (actor) this.onAttack(actor)
+      if (actor && actor.type === 'enemy') this.onAttack(actor)
     } else if (face === 'shield' && (!actor || actor.spriteKey === 'player')) {
       this.onAddArmor()
     } else if (face === 'draw' && (!actor || actor.spriteKey === 'player')) {
@@ -117,6 +136,7 @@ export default class extends Phaser.Scene {
     this.deckService.discard(this.selectedDie.index)
     this.selectedDie?.sprite?.destroy()
     this.selectedDie = null
+    this.unhighlightAll()
   }
 
   restoreInput = () => {
@@ -184,5 +204,11 @@ export default class extends Phaser.Scene {
     this.events.on('click-actor', this.onClickActor)
 
     this.hud = this.scene.get('BattleHud')
+  }
+
+  unhighlightAll = () => {
+    this.player.unhighlight()
+    this.hud.activePileSprites.forEach((e) => e.unhighlight())
+    this.getLiving().forEach((e) => e.unhighlight())
   }
 }

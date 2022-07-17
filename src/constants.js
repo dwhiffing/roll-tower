@@ -4,6 +4,13 @@ export const DEFAULT_DIE = {
   sides: ['shield', 'shield', 'shield', 'sword', 'sword', 'sword'],
 }
 
+export const POSSIBLE_TARGETS = {
+  shield: ['player'],
+  sword: ['enemy'],
+  reroll: ['die'],
+  draw: ['player'],
+}
+
 export const DICE_POOL = [
   DEFAULT_DIE,
   {

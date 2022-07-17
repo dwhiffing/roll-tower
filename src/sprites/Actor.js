@@ -38,6 +38,14 @@ export default class Actor {
     return this.sprite.play(`${this.spriteKey}-${key}`)
   }
 
+  unhighlight() {
+    this.sprite.clearTint()
+  }
+
+  highlight() {
+    this.sprite.setTintFill(0xffff00)
+  }
+
   attack() {
     // TODO: need bat attack animation
     if (this.isMoving) return

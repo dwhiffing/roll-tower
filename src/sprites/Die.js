@@ -27,12 +27,21 @@ export default class Die {
 
   select = () => {
     this.selected = true
-    this.sprite.setTint(0xffff00)
+    this.sprite.setTint(0x0000ff)
   }
 
   deselect = () => {
     this.selected = false
     this.sprite.clearTint()
+  }
+
+  highlight = () => {
+    this.sprite.setTint(0xffff00)
+  }
+
+  unhighlight = () => {
+    this.sprite.clearTint()
+    if (this.selected) this.select()
   }
 
   destroy = () => {
