@@ -33,6 +33,11 @@ export default class extends Phaser.Scene {
 
     this.scene.get('BattleHud').events.off('click-die')
     this.scene.get('BattleHud').events.on('click-die', this.onClickDie)
+
+    this.scene.get('BattleHud').events.off('double-click-die')
+    this.scene
+      .get('BattleHud')
+      .events.on('double-click-die', this.onDoubleClickDie)
   }
 
   onClickDie = (die) => {
@@ -50,16 +55,27 @@ export default class extends Phaser.Scene {
     die.select()
   }
 
+  onDoubleClickDie = () => {
+    if (this.turnIndex !== 0 || this.disableInput) return
+    const face = this.selectedDie.sides[this.selectedDie.sideIndex]
+    this.handleFace(face)
+  }
+
   onClickActor = (actor) => {
     if (this.turnIndex !== 0 || this.disableInput || !this.selectedDie) return
-    const clickedType = this.selectedDie.sides[this.selectedDie.sideIndex]
-    if (clickedType === 'sword' && actor.type === 'enemy') {
-      this.onAttack(actor)
-    }
-    if (clickedType === 'shield' && actor.spriteKey === 'player') {
+    const face = this.selectedDie.sides[this.selectedDie.sideIndex]
+    this.handleFace(face, actor)
+  }
+
+  handleFace = (face, actor) => {
+    if (face === 'sword') {
+      if (!actor && this.getLiving().length < 2) {
+        actor = this.getLiving()[0]
+      }
+      if (actor) this.onAttack(actor)
+    } else if (face === 'shield' && (!actor || actor.spriteKey === 'player')) {
       this.onAddArmor()
-    }
-    if (clickedType === 'draw' && actor.spriteKey === 'player') {
+    } else if (face === 'draw' && (!actor || actor.spriteKey === 'player')) {
       this.onDraw()
     }
   }

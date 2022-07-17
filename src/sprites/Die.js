@@ -4,13 +4,20 @@ export default class Die {
     this.sideIndex = die.sideIndex
     this.sides = die.sides
     this.index = die.index
+    let lastTime = 0
     this.sprite = this.scene.add
       .sprite(x, y, 'die')
       .setOrigin(0, 0)
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => {
-        this.scene.events.emit('click-die', this, this.sides[this.sideIndex])
+        let clickDelay = this.scene.time.now - lastTime
+        lastTime = this.scene.time.now
+        let eventName = 'click-die'
+        if (clickDelay < 350) {
+          eventName = 'double-click-die'
+        }
+        this.scene.events.emit(eventName, this, this.sides[this.sideIndex])
       })
     this.sprite.setFrame(`dice_${this.sides[this.sideIndex]}.png`)
     this.sprite.setDepth(9)
