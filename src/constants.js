@@ -99,7 +99,7 @@ export const NODES = [
   {
     type: 'event',
     key: 'rhombus_question',
-    event: 'upgrade-die',
+    event: 'upgrade',
     x: 0,
     y: 1,
   },
@@ -134,7 +134,7 @@ export const NODES = [
   {
     type: 'event',
     key: 'rhombus_question',
-    event: 'remove-die',
+    event: 'remove',
     x: 0,
     y: 3,
   },
@@ -172,7 +172,7 @@ export const NODES = [
   {
     type: 'event',
     key: 'rhombus_question',
-    event: 'remove-die',
+    event: 'increase-draw',
     x: 2,
     y: 5,
   },

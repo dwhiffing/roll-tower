@@ -94,16 +94,14 @@ export default class extends Phaser.Scene {
           type: node.key === 'skull' ? 'boss' : 'normal',
         })
       } else if (node.type === 'event') {
-        if (node.event === 'remove-die') {
-          this.scene.pause()
-          this.scene.launch('Dice', { mode: 'remove' })
-        }
-        if (node.event === 'upgrade-die') {
-          this.scene.pause()
-          this.scene.launch('Dice', { mode: 'upgrade' })
-        }
         if (node.event === 'increase-draw') {
           this.showPrompt('increase-draw')
+        }
+        if (node.event === 'upgrade') {
+          this.showPrompt('upgrade')
+        }
+        if (node.event === 'remove') {
+          this.showPrompt('remove')
         }
       } else if (node.type === 'camp') {
         this.showPrompt('camp')
@@ -111,6 +109,16 @@ export default class extends Phaser.Scene {
       this.registry.values.lastX = node.x
       this.registry.values.levelIndex++
     }
+  }
+
+  onUpgrade = () => {
+    this.scene.pause()
+    this.scene.launch('Dice', { mode: 'upgrade' })
+  }
+
+  onRemove = () => {
+    this.scene.pause()
+    this.scene.launch('Dice', { mode: 'remove' })
   }
 
   onPromptA = () => {
@@ -125,6 +133,20 @@ export default class extends Phaser.Scene {
         if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
           r.values.playerStats.drawCount += 1
         } else {
+          this.hurtPlayer()
+        }
+      } else if (this.promptType === 'upgrade') {
+        if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
+          this.onUpgrade()
+        } else {
+          // TODO: should have unique disadvantage: gain bad die
+          this.hurtPlayer()
+        }
+      } else if (this.promptType === 'remove') {
+        if (Phaser.Math.RND.integerInRange(0, 1) === 0) {
+          this.onRemove()
+        } else {
+          // TODO: should have unique disadvantage: lose 2 random dice
           this.hurtPlayer()
         }
       }
@@ -174,14 +196,20 @@ export default class extends Phaser.Scene {
 const PROMPT_TEXT = {
   camp: 'Rest or Upgrade?',
   'increase-draw': 'Increase Draw\nor Lose Health',
+  upgrade: 'Upgrade Die\nor Lose Health',
+  remove: 'Remove Die\nor Lose Health',
 }
 
 const PROMPT_ICON_A = {
   camp: 'campfire',
   'increase-draw': 'checkmark',
+  upgrade: 'checkmark',
+  remove: 'checkmark',
 }
 
 const PROMPT_ICON_B = {
   camp: 'card_lift',
   'increase-draw': 'cross',
+  upgrade: 'cross',
+  remove: 'cross',
 }

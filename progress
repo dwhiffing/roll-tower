@@ -1,9 +1,6 @@
 TODO
 
-add more event node types/variety
-  fancy-die: lose 3 random dice OR gain a really strong one
-  upgrade-die: add a bad die OR upgrade dice
-  remove-die: remove 2 random dice OR remove a die of your choice
+design map layout better and play test until boss before starting polish work
 
 polish:
   Battle:
@@ -37,6 +34,7 @@ polish:
     nicer looking map nodes
     background image
     sound for selecting a node
+    add fancy-die event: lose 3 random dice OR gain a really strong one
 
 DONE:
   increase-draw: increase drawCount by 1 OR lose 5 hp
