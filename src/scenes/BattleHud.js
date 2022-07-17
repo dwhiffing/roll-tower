@@ -27,6 +27,13 @@ export default class extends Phaser.Scene {
     this.input.on('pointerout', (a, b) => {
       if (b) this.descText.setText('')
     })
+    this.input.on('pointerdown', (a, b) => {
+      if (b.length === 0 && a.y > this.height / 2) {
+        this.battle.selectedDie?.deselect()
+        this.battle.selectedDie = null
+        this.battle.unhighlightAll()
+      }
+    })
 
     this.activePileSprites = []
     this.registry.events.on('setdata', this.changeData)

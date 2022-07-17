@@ -70,18 +70,23 @@ export default class extends Phaser.Scene {
       .setScrollFactor(0)
       .setAlpha(0)
     this.promptTitle = this.add
-      .bitmapText(this.width / 2, _y + 40, 'gem', '')
+      .bitmapText(this.width / 2, _y + 30, 'gem', '')
+      .setOrigin(0.5)
+      .setScrollFactor(0)
+      .setAlpha(0)
+    this.promptDescription = this.add
+      .text(this.width / 2, _y + 70, '', { fontSize: 12 })
       .setOrigin(0.5)
       .setScrollFactor(0)
       .setAlpha(0)
     this.promptOptionA = this.add
-      .sprite(this.width / 2 - 50, _y + 120, 'sheet', `campfire.png`)
+      .sprite(this.width / 2 - 50, _y + 160, 'sheet', `campfire.png`)
       .setInteractive()
       .on('pointerdown', this.onPromptA)
       .setScrollFactor(0)
       .setAlpha(0)
     this.promptOptionB = this.add
-      .sprite(this.width / 2 + 50, _y + 120, 'sheet', `card_lift.png`)
+      .sprite(this.width / 2 + 50, _y + 160, 'sheet', `card_lift.png`)
       .setInteractive()
       .on('pointerdown', this.onPromptB)
       .setScrollFactor(0)
@@ -197,6 +202,7 @@ export default class extends Phaser.Scene {
     if (r.values.playerStats.hp < 1) {
       r.values.playerStats.hp = 1
     }
+    this.playerBar.set(this.registry.values.playerStats.hp, STATS.player.hp)
   }
 
   onPromptB = () => {
@@ -214,6 +220,7 @@ export default class extends Phaser.Scene {
     this.promptBg.setAlpha(0)
     this.promptTitle.setAlpha(0)
     this.promptOptionA.setAlpha(0)
+    this.promptDescription.setAlpha(0)
     this.promptOptionB.setAlpha(0)
     this.promptType = null
   }
@@ -226,7 +233,9 @@ export default class extends Phaser.Scene {
     )
     this.promptBg.setAlpha(1)
     this.promptTitle.setAlpha(1)
+    this.promptDescription.setAlpha(1)
     this.promptTitle.setText(PROMPT_TEXT[type])
+    this.promptDescription.setText(PROMPT_DESCRIPTION[type])
     this.promptOptionA.setAlpha(1)
     this.promptOptionA.setFrame(`${PROMPT_ICON_A[type]}.png`)
     this.promptOptionB.setAlpha(1)
@@ -236,10 +245,19 @@ export default class extends Phaser.Scene {
 }
 
 const PROMPT_TEXT = {
-  camp: 'Rest or Upgrade?',
-  'increase-draw': 'Increase Draw\nor Lose Health',
+  camp: 'Camp',
+  'increase-draw': 'Event',
+  upgrade: 'Event',
+  remove: 'Event',
+}
+
+const PROMPT_DESCRIPTION = {
+  camp: 'Heal 25% health or Upgrade a die?',
+  'increase-draw':
+    'Click checkmark to take a chance!\n75%: Increase dice drawn per turn\n25%: Lose 5 Health',
+  remove:
+    'Click checkmark to take a chance!\n75%: Remove a die from deck\n25% Lose 5 Health',
   upgrade: 'Upgrade Die\nor Lose Health',
-  remove: 'Remove Die\nor Lose Health',
 }
 
 const PROMPT_ICON_A = {

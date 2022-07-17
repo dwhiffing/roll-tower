@@ -1,9 +1,6 @@
 TODO
 
-better explain that prompts are a 25% chance of failing
-add confirmation when adding/removing/upgrading
-show die descriptions when adding/removing/upgrading
-click off of dice to deselect
+write descriptions/help text
 
 play test until boss before starting more polish work
 
@@ -36,6 +33,9 @@ polish:
     sound for selecting a node
 
 DONE:
+  click off of dice to deselect
+  better explain that prompts are a 25% chance of failing
+  show die descriptions when adding/removing/upgrading
   implement better map layout
   nicer looking map nodes
   animation between scenes
