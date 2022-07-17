@@ -92,7 +92,7 @@ export default class extends Phaser.Scene {
     // this.clickNode(this.nodes[1], 1)
 
     // autostart first battle
-    this.clickNode(this.nodes[0], 0)
+    // this.clickNode(this.nodes[0], 0)
 
     // // launch add die screen
     // this.scene.launch('Dice', { mode: 'add' })
@@ -162,7 +162,7 @@ export default class extends Phaser.Scene {
     const r = this.registry
     if (this.promptBg.alpha === 0) return
     if (this.promptType === 'camp') {
-      // TODO: restore 20% of hp
+      // TODO: restore 20% of hp instead of all
       r.values.playerStats.hp = STATS.player.hp
     } else {
       // accept terms of prompt
@@ -176,14 +176,14 @@ export default class extends Phaser.Scene {
         if (Phaser.Math.RND.integerInRange(0, 4) !== 0) {
           this.onUpgrade()
         } else {
-          // TODO: should have unique disadvantage: gain bad die
+          // should have unique disadvantage: gain bad die
           this.hurtPlayer()
         }
       } else if (this.promptType === 'remove') {
         if (Phaser.Math.RND.integerInRange(0, 4) !== 0) {
           this.onRemove()
         } else {
-          // TODO: should have unique disadvantage: lose 2 random dice
+          // should have unique disadvantage: lose 2 random dice
           this.hurtPlayer()
         }
       }

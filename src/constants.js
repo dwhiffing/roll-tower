@@ -1,4 +1,4 @@
-export const TRANSITION_DURATION = 600
+export const TRANSITION_DURATION = 10
 export const POSSIBLE_TARGETS = {
   shield: ['player'],
   shield_crit: ['player'],
@@ -31,11 +31,6 @@ export const DICE_POOL = [
     sides: ['shield', 'shield', 'shield_crit', 'sword', 'sword', 'sword_crit'],
   },
   {
-    name: 'Support',
-    description: 'I am a support die',
-    sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
-  },
-  {
     name: 'Attack',
     description: 'I am a attack die',
     sides: ['sword', 'sword', 'sword', 'sword', 'sword_crit', 'sword_crit'],
@@ -53,6 +48,11 @@ export const DICE_POOL = [
     ],
   },
   {
+    name: 'Support',
+    description: 'I am a support die',
+    sides: ['draw', 'draw', 'draw', 'reroll', 'reroll', 'reroll'],
+  },
+  {
     name: 'Heal',
     description: 'I am a heal die',
     sides: ['heal', 'heal', 'heal', 'shield', 'shield', 'reroll'],
@@ -65,7 +65,6 @@ export const DICE_POOL = [
   {
     name: 'Hammer',
     description: 'I am a hammer die',
-    // TODO: magic should be renamed to stun
     sides: ['magic', 'magic', 'magic', 'sword', 'sword', 'sword_crit'],
   },
   {
@@ -83,17 +82,14 @@ export const DICE_POOL = [
     description: 'I am a magic die',
     sides: ['book', 'book', 'book', 'sword', 'sword', 'sword_crit'],
   },
-  // TODO: add more dice types
   // do damage based on current armor
   // do damage based on number of dice in active pool
 ]
 export const INITIAL_DECK = [
   DICE_POOL[0],
-  DICE_POOL[0],
-  DICE_POOL[0],
   DICE_POOL[1],
-  DICE_POOL[1],
-  DICE_POOL[1],
+  DICE_POOL[2],
+  DICE_POOL[3],
 ]
 
 export const NODES = [

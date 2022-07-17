@@ -16,6 +16,14 @@ export default class extends Phaser.Scene {
 
   create() {
     this.events.off('close')
+    this.input.on('pointerover', (a, b) => {
+      if (b[0].die && b[0].die.description) {
+        this.descriptionText.setText(b[0].die.description)
+      }
+    })
+    this.input.on('pointerout', (a, b) => {
+      this.descriptionText.setText('')
+    })
 
     this.bg = this.add
       .graphics()
@@ -36,6 +44,8 @@ export default class extends Phaser.Scene {
           : 'Upgrade a die',
       )
       .setOrigin(0.5)
+
+    this.descriptionText = this.add.text(20, this.height - 80, '')
 
     this.deckService = new DeckService(this)
 
@@ -97,11 +107,12 @@ export default class extends Phaser.Scene {
       const perRow = 5
       const x = (i % perRow) * 45 + 45
       const y = (Math.floor(i / perRow) + 1) * 45 + 50
-      this.add
+      const sprite = this.add
         .sprite(x, y, 'die', `dice_${die.sides[0]}.png`)
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.onRemoveDie(i))
+      sprite.die = die
     })
   }
 
@@ -110,7 +121,7 @@ export default class extends Phaser.Scene {
       const perRow = 5
       const x = (i % perRow) * 45 + 45
       const y = (Math.floor(i / perRow) + 1) * 45 + 50
-      this.add
+      const sprite = this.add
         .sprite(x, y, 'die', `dice_${die.sides[0]}.png`)
         .setScale(0.5)
         .setInteractive()
@@ -119,6 +130,7 @@ export default class extends Phaser.Scene {
           this.selectedDie.index = i
           this.faces.set(this.registry.values.deck[i])
         })
+      sprite.die = die
     })
 
     this.faces = new Faces(

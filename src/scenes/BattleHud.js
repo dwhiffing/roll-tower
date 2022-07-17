@@ -88,7 +88,7 @@ export default class extends Phaser.Scene {
   }
 
   updateActivePile = () => {
-    // TODO: should just create these sprites once and reuse/hide them throughout the battle
+    // should just create these sprites once and reuse/hide them throughout the battle
     this.activePileSprites.forEach((s) => s.sprite.destroy())
     this.activePileSprites = []
     this.registry.values.activePile.forEach((die, i) => {
