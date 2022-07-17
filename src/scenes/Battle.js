@@ -29,8 +29,6 @@ export default class extends Phaser.Scene {
       .filter((e) => !!e)
 
     this.createHud()
-    this.time.delayedCall(100, this.playerTurn)
-
     this.scene.get('BattleHud').events.off('click-die')
     this.scene.get('BattleHud').events.on('click-die', this.onClickDie)
 
@@ -38,6 +36,9 @@ export default class extends Phaser.Scene {
     this.scene
       .get('BattleHud')
       .events.on('double-click-die', this.onDoubleClickDie)
+    this.time.delayedCall(1, this.playerTurn)
+
+    this.cameras.main.fadeIn(600)
   }
 
   onClickDie = (die) => {
@@ -206,13 +207,17 @@ export default class extends Phaser.Scene {
   getLiving = () => this.enemies.filter((e) => e.health > 0)
 
   won = () => {
-    this.scene.registry.values.playerStats.hp = this.player.health
-    this.events.emit('battle-ended')
-    if (this.battleType === 'boss') {
-      this.scene.start('Win', { condition: true })
-    } else {
-      this.scene.launch('Dice', { mode: 'add' })
-    }
+    this.cameras.main.fadeOut(600)
+    this.scene.get('BattleHud').cameras.main.fadeOut(600)
+    this.time.delayedCall(600, () => {
+      this.registry.values.playerStats.hp = this.player.health
+      this.events.emit('battle-ended')
+      if (this.battleType === 'boss') {
+        this.scene.start('Win', { condition: true })
+      } else {
+        this.scene.launch('Dice', { mode: 'add' })
+      }
+    })
   }
 
   lose = () => {

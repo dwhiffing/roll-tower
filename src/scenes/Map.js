@@ -1,14 +1,16 @@
 import { NODES, STATS } from '../constants'
+import { Bar } from '../sprites/Bar'
 
-const NODE_OFFSET = 120
+const NODE_OFFSET = 150
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Map' })
   }
 
-  init() {
+  init(opts) {
     this.width = this.cameras.main.width
     this.height = this.cameras.main.height
+    this.shouldFade = opts.fade
   }
 
   create() {
@@ -16,14 +18,16 @@ export default class extends Phaser.Scene {
 
     this.nodes = NODES.map((node, i) => {
       const x = this.width / 2 + 70 * (node.x - 1)
-      const y = this.height - (node.y * NODE_OFFSET + 200)
+      const y = this.height - node.y * NODE_OFFSET
+
       const sprite = this.add
         .sprite(x, y, 'sheet', node.key + '.png')
-        .setTint(0xaaaaaa)
         .setOrigin(0.5)
         .setScale(0.7)
         .setInteractive()
-        .on('pointerdown', () => this.clickNode(node, i))
+        .on('pointerdown', () =>
+          this.clickNode({ ...node, sprite, index: i }, i),
+        )
       return { ...node, sprite, index: i }
     })
 
@@ -43,8 +47,19 @@ export default class extends Phaser.Scene {
       this.startScroll = null
     })
     const x = this.width / 2 + (this.registry.values.lastX - 1) * 70
-    const y = 400 - this.registry.values.levelIndex * NODE_OFFSET
-    this.player = this.add.sprite(x, y, 'sheet', 'pawn.png').setOrigin(0.5)
+    const y = 430 - (this.registry.values.levelIndex - 1) * NODE_OFFSET
+    this.player = this.add.sprite(x, y, 'player').setOrigin(0.5).setScale(2)
+    this.anims.create({
+      key: 'player-idle',
+      frameRate: 8,
+      repeat: -1,
+      frames: this.anims.generateFrameNumbers('player', {
+        frames: [0, 1, 2, 3, 4, 5, 6, 7],
+      }),
+    })
+    this.playerBar = new Bar(this, x - 21, y, 42, 7, 0xff0000)
+    this.playerBar.set(this.registry.values.playerStats.hp, STATS.player.hp)
+    this.player.play('player-idle')
     this.cameras.main.centerOnY(this.player.y)
 
     const _y = this.height / 2 - 100
@@ -81,6 +96,7 @@ export default class extends Phaser.Scene {
 
     // // launch add die screen
     // this.scene.launch('Dice', { mode: 'add' })
+    if (this.shouldFade) this.cameras.main.fadeIn(600)
   }
 
   update() {}
@@ -88,27 +104,47 @@ export default class extends Phaser.Scene {
   clickNode = (node, i) => {
     if (this.promptType) return
     if (node.y === this.registry.values.levelIndex) {
+      this.tweens.add({
+        targets: [this.player],
+        y: node.sprite.y - 50,
+        x: node.sprite.x,
+        duration: 600,
+        onUpdate: (a, b, c) => {
+          this.playerBar.move(b.x, b.y)
+        },
+      })
       if (node.type === 'battle') {
-        this.scene.start('Battle', {
-          enemies: node.enemies,
-          type: node.key === 'skull' ? 'boss' : 'normal',
+        this.time.delayedCall(300, () => {
+          this.cameras.main.fadeOut(600)
         })
-      } else if (node.type === 'event') {
-        if (node.event === 'increase-draw') {
-          this.showPrompt('increase-draw')
-        }
-        if (node.event === 'upgrade') {
-          this.showPrompt('upgrade')
-        }
-        if (node.event === 'remove') {
-          this.showPrompt('remove')
-        }
-      } else if (node.type === 'camp') {
-        this.showPrompt('camp')
       }
-      this.registry.values.lastX = node.x
-      this.registry.values.levelIndex++
+      this.time.delayedCall(node.type === 'battle' ? 1500 : 800, () =>
+        this.handleNode(node),
+      )
     }
+  }
+
+  handleNode = (node) => {
+    if (node.type === 'battle') {
+      this.scene.start('Battle', {
+        enemies: node.enemies,
+        type: node.key === 'skull' ? 'boss' : 'normal',
+      })
+    } else if (node.type === 'event') {
+      if (node.event === 'increase-draw') {
+        this.showPrompt('increase-draw')
+      }
+      if (node.event === 'upgrade') {
+        this.showPrompt('upgrade')
+      }
+      if (node.event === 'remove') {
+        this.showPrompt('remove')
+      }
+    } else if (node.type === 'camp') {
+      this.showPrompt('camp')
+    }
+    this.registry.values.lastX = node.x
+    this.registry.values.levelIndex++
   }
 
   onUpgrade = () => {
@@ -155,6 +191,7 @@ export default class extends Phaser.Scene {
   }
 
   hurtPlayer = (amount = 5) => {
+    const r = this.registry
     r.values.playerStats.hp -= amount
     if (r.values.playerStats.hp < 1) {
       r.values.playerStats.hp = 1
@@ -178,10 +215,10 @@ export default class extends Phaser.Scene {
     this.promptOptionA.setAlpha(0)
     this.promptOptionB.setAlpha(0)
     this.promptType = null
-    this.scene.restart()
   }
 
   showPrompt = (type) => {
+    this.cameras.main.pan(this.cameras.main.width / 2, this.player.y, 600)
     this.promptBg.setAlpha(1)
     this.promptTitle.setAlpha(1)
     this.promptTitle.setText(PROMPT_TEXT[type])

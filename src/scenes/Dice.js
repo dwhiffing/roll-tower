@@ -42,7 +42,7 @@ export default class extends Phaser.Scene {
     this.events.on('close', () => {
       this.scene.stop('Battle')
       this.scene.stop('Dice')
-      this.scene.get('Map').scene.restart()
+      this.scene.get('Map').scene.restart({ fade: false })
     })
 
     if (this.mode === 'add') {

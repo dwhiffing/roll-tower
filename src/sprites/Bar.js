@@ -37,8 +37,9 @@ export class Bar {
   }
 
   move(x, y) {
-    this.barMid.setPosition(x - this.width / 2, y - 6)
-    this.shadowMid.setPosition(x - this.width / 2, y - 6)
+    this.barMid.setPosition(x - this.width / 2 + 1, y)
+    this.shadowMid.setPosition(x - this.width / 2, y)
+    this.valueText.setPosition(x - 2, y + 2)
   }
 
   update() {
